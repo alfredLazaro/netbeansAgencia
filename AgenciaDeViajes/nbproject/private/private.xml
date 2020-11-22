@@ -5,14 +5,23 @@
         <group>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Cliente.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Oferta.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLRestaurants.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Historial.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLTransportes.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Pasaje.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLadministrador.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/controlador/controlador.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Hotel.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Reserva.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLClientes.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Administrador.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Main.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/test/AdministradorTest.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLHoteles.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Transporte.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Agencia.java</file>
-            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Hotel.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Restaurante.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Comida.java</file>
-            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/Reserva.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/PaqueteTuristico.java</file>
         </group>
     </open-files>
