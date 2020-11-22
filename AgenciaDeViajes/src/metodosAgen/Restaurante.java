@@ -1,3 +1,5 @@
+package metodosAgen;
+
 import java.util.ArrayList;
 public class Restaurante {
     private String nombreRest;

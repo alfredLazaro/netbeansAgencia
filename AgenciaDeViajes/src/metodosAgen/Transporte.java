@@ -1,3 +1,5 @@
+package metodosAgen;
+
 public class Transporte {
     private int precio;
     private String origen;

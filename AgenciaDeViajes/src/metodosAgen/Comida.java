@@ -1,3 +1,5 @@
+package metodosAgen;
+
 public class Comida {
     private String plato;
     private int precio;

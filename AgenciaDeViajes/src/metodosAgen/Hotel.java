@@ -1,3 +1,4 @@
+package metodosAgen;
 public class Hotel {
     private int precioUnitario;
     private String ubicacion;

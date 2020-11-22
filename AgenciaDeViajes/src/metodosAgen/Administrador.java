@@ -1,3 +1,4 @@
+package metodosAgen;
 public class Administrador{
   public String nombreCuenta;
   private String contrasenia;
