@@ -1,29 +1,24 @@
-
 import java.util.ArrayList;
 import java.util.Date;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author USUARIO
- */
 public class Historial {
     private ArrayList<Reserva> reservas;
     private int nroIdent; //el nro de identificacion sera el del cliente
     private Date fechaModificacion;
 
-    public Historial( int nroIdent, Date fechaModificacion) {
+    public Historial(int nroIdent, Date fechaModificacion) {
+        reservas = new ArrayList<Reserva>();
         this.nroIdent = nroIdent;
         this.fechaModificacion = fechaModificacion;
     }
-    
-    public void aniadirReserva(Reserva reserva){
-        
+
+    public void actualizarHistorial(Reserva reservActual){
+      setFechaModificacion(new Date());
+      aniadirReserva(reservActual);
+    }
+
+    private void aniadirReserva(Reserva reserva){
+        reservas.add(0,reserva);
     }
     //zona de geters
 
@@ -40,8 +35,7 @@ public class Historial {
     }
     
     //zona de seters
-
-    public void setFechaModificacion(Date fechaModificacion) {
+    private void setFechaModificacion(Date fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
     

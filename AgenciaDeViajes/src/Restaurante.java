@@ -1,26 +1,34 @@
-
 import java.util.ArrayList;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author USUARIO
- */
 public class Restaurante {
+    private String nombreRest;
     private ArrayList<Comida> menu;
     private String ubicacion;
 
-    public Restaurante(ArrayList<Comida> menu, String ubicacion) {
-        this.menu = menu;
+    public Restaurante( String ubicacion,String nombreRest) {
+        menu = new ArrayList<Comida>();
         this.ubicacion = ubicacion;
+        this.nombreRest=nombreRest;
     }
-    // zona de geters
 
+    public void agregarPlato(Comida plato){
+        menu.add(plato);
+    }
+    
+    public void eliminarPlato (Comida platoEliminar){
+      boolean eliminado = false;
+      if (menu.size() != 0){
+        for (int i = 0 ; i<menu.size() && !eliminado; i++){
+          Comida platoI = menu.get(i);
+          String plato1 = platoEliminar.getPlato();
+          String plato2 = platoI.getPlato();
+          if (plato1.equals(plato2)){
+            menu.remove(i);
+            eliminado = true;
+          }
+        }
+      }
+    }
+    //zona de geters
     public ArrayList<Comida> getMenu() {
         return menu;
     }
@@ -28,14 +36,24 @@ public class Restaurante {
     public String getUbicacion() {
         return ubicacion;
     }
-    // zona de seters
-
-    public void setMenu(ArrayList<Comida> menu) {
-        this.menu = menu;
+    
+    public String getNombreRest() {
+      return nombreRest;
     }
-
+    //zona seters
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public int calcularPrecioMenu (){
+      int precio = 0;
+      if (menu.size() != 0){
+        for (int i = 0; i<menu.size();i++){
+          Comida comidai = menu.get(i);
+          precio = precio + comidai.getPrecio();
+        }
+      }
+      return precio;
     }
     
 }

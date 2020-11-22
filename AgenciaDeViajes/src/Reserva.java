@@ -1,7 +1,5 @@
-
 import java.util.ArrayList;
 import java.util.Date;
-
 
 public class Reserva {
     private PaqueteTuristico paquete;
@@ -9,14 +7,16 @@ public class Reserva {
     private Cliente cliente;
     private Date fechaReserva;
     private String estadoReserva;
+    
 
     public Reserva(PaqueteTuristico paquete, Pasaje pasaje, Cliente cliente, Date fechaReserva) {
         this.paquete = paquete;
         this.pasaje = pasaje;
         this.cliente = cliente;
         this.fechaReserva = fechaReserva;
-        this.estadoReserva = "Activo";
+        this.estadoReserva = "activo";
     }
+    
     //zona de geters
 
     public Cliente getCliente() {
@@ -34,7 +34,8 @@ public class Reserva {
     public Pasaje getPasaje() {
         return pasaje;
     }
-    public String getEstado(){
+
+    public String getEstado() {
         return estadoReserva;
     }
     //zona de seters

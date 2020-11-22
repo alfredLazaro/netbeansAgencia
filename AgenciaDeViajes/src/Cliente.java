@@ -12,16 +12,18 @@ public class Cliente {
         private int nroIdent;
         private Historial historial;
     public Cliente(String nombreCliente, int cantidadPasajeros, String temporadaPreferencia, String tipoViaje,int nroId){
-            this.nombreCliente=nombreCliente;
-            this.cantidadPasajeros=cantidadPasajeros;
-            this.temporadaPreferencia=temporadaPreferencia;
-            this.tipoViaje=tipoViaje;
-            frecuencia=false;
-            tienePaquete=false;
-            pasaje=null;
-            nroIdent=nroId;
-            Historial historial= new Historial(nroId,new Date());
-    }
+      this.nombreCliente=nombreCliente;
+      this.cantidadPasajeros=cantidadPasajeros;
+      this.temporadaPreferencia=temporadaPreferencia;
+      this.tipoViaje=tipoViaje;
+      frecuencia=false;
+      tienePaquete=false;
+      pasaje=null;
+      nroIdent=nroId;
+      historial= new Historial(getNroIdent(),new Date()); //
+      
+      }
+    
     public boolean esFrecuente(){
       ArrayList<Reserva> reservas=historial.getReservas();
       int cantUsado,tamReservas;
@@ -40,7 +42,7 @@ public class Cliente {
       }else{}
       return frecuencia;
     }
-    //pienso que podria estar en reserva mejor
+
     public boolean exiteOfertaPasajeros(){
       boolean existe=false;
       if(cantidadPasajeros>6){
@@ -48,8 +50,8 @@ public class Cliente {
       }
       return existe;
     }
-    
-    //zona de seters
+
+    //zona de seters y geters
     public void setFrecuencia(boolean frecuencia) {
         this.frecuencia = frecuencia;
     }
@@ -58,13 +60,20 @@ public class Cliente {
         this.tienePaquete = tienePaquete;
     }
 
+    public boolean getTienePaquete(){
+      return tienePaquete;
+    }
+
     public void setPasaje(Pasaje pasaje) {
         this.pasaje = pasaje;
     }
-    
-    //zona de geters
-    public int getCantidadPasajeros() {
-        return cantidadPasajeros;
+
+    public boolean getFrecuencia () {
+      return frecuencia;
+    }
+
+    public int getCantidadPasajeros(){
+      return cantidadPasajeros;
     }
 
     public ArrayList<String> getLugaresFrecuentes() {

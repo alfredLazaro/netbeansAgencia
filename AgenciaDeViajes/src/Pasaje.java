@@ -11,26 +11,17 @@ public class Pasaje {
     private String empresa;
     private String tipoTransporte;
 
-    public Pasaje(String origen, String destino, Date fechaIda, Date fechaVuelta, String nombreCliente, String tipoTransporte, String empresa) {
+    public Pasaje(String origen, String destino, Date fechaIda, Date fechaVuelta, String nombreCliente, String tipoTransporte, String empresa, int precioTotal) {
         this.origen = origen;
         this.destino = destino;
-        this.precioTotal = calcularPrecio(nombreCliente);
+        this.precioTotal = precioTotal;
         this.fechaIda = fechaIda;
         this.fechaVuelta = fechaVuelta;
         this.nombreCliente = nombreCliente;
         this.empresa = empresa;
         this.tipoTransporte = tipoTransporte;
     }
-    public boolean existeOfertaDias(){
-      boolean existen=false;
-      long diferencia = (fechaIda.getTime()-fechaVuelta.getTime())/(3600000*24);
-        System.out.println("la diferencia es" + diferencia);
-      return existen;
-    }
-    private int calcularPrecio(String nombreCliente){
-      int res=0;
-      return res;
-    }
+
 //zona seters
     public void setDestino(String destino) {
         this.destino = destino;

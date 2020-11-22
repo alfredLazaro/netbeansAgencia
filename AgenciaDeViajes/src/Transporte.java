@@ -1,39 +1,33 @@
-
 public class Transporte {
-    private int presio;
+    private int precio;
     private String origen;
-    private String tipo;
+    private String tipoTransporte;
 
-    public Transporte(int presio, String origen, String tipo) {
-        this.presio = presio;
+    public Transporte(int precio, String origen, String tipoTransporte) {
+        this.precio = precio;
         this.origen = origen;
-        
-        this.tipo =tipo;
-    }   
-    //seccion de los geters
+        this.tipoTransporte = tipoTransporte;
+    }
 
-  
+    public String getTipoTransporte(){
+      return tipoTransporte;
+    }
 
     public String getOrigen() {
         return origen;
     }
 
-    public int getPresio() {
-        return presio;
+    public int getPrecio() {
+        return precio;
     }
-    //seccion de seters
 
-   
+
     public void setOrigen(String origen) {
         this.origen = origen;
     }
 
-    public void setPresio(int presio) {
-        this.presio = presio;
-    }
-
-    public String getTipo() {
-        return tipo;
+    public void setPresio(int precio) {
+        this.precio = precio;
     }
     
 }
