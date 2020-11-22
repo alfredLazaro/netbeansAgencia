@@ -9,6 +9,6 @@ package modelo;
  *
  * @author USUARIO
  */
-public class XMLadministrador {
+public class XMLAdministrador {
     
 }

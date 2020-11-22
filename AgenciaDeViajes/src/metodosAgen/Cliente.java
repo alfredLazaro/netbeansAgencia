@@ -93,6 +93,7 @@ public class Cliente {
     }
 
     public Historial getHistorial(){
+      System.out.println("el hitorial es;"+historial);
       return historial;
     }
     
