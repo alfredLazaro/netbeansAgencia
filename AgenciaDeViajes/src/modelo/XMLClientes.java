@@ -7,15 +7,14 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import metodosAgen.*;
 import controlador.*;
-/**
- *
- * @author USUARIO
- */
 public class XMLClientes {
     private static final String nomAerchivo="clientes";
     public static void main(String[] args) {
-    //    List<Cliente> listaClientes=new ArrayList<>();
-    //    Cliente cliente1=new Cliente();
+        List<Cliente> listaClientes=new ArrayList<>();
+        Administrador admin;
+        
+    //    Cliente clie=new Cliente("Rebeca Monasterios Costalera", 2,"verano","vacaciones",123451);
     }
 }
