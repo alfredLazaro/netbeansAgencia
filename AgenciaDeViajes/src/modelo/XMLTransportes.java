@@ -5,10 +5,7 @@
  */
 package modelo;
 
-/**
- *
- * @author USUARIO
- */
+import metodosAgen.*;
 public class XMLTransportes {
     
 }

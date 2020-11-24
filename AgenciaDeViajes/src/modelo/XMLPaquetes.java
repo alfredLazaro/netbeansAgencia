@@ -5,10 +5,10 @@
  */
 package modelo;
 
-/**
- *
- * @author USUARIO
- */
+import metodosAgen.*;
 public class XMLPaquetes {
     
+    public static void main(String[] args) {
+        
+    }
 }

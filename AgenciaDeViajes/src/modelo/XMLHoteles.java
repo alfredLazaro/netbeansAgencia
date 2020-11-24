@@ -5,10 +5,10 @@
  */
 package modelo;
 
-/**
- *
- * @author USUARIO
- */
+import metodosAgen.*;
 public class XMLHoteles {
-    
+    private static final String nomArchivo="hoteles";
+    public static void main(String[] args) {
+        
+    }
 }

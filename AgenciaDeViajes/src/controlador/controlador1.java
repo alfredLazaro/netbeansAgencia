@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package controlador;
 
-import metodosAgen.*;
-public class XMLRestaurants {
+/**
+ *
+ * @author USUARIO
+ */
+public class controlador1 {
     
 }
