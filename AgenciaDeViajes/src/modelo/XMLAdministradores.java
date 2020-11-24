@@ -40,7 +40,7 @@ public class XMLAdministradores {
         DocumentBuilderFactory factoria=DocumentBuilderFactory.newInstance();
         DocumentBuilder        builder= factoria.newDocumentBuilder();
         DOMImplementation implementa=builder.getDOMImplementation();
-        Document               documento=implementa.createDocument(null, nomArchivo, null);
+        Document               documento=implementa.createDocument(null, nomArchivo,null);
         documento.setXmlVersion("1.0");
         //se procede a generar el xml
         Source source=new DOMSource(documento);
@@ -49,7 +49,7 @@ public class XMLAdministradores {
         Transformer transforme=TransformerFactory.newInstance().newTransformer();
         transforme.transform(source, result);
     }
-    
+    //en esta parte se añaden todos los elementos de listAdims a el xml
     public static void modificarXML(List<Administrador> listaAdministradores){
         File archivo=new File(nomArchivo+".xml");
         if(!archivo.exists()){
@@ -57,7 +57,7 @@ public class XMLAdministradores {
                 crearXML();
             }catch(Throwable e){
             }
-        }else{
+        }else{}
             try {
                 DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
                 DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
@@ -90,7 +90,7 @@ public class XMLAdministradores {
                 Logger.getLogger(XMLAdministradores.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-        }
+        
     }
     public static Administrador buscarAdmin(){
         Administrador admin=null;
