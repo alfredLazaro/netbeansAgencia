@@ -15,7 +15,7 @@ public class PaqueteTuristico{
     this.transporte = transporte;
     this.hotel = hotel;
     this.restaurant = restaurant;
-    precio = 0;
+    precio = calcularPrecio();
     this.cantDias = cantDias;
     codigosUsados = new ArrayList<>();
     nroIde=generarId();
@@ -51,9 +51,14 @@ public class PaqueteTuristico{
   
 
   //zona de geters
-  public int getCantDias(){
-    return cantDias;
+  
+  public int getPrecio(){
+    return (int)precio;
   }
+
+    public int getCantDias() {
+        return cantDias;
+    }
   
   public int getNroIde() {
     return nroIde;

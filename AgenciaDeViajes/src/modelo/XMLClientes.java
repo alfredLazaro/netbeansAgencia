@@ -45,6 +45,7 @@ public class XMLClientes {
     }
     
     public static void eliminarClienteXML(Cliente cliente){
+        
     }
     public static ArrayList<Cliente> listaClientes(){
         ArrayList<Cliente> listClientes=new ArrayList<>();
