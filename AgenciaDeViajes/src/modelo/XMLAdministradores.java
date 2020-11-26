@@ -3,6 +3,8 @@ package modelo;
 
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,7 +25,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 public class XMLAdministradores {
     private static final String nomArchivo="cuentaAdministradores";
-    
+    private static final String pathAch="."+File.separator+"src"+File.separator+"modelo"+File.separator+"xmls"+File.separator;
+    private static final File archivo=new File(pathAch+nomArchivo+".xml");
     public static void main(String[] args) {
         List<Administrador> listAdmins=new ArrayList<>();
         Administrador admin1=new Administrador("agente45", "67534321");
@@ -40,18 +43,18 @@ public class XMLAdministradores {
         DocumentBuilderFactory factoria=DocumentBuilderFactory.newInstance();
         DocumentBuilder        builder= factoria.newDocumentBuilder();
         DOMImplementation implementa=builder.getDOMImplementation();
-        Document               documento=implementa.createDocument(null, nomArchivo,null);
+        Document               documento=implementa.createDocument(null,nomArchivo,null);
         documento.setXmlVersion("1.0");
         //se procede a generar el xml
         Source source=new DOMSource(documento);
         //como y donde se guardara
-        Result result=new StreamResult(new java.io.File(nomArchivo+".xml"));
+        Result result=new StreamResult(archivo);
         Transformer transforme=TransformerFactory.newInstance().newTransformer();
         transforme.transform(source, result);
     }
     //en esta parte se añaden todos los elementos de listAdims a el xml
     public static void modificarXML(List<Administrador> listaAdministradores){
-        File archivo=new File(nomArchivo+".xml");
+        
         if(!archivo.exists()){
             try{
                 crearXML();
