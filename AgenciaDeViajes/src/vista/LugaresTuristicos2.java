@@ -46,7 +46,7 @@ public class LugaresTuristicos2 extends JFrame{
         //contactanos
         JTextArea contactanos = new JTextArea();
         contactanos.setBounds(20, 610, 300, 300);
-        contactanos.setBackground(null);
+        contactanos.setBackground(Color.LIGHT_GRAY);
         contactanos.setForeground(Color.white);
         contactanos.setText("Contáctanos: \nAv. Ayacucho entre Colombia y Ecuador \n+591 62615493 \n4 4446666 \n Cochabamba-Bolivia");
         panel.add(contactanos);

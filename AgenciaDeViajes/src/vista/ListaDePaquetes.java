@@ -9,6 +9,7 @@ public class ListaDePaquetes extends JFrame{
         setBounds(500, 200, 1080, 800);
         setLocationRelativeTo(null);
         this.getContentPane().setBackground(new Color(32, 112, 193));
+        
         iniciarComponentes();
     }
 
