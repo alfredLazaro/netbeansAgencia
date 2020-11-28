@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import javax.swing.Box;
@@ -35,12 +36,14 @@ public class BeniRiberalta extends JFrame{
         setSize(1080,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         iniciar();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
     private void iniciar(){
         iniciarPanels();
         integrImgs();
         integrInfo();
+        editColorEtiquets();
     }
     
     private void iniciarPanels(){
@@ -50,7 +53,7 @@ public class BeniRiberalta extends JFrame{
         pnlImgDer=new JPanel();
         iniciarLayouts();
         integLayouts();
-        editColor();
+        editColorPnls();
         //se creo un espacio para que no se vea la tan junto a las imagenes
         pnlDescrp.add(Box.createRigidArea (new Dimension(10, 0)));
         //se integran todos los paneles en el jFrame
@@ -75,7 +78,7 @@ public class BeniRiberalta extends JFrame{
         pnlDescrp.setLayout(layCentro);
         pnlImgDer.setLayout(layDer);
     }
-    private void editColor(){
+    private void editColorPnls(){
         pnlNombL.setBackground(new Color(32, 112, 193));
         pnlImgIzq.setBackground(new Color(32, 112, 193));
         pnlDescrp.setBackground(new Color(32, 112, 193));
@@ -87,10 +90,13 @@ public class BeniRiberalta extends JFrame{
         lblImgn2=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Riberalta/38022292_10212640786560881_1745391365254021120_n.jpg")));
         lblImgn3=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Riberalta/Aquicuana-Lake-Bolivia-3.jpg")));
         lblImgn4=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Riberalta/IMG_20180722_180939.jpg")));
+        lblImgn5=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Riberalta/on-the-road-1.jpg")));
+
         pnlImgIzq.add(lblImgn1);
         pnlImgIzq.add(lblImgn2);
         pnlImgDer.add(lblImgn3);
         pnlImgDer.add(lblImgn4);
+        pnlImgDer.add(lblImgn5);
         
     }
     private void integrInfo(){
@@ -100,14 +106,19 @@ public class BeniRiberalta extends JFrame{
         lblDescrp=new JLabel("<html><p>Riberalta es una ciudad en la Amazonia boliviana. Está ubicada en la orilla sureste, donde convergen los ríos de Madre de Dios y Beni. Su población se estima en alrededor de 99,000 habitantes, y por lo tanto es la segunda ciudad más grande en el departamento detrás de la capital, Trinidad.<p><html>"
                             +"<html><p>Historia<html>"
                             +"<html><p>La ciudad ha tenido diferentes nombres: Barranca Colorada, La Cruz, Ribera-Alta y finalmente Riberalta. Desde mediados del siglo XIX, exploradores y navegantes solitarios se han aventurado allí. Se encontraron con un banco elevado en la confluencia de dos ríos colosales, el Río Beni y el Río Madre de Dios, que pronto fue ocupado por empresarios y aventureros nacionales e internacionales atraídos por el potencial económico de los abundantes árboles de la goma en la región. Después de 12 años de prosperidad, la ciudad fue nombrada oficialmente el 3 de febrero de 1894, por Manuel Vicente Ballivián.<p><html>"
-                            +"<html><p>Debido a la ubicación específica de la ciudad y la expansión del mercado de la goma, Riberalta se convirtió en un centro internacional de actividad. Varias empresas europeas abrieron oficinas, y el dinero de las exportaciones de la goma generó un boom económico real que atrajó a personas de Bolivia. Además de empresarios europeos, Riberalta recibió inmigrantes japoneses. La llegada de una variedad de inmigrantes dió lugar a una mezcla cosmopolita de culturas y adquirió nuevas técnicas en la agricultura, la carpintería, etc. Pero pronto hubo un desinteres por la goma con la Primera Guerra Mundial. El éxodo de las poblaciones (especialmente los extranjeros) tuvo un impacto importante en la ciudad y su economía. A través de muchos proyectos, vinculados principalmente a la educación, la ciudad se despierta lentamente en la década de 1940. Y finalmente, en los años 60, la extracción de las nueces amazónicas comienza a presentar una alternativa económica.<p><html>"
-                            +"<html><p>Economía<html>"
-                            +"<html><p>Riberalta es el mayor exportador mundial de la almendra amazónica (Bertholletia excelsa) también conocida como nuez de Brasil. La recolección y procesamiento de la castaña es una fuente de trabajo para miles de familias, generando ingresos directos e indirectos, con exportaciones que superan los 30 millones anuales. La ciudad también produce frutas exóticas amazónicas, oro, caucho y maderas tropicales.<p><html>"
-                            +"<html><p>Clima<html>"
-                            +"<html><p>Riberalta se encuentra a 130 metros sobre el nivel del mar, rodeado de selva. Ubicada en la cuenca de la Amazonia, su clima es cálido y húmedo durante todo el año. La temporada de lluvias es típicamente de diciembre a marzo. En la estación seca, que es aquí el invierno, las temperaturas pueden bajar hasta 15 grados pero se siente más frío debido a la humedad.<p><html>"
-                            +"<html><p><p><html>");
+                            +"<html><p>Debido a la ubicación específica de la ciudad y la expansión del mercado de la goma, Riberalta se convirtió en un centro internacional de actividad. Varias empresas europeas abrieron oficinas, y el dinero de las exportaciones de la goma generó un boom económico real que atrajó a personas de Bolivia. Además de empresarios europeos, Riberalta recibió inmigrantes japoneses. La llegada de una variedad de inmigrantes dió lugar a una mezcla cosmopolita de culturas y adquirió nuevas técnicas en la agricultura, la carpintería, etc. Pero pronto hubo un desinteres por la goma con la Primera Guerra Mundial."
+                + " El éxodo de las poblaciones (especialmente los extranjeros) tuvo un impacto importante en la ciudad y su economía. A través de muchos proyectos, vinculados principalmente a la educación, la ciudad se despierta lentamente en la década de 1940. Y finalmente, en los años 60, la extracción de las nueces amazónicas comienza a presentar una alternativa económica.<p><html>");
         pnlNombL.add(lblNombreLug);
         pnlImgIzq.add(lblUbic);
         pnlDescrp.add(lblDescrp);
+    }
+    private void editColorEtiquets(){
+        lblDescrp.setForeground(Color.WHITE);
+        lblUbic.setForeground(Color.WHITE);
+        lblNombreLug.setForeground(Color.WHITE);
+        //se cambian tamaños
+        lblDescrp.setFont(new Font("arial", Font.PLAIN, 14));
+        lblUbic.setFont(new Font("arial", Font.PLAIN, 14));
+        lblNombreLug.setFont(new Font("arial", Font.PLAIN, 20));
     }
 }

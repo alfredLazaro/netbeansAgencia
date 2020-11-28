@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import javax.swing.Box;
@@ -39,12 +40,14 @@ public class PrototipoReutilzable extends JFrame{
         setSize(1080,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         iniciar();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
     private void iniciar(){
         iniciarPanels();
         integrImgs();
         integrInfo();
+        editColorEtiquets();
     }
     
     private void iniciarPanels(){
@@ -54,7 +57,7 @@ public class PrototipoReutilzable extends JFrame{
         pnlImgDer=new JPanel();
         iniciarLayouts();
         integLayouts();
-        editColor();
+        editColorPnls();
         //se creo un espacio para que no se vea la tan junto a las imagenes
         pnlDescrp.add(Box.createRigidArea (new Dimension(10, 0)));
         //se integran todos los paneles en el jFrame
@@ -79,7 +82,7 @@ public class PrototipoReutilzable extends JFrame{
         pnlDescrp.setLayout(layCentro);
         pnlImgDer.setLayout(layDer);
     }
-    private void editColor(){
+    private void editColorPnls(){
         pnlNombL.setBackground(new Color(32, 112, 193));
         pnlImgIzq.setBackground(new Color(32, 112, 193));
         pnlDescrp.setBackground(new Color(32, 112, 193));
@@ -113,5 +116,15 @@ public class PrototipoReutilzable extends JFrame{
         pnlNombL.add(lblNombreLug);
         pnlImgIzq.add(lblUbic);
         pnlDescrp.add(lblDescrp);
+    }
+    
+    private void editColorEtiquets(){
+        lblDescrp.setForeground(Color.WHITE);
+        lblUbic.setForeground(Color.WHITE);
+        lblNombreLug.setForeground(Color.WHITE);
+        //se cambian tamaños
+        lblDescrp.setFont(new Font("arial", Font.PLAIN, 14));
+        lblUbic.setFont(new Font("arial", Font.PLAIN, 14));
+        lblNombreLug.setFont(new Font("arial", Font.PLAIN, 18));
     }
 }

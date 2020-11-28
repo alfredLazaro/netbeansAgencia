@@ -39,12 +39,14 @@ public class BeniRurrenabaque extends JFrame{
         setSize(1080,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         iniciar();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
     private void iniciar(){
         iniciarPanels();
         integrImgs();
         integrInfo();
+        editColorEtiquets();
     }
     
     private void iniciarPanels(){
@@ -90,10 +92,13 @@ public class BeniRurrenabaque extends JFrame{
         lblImgn2=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Rurrenabaque/rurrenabaque-02.jpg")));
         lblImgn3=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Rurrenabaque/rurrenabaque-03.jpg")));
         lblImgn4=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Rurrenabaque/rurrenabaque-04.jpg")));
+        lblImgn5=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Rurrenabaque/rurrenabaque-turismo.jpg")));
+
         pnlImgIzq.add(lblImgn1);
         pnlImgIzq.add(lblImgn2);
         pnlImgDer.add(lblImgn3);
         pnlImgDer.add(lblImgn4);
+        pnlImgDer.add(lblImgn5);
         
     }
     private void integrInfo(){
@@ -103,12 +108,19 @@ public class BeniRurrenabaque extends JFrame{
                 + "<p><html>Bolivia acaba de ganar un premio al Mejor Destino Verde de World Travel Awards por sus esfuerzos para hacer que toda esta región, repleta de cascadas rugientes y vida silvestre rara, y hogar de muchos grupos indígenas, sea sostenible al lanzar programas para el ecoturismo.<p><p>Aquí los visitantes encontrarán Madidi, una de las áreas protegidas con mayor biodiversidad del mundo, y Rhukanrhuka, un área de selva tropical y praderas naturales casi tan grandes como Yellowstone. En junio de 2019, el gobierno municipal de Reyes (en asociación con la Wildlife Conservation Society y Rainforest Trust) designó a Rhukanrhuka como un área protegida, una que conservará los monos titi en peligro de extinción, los delfines rosados de río y otros animales salvajes raros.<p><html>"
                 +"<html><p>Rurrenabaque, o 'Rurre', como lo llaman los lugareños, es el punto de partida para las giras por la jungla y las pampas en este otrora remotos rincón de Bolivia. La riqueza de la vida silvestre, la flora y la cultura indígena ha convertido a Rurrenabaque en un centro de eco viajes en los últimos años.<p><html>"
                 +"<html><p>Situado en la orilla este del río Beni, con San Buenaventura en la orilla opuesta, Rurrenabaque es un importante centro de comercio y enlace de transporte para el departamento de Beni. La ciudad en sí tiene menos de 8000 residentes permanentes, la mayoría de los cuales son nativos de Tacana y todavía hablan el idioma nativo.<p><html>"
-                +"<html><p>Rurrenabaque tiene algunos puntos de vista bonitos que muestran los ríos y zonas verdes circundantes, como La Cruz Lookout y Butterfly Pool Lookout. La ciudad, flanqueada por el ancho Rio Beni por un lado y la hermosa Cordillera de Bala cubierta por la jungla por el otro, tiene un entorno encantador y una atmósfera agradable.<p><html>"
-                +"<html><p>Rurrenabaque es una ciudad pequeña y es posible caminar casi en todas partes. A diferencia de la mayoría de las ciudades bolivianas, los negocios, restaurantes y oficinas en Rurre no se centran alrededor de la plaza (2 de Febrero), sino que se agrupan a unas pocas cuadras al norte a lo largo de Calles Santa Cruz y Avaroa. Si el clima tropical es demasiado, los moto taxis son abundantes.<p><html>"
-                +"<html><p>Un sendero empinado sube desde el final de la calle Luis Fernando Pellicioli, detrás de la iglesia, a 45 minutos hasta una cruz y un mirador con buenas vistas de la ciudad y el río. Es especialmente agradable alrededor de la puesta del sol, pero asegúrese de regresar antes de que oscurezca, ya que partes del sendero son difíciles.<p><html>"
-                +"<html><p>En la orilla opuesta del Río Beni se encuentra San Buenaventura. Una canoa motorizada hace el viaje corto pero bonito durante todo el día. En la plaza de San Buenaventura se encuentra el Centro Cultural Tacana, con un pequeño museo y artesanías nativas en venta.<p><html>");
+                +"<html><p><p><html>");
         pnlNombL.add(lblNombreLug);
         pnlImgIzq.add(lblUbic);
         pnlDescrp.add(lblDescrp);
+    }
+    
+    private void editColorEtiquets(){
+        lblDescrp.setForeground(Color.WHITE);
+        lblUbic.setForeground(Color.WHITE);
+        lblNombreLug.setForeground(Color.WHITE);
+        //se cambian tamaños
+        lblDescrp.setFont(new Font("arial", Font.PLAIN, 14));
+        lblUbic.setFont(new Font("arial", Font.PLAIN, 14));
+        lblNombreLug.setFont(new Font("arial", Font.PLAIN, 20));
     }
 }

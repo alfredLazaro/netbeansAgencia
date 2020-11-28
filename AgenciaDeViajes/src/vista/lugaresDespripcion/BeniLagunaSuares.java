@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import javax.swing.Box;
@@ -41,12 +42,14 @@ public class BeniLagunaSuares extends JFrame {
         setSize(1080,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         iniciar();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
     private void iniciar(){
         iniciarPanels();
         integrImgs();
         integrInfo();
+        editColorEtiquets();
     }
     
     private void iniciarPanels(){
@@ -92,10 +95,12 @@ public class BeniLagunaSuares extends JFrame {
         lblImgn2=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/laguna Suares/photo0jpg.jpg")));
         lblImgn3=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/laguna Suares/photo1jpg.jpg")));
         lblImgn4=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/laguna Suares/photo3jpg.jpg")));
+        lblImgn5=new JLabel(new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/laguna Suares/phg.jpg")));
         pnlImgIzq.add(lblImgn1);
         pnlImgIzq.add(lblImgn2);
         pnlImgDer.add(lblImgn3);
         pnlImgDer.add(lblImgn4);
+        pnlImgDer.add(lblImgn5);
     }
     private void integrInfo(){
         lblNombreLug=new JLabel("Laguna Suares");
@@ -113,5 +118,15 @@ public class BeniLagunaSuares extends JFrame {
         pnlNombL.add(lblNombreLug);
         pnlImgIzq.add(lblUbic);
         pnlDescrp.add(lblDescrp);
+    }
+    
+    private void editColorEtiquets(){
+        lblDescrp.setForeground(Color.WHITE);
+        lblUbic.setForeground(Color.WHITE);
+        lblNombreLug.setForeground(Color.WHITE);
+        //se cambian tamaños
+        lblDescrp.setFont(new Font("arial", Font.PLAIN, 14));
+        lblUbic.setFont(new Font("arial", Font.PLAIN, 14));
+        lblNombreLug.setFont(new Font("arial", Font.PLAIN, 20));
     }
 }
