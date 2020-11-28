@@ -3,8 +3,11 @@ package vista.lugaresDespripcion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -18,7 +21,8 @@ public class BeniLomaSuares extends JFrame{
     private JLabel lblNombreLug,lblDescrp,lblUbic;
     private JLabel lblImgn1,lblImgn2,lblImgn3,lblImgn4,lblImgn5;
     private BorderLayout layPrinc;
-    private BoxLayout    layIzq,layCentro,layDer;
+    private BoxLayout    layCentro;
+    private GridLayout   layIzq,layDer;
     private FlowLayout   layNomb;
     //este main debe ser borrado esta de pruba 
     public static void main(String[] args) {
@@ -46,6 +50,8 @@ public class BeniLomaSuares extends JFrame{
         iniciarLayouts();
         integLayouts();
         editColor();
+        //se creo un espacio para que no se vea la tan junto a las imagenes
+        pnlDescrp.add(Box.createRigidArea (new Dimension(10, 0)));
         //se integran todos los paneles en el jFrame
         add(pnlNombL,BorderLayout.NORTH);
         add(pnlImgIzq,BorderLayout.WEST);
@@ -56,9 +62,10 @@ public class BeniLomaSuares extends JFrame{
     private void iniciarLayouts(){
         layPrinc=new BorderLayout();
         layNomb=new FlowLayout();
-        layIzq=new BoxLayout(pnlImgIzq,BoxLayout.Y_AXIS);
+        layIzq=new GridLayout(3, 1, 10, 5);
         layCentro=new BoxLayout(pnlDescrp,BoxLayout.Y_AXIS);
-        layDer=new BoxLayout(pnlImgDer, BoxLayout.Y_AXIS);
+        layDer=new GridLayout(3, 1, 10,5);
+        
 
     }
     private void integLayouts(){
@@ -83,14 +90,23 @@ public class BeniLomaSuares extends JFrame{
         
         pnlImgIzq.add(lblImgn1);
         pnlImgIzq.add(lblImgn2);
-        pnlImgIzq.add(lblImgn3);
+        pnlImgDer.add(lblImgn3);
         pnlImgDer.add(lblImgn4);
     }
     private void integrInfo(){
         lblNombreLug=new JLabel("Loma Suares");
-        lblUbic=new JLabel("<html><html>");
-        lblDescrp=new JLabel("<html>Loma Suárez es una localidad de Bolivia, perteneciente al municipio de Trinidad en la provincia de Cercado en el Departamento del Beni. Se encuentra a 12 km de la ciudad de Trinidad, la capital departamental, a orillas del Río Ibare, que es un afluente del río Mamoré. A la localidad se llega por una carretera asfaltada que sale de Trinidad hacia el noroeste, pasando por el Aeropuerto Teniente Jorge Henrich Arauz.<p>Cuenta con una población de 886 habitantes (según el Censo INE 2012),1? y está a una altura de 159 msnm. Forma parte del Distrito Municipal 9 del área rural de Trinidad.<html>");
+        lblUbic=new JLabel("<html>Contáctanos:<p> Av. Ayacucho entre Colombia y Ecuador <p>+591 62615493 <p>4 4446666 <p> Cochabamba-Bolivia<html>");
+        //el <html> es salto de linea automatico el <p> es salto de linea controlado
+        lblDescrp=new JLabel("<html>Loma Suárez es una localidad de Bolivia, perteneciente al municipio de Trinidad en la provincia de Cercado en el Departamento del Beni. Se encuentra a 12 km de la ciudad de Trinidad, la capital departamental, a orillas del Río Ibare, que es un afluente del río Mamoré.<p><html>"
+                            + "<html><p>A la localidad se llega por una carretera asfaltada que sale de Trinidad hacia el noroeste, pasando por el Aeropuerto Teniente Jorge Henrich Arauz.<p>Cuenta con una población de 886 habitantes (según el Censo INE 2012),1? y está a una altura de 159 msnm. Forma parte del Distrito Municipal 9 del área rural de Trinidad.<p><html>"
+                            +"<html><p>La Loma Suárez forma parte de un complejo de lomas artificiales que se encuentran a lo largo del río Ibare, cuya construcción cuenta de una loma grande, una loma mediana y una pequeña. La loma grande abarca la actual Escuela de Sargentos de la Armada Boliviana, las cuatro calles principales aledañas a la Plaza Rómulo Suárez, la unidad educativa de la comunidad, la iglesia y algunas casas de personas civiles que viven en el lugar. Encima de esta loma se encuentra la loma mediana de dimensiones aproximadas 80 por 80 metros y que constituye la base para la loma pequeña, esta última siendo un promontorio donde se encuentra el mausoleo de Rómulo Suárez. El pueblo ha sido declarado Patriomonio Cultural Departamental del departamento del Beni.<p><html>"
+                            +"<html><p>Historia<p><html>"
+                            +"<html><p>Los montículos o lomas de tierra prehispánicos son típicos de la región de los Llanos de Moxos en la Amazonia boliviana, construidos por la Cultura hidráulica de las Lomas. La hipótesis más conocida sobre el motivo de la construcción de estas lomas es que debido a que en general toda la región Mojeña es plana y baja, sus habitantes construían estas lomas para protección contra las inundaciones. En las proximidades de la ciudad de Trinidad y a lo largo del río Ibare se encuentran una serie de lomas que fueron construidas por los indígenas mojeños como ser Chuchini, Loma Suárez, Loma Calatayud, Loma Palma Sola y otras, constituyendo un complejo de construcciones que los mojeños utilizaban para diferentes actividades que desarrollaban.<p><html>"
+                            +"<html><p><p><html>"
+                            +"<html><p><p><html>"
+                            +"<html><p><p><html>");
         pnlNombL.add(lblNombreLug);
+        pnlImgIzq.add(lblUbic);
         pnlDescrp.add(lblDescrp);
     }
     
