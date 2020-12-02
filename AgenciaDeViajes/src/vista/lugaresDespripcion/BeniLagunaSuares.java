@@ -111,9 +111,6 @@ public class BeniLagunaSuares extends JFrame {
                             +"<html><p>La temperatura tibia del agua y el suelo de arena , que masajeaba la planta de los pies , aunque tambien hay piscinas artificiales alrededor y restaurante y chiringuitos para comer y beber, nada masificado y alquiler de motos acuaticas.<p><html>"
                             +"<html><p>Es una laguna artificial, que fué construida por la antigua civilización Paititiana que la llamó Socoreno (Laguna de Animales), actualmente tiene el nombre de Laguna Suárez, debido a que fué adquirida por la firma Suárez Hnos., que tiene hermosa vista natural, lo que le da un enorme interés turístico. La Laguna Suárez es un excelente lugar para los amantes de los deportes acuáticos, pero también para quienes disfrutan de un descanso o caminata contemplando la flora y la fauna oriental. En el lugar existen muchas aves. <p><html>"
                             +"<html><p><p><html>"
-                            +"<html><p><p><html>"
-                            +"<html><p><p><html>"
-                            +"<html><p><p><html>"
                             +"<html><p><p><html>");
         pnlNombL.add(lblNombreLug);
         pnlImgIzq.add(lblUbic);
@@ -125,8 +122,8 @@ public class BeniLagunaSuares extends JFrame {
         lblUbic.setForeground(Color.WHITE);
         lblNombreLug.setForeground(Color.WHITE);
         //se cambian tamaños
-        lblDescrp.setFont(new Font("arial", Font.PLAIN, 14));
-        lblUbic.setFont(new Font("arial", Font.PLAIN, 14));
-        lblNombreLug.setFont(new Font("arial", Font.PLAIN, 20));
+        lblDescrp.setFont(new Font("arial", Font.PLAIN, 18));
+        lblUbic.setFont(new Font("arial", Font.PLAIN, 18));
+        lblNombreLug.setFont(new Font("arial", Font.BOLD, 20));
     }
 }

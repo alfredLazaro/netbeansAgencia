@@ -105,9 +105,9 @@ public class BeniRiberalta extends JFrame{
         //el <html> es salto de linea automatico el <p> es salto de linea controlado
         lblDescrp=new JLabel("<html><p>Riberalta es una ciudad en la Amazonia boliviana. Está ubicada en la orilla sureste, donde convergen los ríos de Madre de Dios y Beni. Su población se estima en alrededor de 99,000 habitantes, y por lo tanto es la segunda ciudad más grande en el departamento detrás de la capital, Trinidad.<p><html>"
                             +"<html><p>Historia<html>"
-                            +"<html><p>La ciudad ha tenido diferentes nombres: Barranca Colorada, La Cruz, Ribera-Alta y finalmente Riberalta. Desde mediados del siglo XIX, exploradores y navegantes solitarios se han aventurado allí. Se encontraron con un banco elevado en la confluencia de dos ríos colosales, el Río Beni y el Río Madre de Dios, que pronto fue ocupado por empresarios y aventureros nacionales e internacionales atraídos por el potencial económico de los abundantes árboles de la goma en la región. Después de 12 años de prosperidad, la ciudad fue nombrada oficialmente el 3 de febrero de 1894, por Manuel Vicente Ballivián.<p><html>"
-                            +"<html><p>Debido a la ubicación específica de la ciudad y la expansión del mercado de la goma, Riberalta se convirtió en un centro internacional de actividad. Varias empresas europeas abrieron oficinas, y el dinero de las exportaciones de la goma generó un boom económico real que atrajó a personas de Bolivia. Además de empresarios europeos, Riberalta recibió inmigrantes japoneses. La llegada de una variedad de inmigrantes dió lugar a una mezcla cosmopolita de culturas y adquirió nuevas técnicas en la agricultura, la carpintería, etc. Pero pronto hubo un desinteres por la goma con la Primera Guerra Mundial."
-                + " El éxodo de las poblaciones (especialmente los extranjeros) tuvo un impacto importante en la ciudad y su economía. A través de muchos proyectos, vinculados principalmente a la educación, la ciudad se despierta lentamente en la década de 1940. Y finalmente, en los años 60, la extracción de las nueces amazónicas comienza a presentar una alternativa económica.<p><html>");
+                            +"<html><p>La ciudad ha tenido diferentes nombres: Barranca Colorada, La Cruz, Ribera-Alta y finalmente Riberalta. Desde mediados del siglo XIX, exploradores y navegantes solitarios se han aventurado allí. Se encontraron con un banco elevado en la confluencia de dos ríos colosales, el Río Beni y el Río Madre de Dios, que pronto fue ocupado por empresarios y aventureros nacionales e internacionales atraídos por el potencial económico de los abundantes árboles de la goma en la región. Después de 12 años de prosperidad, "
+                            + "la ciudad fue nombrada oficialmente el 3 de febrero de 1894, por Manuel Vicente Ballivián.<p><html>"
+                            +"<html><p>Debido a la ubicación específica de la ciudad y la expansión del mercado de la goma, Riberalta se convirtió en un centro internacional de actividad. Varias empresas europeas abrieron oficinas, y el dinero de las exportaciones de la goma generó un boom económico real que atrajó a personas de Bolivia. Además de empresarios europeos, Riberalta recibió inmigrantes japoneses. La llegada de una variedad de inmigrantes dió lugar a una mezcla cosmopolita de culturas y adquirió nuevas técnicas en la agricultura, la carpintería, etc.<p><html>");
         pnlNombL.add(lblNombreLug);
         pnlImgIzq.add(lblUbic);
         pnlDescrp.add(lblDescrp);
@@ -117,8 +117,8 @@ public class BeniRiberalta extends JFrame{
         lblUbic.setForeground(Color.WHITE);
         lblNombreLug.setForeground(Color.WHITE);
         //se cambian tamaños
-        lblDescrp.setFont(new Font("arial", Font.PLAIN, 14));
-        lblUbic.setFont(new Font("arial", Font.PLAIN, 14));
-        lblNombreLug.setFont(new Font("arial", Font.PLAIN, 20));
+        lblDescrp.setFont(new Font("arial", Font.PLAIN, 18));
+        lblUbic.setFont(new Font("arial", Font.PLAIN, 18));
+        lblNombreLug.setFont(new Font("arial", Font.BOLD, 20));
     }
 }

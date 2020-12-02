@@ -116,8 +116,8 @@ public class BeniLomaSuares extends JFrame{
         lblUbic.setForeground(Color.WHITE);
         lblNombreLug.setForeground(Color.WHITE);
         //se cambian tamaños
-        lblDescrp.setFont(new Font("arial", Font.PLAIN, 14));
-        lblUbic.setFont(new Font("arial", Font.PLAIN, 14));
-        lblNombreLug.setFont(new Font("arial", Font.PLAIN, 20));
+        lblDescrp.setFont(new Font("arial", Font.PLAIN, 18));
+        lblUbic.setFont(new Font("arial", Font.PLAIN, 18));
+        lblNombreLug.setFont(new Font("arial", Font.BOLD, 20));
     }
 }

@@ -1,44 +1,37 @@
-
+/*
+ *
+ */
 package modelo;
 
-
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import metodosAgen.*;
+import metodosAgen.Administrador;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
-public class XMLAdministradores {
-    private static final String nomArchivo="cuentaAdministradores";
+
+/**
+ * @author Fred
+ */
+public class XMLFechasFestivas {
+    private static final String nomArchivo="fechasFestivas";
     private static final String pathAch="."+File.separator+"src"+File.separator+"modelo"+File.separator+"xmls"+File.separator;
     private static final File archivo=new File(pathAch+nomArchivo+".xml");
+    
     public static void main(String[] args) {
-        List<Administrador> listAdmins=new ArrayList<>();
-        Administrador admin1=new Administrador("agente45", "67534321");
-        Administrador admin2=new Administrador("alan45","12345678");
-        listAdmins.add(admin1);
-        listAdmins.add(admin2);
-        try{
-            //una ves llamamos a este metodo se crea a la vez si es que no existe
-            modificarXML(listAdmins);
-        }catch(Throwable e){
-            
-        }
+        
     }
     
     public static void crearXML() throws Throwable{
@@ -54,8 +47,9 @@ public class XMLAdministradores {
         Transformer transforme=TransformerFactory.newInstance().newTransformer();
         transforme.transform(source, result);
     }
-    //en esta parte se añaden todos los elementos de listAdims a el xml
-    public static void modificarXML(List<Administrador> listaAdministradores){
+    //en esta parte se añaden todos los elementos de listFechas a el xml
+    
+    public static void modificarXML(List<Date> listFechas){
         
         if(!archivo.exists()){
             try{
@@ -70,20 +64,13 @@ public class XMLAdministradores {
                 document.getDocumentElement().normalize();
                 Element raiz=document.getDocumentElement();
                 //se recorre la lista de usuarios y se crea el xml con los elementos
-                for(Administrador admin:listaAdministradores){
-                    Administrador admi=admin;
-                    Element nodoUsuario=document.createElement("Usuario");
-                    //creamos elementos para los datos del administrador
-                    Element nombreNodo = document.createElement("Nombre");
-                    Text nodoValorNombre=document.createTextNode(admi.getNombreCuenta());
-                    nombreNodo.appendChild(nodoValorNombre);
-                    
-                    Element contraNodo=document.createElement("Contraseña");
-                    Text nodoValorContrasenia=document.createTextNode(admi.getContrasenia());
-                    contraNodo.appendChild(nodoValorContrasenia);
-                    nodoUsuario.appendChild(nombreNodo);
-                    nodoUsuario.appendChild(contraNodo);
-                    raiz.appendChild(nodoUsuario);
+                for(Date fech:listFechas){
+                    Date fecha=fech;
+                    Element nodoFecha=document.createElement("Fecha");
+                    Text nodoValorFecha=document.createTextNode(fecha+"");
+                    nodoFecha.appendChild(nodoValorFecha);
+                    //sepone la fecha en el nodoRaiz
+                    raiz.appendChild(nodoFecha);
                 }
                 //se genera el xml
                 Source source=new DOMSource(document);
@@ -97,9 +84,10 @@ public class XMLAdministradores {
             
         
     }
-    public static Administrador buscarAdmin(){
-        Administrador admin=null;
+    public static Date buscarFechaFest(){
+        Date fechaFest=null;
         
-        return admin;
+        return fechaFest;
     }
+
 }

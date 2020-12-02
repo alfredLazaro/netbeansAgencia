@@ -105,10 +105,9 @@ public class BeniRurrenabaque extends JFrame{
         lblNombreLug=new JLabel("Rurrenabaque");
         lblUbic=new JLabel("<html>Contáctanos:<p> Av. Ayacucho entre Colombia y Ecuador <p>+591 62615493 <p>4 4446666 <p> Cochabamba-Bolivia<html>");
         lblDescrp=new JLabel("<html>El pequeño pueblo de Rurrenabaque es la puerta de entrada a una parte exuberante y emocionantemente hermosa del noroeste de Bolivia que ofrece una oportunidad para los turistas apasionados por apoyar los esfuerzos hacia la sostenibilidad y proteger las especies en peligro de extinción.<html><p>"
-                + "<p><html>Bolivia acaba de ganar un premio al Mejor Destino Verde de World Travel Awards por sus esfuerzos para hacer que toda esta región, repleta de cascadas rugientes y vida silvestre rara, y hogar de muchos grupos indígenas, sea sostenible al lanzar programas para el ecoturismo.<p><p>Aquí los visitantes encontrarán Madidi, una de las áreas protegidas con mayor biodiversidad del mundo, y Rhukanrhuka, un área de selva tropical y praderas naturales casi tan grandes como Yellowstone. En junio de 2019, el gobierno municipal de Reyes (en asociación con la Wildlife Conservation Society y Rainforest Trust) designó a Rhukanrhuka como un área protegida, una que conservará los monos titi en peligro de extinción, los delfines rosados de río y otros animales salvajes raros.<p><html>"
-                +"<html><p>Rurrenabaque, o 'Rurre', como lo llaman los lugareños, es el punto de partida para las giras por la jungla y las pampas en este otrora remotos rincón de Bolivia. La riqueza de la vida silvestre, la flora y la cultura indígena ha convertido a Rurrenabaque en un centro de eco viajes en los últimos años.<p><html>"
-                +"<html><p>Situado en la orilla este del río Beni, con San Buenaventura en la orilla opuesta, Rurrenabaque es un importante centro de comercio y enlace de transporte para el departamento de Beni. La ciudad en sí tiene menos de 8000 residentes permanentes, la mayoría de los cuales son nativos de Tacana y todavía hablan el idioma nativo.<p><html>"
-                +"<html><p><p><html>");
+                + "<p><html>Bolivia acaba de ganar un premio al Mejor Destino Verde de World Travel Awards por sus esfuerzos para hacer que toda esta región, repleta de cascadas rugientes y vida silvestre rara, y hogar de muchos grupos indígenas, sea sostenible al lanzar programas para el ecoturismo.<p><p>Aquí los visitantes encontrarán Madidi,"
+                + " una de las áreas protegidas con mayor biodiversidad del mundo, y Rhukanrhuka, un área de selva tropical y praderas naturales casi tan grandes como Yellowstone. En junio de 2019, el gobierno municipal de Reyes (en asociación con la Wildlife Conservation Society y Rainforest Trust) designó a Rhukanrhuka como un área protegida, "
+                + "una que conservará los monos titi en peligro de extinción, los delfines rosados de río y otros animales salvajes raros.<p><html>");
         pnlNombL.add(lblNombreLug);
         pnlImgIzq.add(lblUbic);
         pnlDescrp.add(lblDescrp);
@@ -119,8 +118,8 @@ public class BeniRurrenabaque extends JFrame{
         lblUbic.setForeground(Color.WHITE);
         lblNombreLug.setForeground(Color.WHITE);
         //se cambian tamaños
-        lblDescrp.setFont(new Font("arial", Font.PLAIN, 14));
-        lblUbic.setFont(new Font("arial", Font.PLAIN, 14));
-        lblNombreLug.setFont(new Font("arial", Font.PLAIN, 20));
+        lblDescrp.setFont(new Font("arial", Font.PLAIN, 18));
+        lblUbic.setFont(new Font("arial", Font.PLAIN, 18));
+        lblNombreLug.setFont(new Font("arial", Font.BOLD, 20));
     }
 }

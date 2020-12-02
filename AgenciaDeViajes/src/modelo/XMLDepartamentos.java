@@ -1,17 +1,17 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package modelo;
 
-
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -23,29 +23,26 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
-public class XMLAdministradores {
-    private static final String nomArchivo="cuentaAdministradores";
+import vista.LugaresTuristicos;
+
+/**
+ *
+ * @author USUARIO
+ */
+public class XMLDepartamentos {
+    private static final String nomArchivo="departamentsLugaresTuris";
     private static final String pathAch="."+File.separator+"src"+File.separator+"modelo"+File.separator+"xmls"+File.separator;
     private static final File archivo=new File(pathAch+nomArchivo+".xml");
+    
     public static void main(String[] args) {
-        List<Administrador> listAdmins=new ArrayList<>();
-        Administrador admin1=new Administrador("agente45", "67534321");
-        Administrador admin2=new Administrador("alan45","12345678");
-        listAdmins.add(admin1);
-        listAdmins.add(admin2);
-        try{
-            //una ves llamamos a este metodo se crea a la vez si es que no existe
-            modificarXML(listAdmins);
-        }catch(Throwable e){
-            
-        }
+        
     }
     
-    public static void crearXML() throws Throwable{
-        DocumentBuilderFactory factoria=DocumentBuilderFactory.newInstance();
-        DocumentBuilder        builder= factoria.newDocumentBuilder();
-        DOMImplementation implementa=builder.getDOMImplementation();
-        Document               documento=implementa.createDocument(null,nomArchivo,null);
+    public static void crearXML() throws Exception{
+        DocumentBuilderFactory fabriDoc=DocumentBuilderFactory.newInstance();
+        DocumentBuilder         buider=fabriDoc.newDocumentBuilder();
+        DOMImplementation      implementacion=buider.getDOMImplementation();
+        Document               documento=implementacion.createDocument(null, nomArchivo, null);
         documento.setXmlVersion("1.0");
         //se procede a generar el xml
         Source source=new DOMSource(documento);
@@ -54,9 +51,8 @@ public class XMLAdministradores {
         Transformer transforme=TransformerFactory.newInstance().newTransformer();
         transforme.transform(source, result);
     }
-    //en esta parte se añaden todos los elementos de listAdims a el xml
-    public static void modificarXML(List<Administrador> listaAdministradores){
-        
+    //los lugares turisticos se llenaran por departamento
+    public static void modificarXML(List<Cliente> listaClientes,String departamento){
         if(!archivo.exists()){
             try{
                 crearXML();
@@ -69,21 +65,21 @@ public class XMLAdministradores {
                 Document               document=documentoBulider.parse(archivo);
                 document.getDocumentElement().normalize();
                 Element raiz=document.getDocumentElement();
-                //se recorre la lista de usuarios y se crea el xml con los elementos
-                for(Administrador admin:listaAdministradores){
-                    Administrador admi=admin;
-                    Element nodoUsuario=document.createElement("Usuario");
-                    //creamos elementos para los datos del administrador
+                //se recorre la lista de clientes y se crea el xml con los elementos
+                for(Cliente client:listaClientes){
+                    Cliente clien=client;
+                    Element nodoCliente=document.createElement("Cliente");
+                    //creamos elementos para los datos del cliente
                     Element nombreNodo = document.createElement("Nombre");
-                    Text nodoValorNombre=document.createTextNode(admi.getNombreCuenta());
+                    Text nodoValorNombre=document.createTextNode(clien.getNombreCliente());
                     nombreNodo.appendChild(nodoValorNombre);
                     
-                    Element contraNodo=document.createElement("Contraseña");
-                    Text nodoValorContrasenia=document.createTextNode(admi.getContrasenia());
+                    Element contraNodo=document.createElement("TemporadaPreferida");
+                    Text nodoValorContrasenia=document.createTextNode(clien.getTemporadaPreferencia());
                     contraNodo.appendChild(nodoValorContrasenia);
-                    nodoUsuario.appendChild(nombreNodo);
-                    nodoUsuario.appendChild(contraNodo);
-                    raiz.appendChild(nodoUsuario);
+                    nodoCliente.appendChild(nombreNodo);
+                    //nodoUsuario.appendChild(contraNodo);
+                    raiz.appendChild(nodoCliente);
                 }
                 //se genera el xml
                 Source source=new DOMSource(document);
@@ -94,12 +90,14 @@ public class XMLAdministradores {
             } catch (Exception ex) {
                 Logger.getLogger(XMLAdministradores.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+    }
+    
+    public static void agregarLugarTuris(){}
+    public static void eliminarLugarXML(){
         
     }
-    public static Administrador buscarAdmin(){
-        Administrador admin=null;
-        
-        return admin;
+    public static ArrayList<LugaresTuristicos> listaLugares(){
+        ArrayList<LugaresTuristicos> listLugars=new ArrayList<>();
+        return listLugars;
     }
 }
