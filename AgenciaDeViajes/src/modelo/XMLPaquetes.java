@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package modelo;
 
@@ -74,13 +72,90 @@ public class XMLPaquetes {
                     //en aqui create los elementos de paquete Transporte,Hotel,Restaurante
                     //transporte
                     Element transporteNodo=document.createElement("Transporte");
-                    //restaurante
-                    Element restautanNodo=document.createElement("Restarurante");
+                    
+                    Element tipoVehicNodo=document.createElement("Tipo Vehiculo");
+                    Text    nodoValorTipo=document.createTextNode(pac.getTransporte().getTipoTransporte());
+                    tipoVehicNodo.appendChild(nodoValorTipo);
+                    
+                    Element origenNodo=document.createElement("origen");
+                    Text    nodoValorOrigen=document.createTextNode(pac.getTransporte().getOrigen());
+                    origenNodo.appendChild(nodoValorOrigen);
+                    
+                    Element preciNodo=document.createElement("precio Transpor");
+                    Text    nodoValorPrecioT=document.createTextNode(pac.getTransporte().getPrecio()+"");
+                    precioNodo.appendChild(nodoValorPrecioT);
+                    
+                    //aniado los nodos de el transporte
+                    transporteNodo.appendChild(tipoVehicNodo);
+                    transporteNodo.appendChild(origenNodo);
+                    transporteNodo.appendChild(preciNodo);
+                    //restaurante en su nodo tendra nombre
+                    Element restauranNodo=document.createElement("Restarurante");
+                    Element nombRestNodo=document.createElement("Nombre Restaurante");
+                    Text    nodoValorNomR=document.createTextNode(pac.getRestaurant().getNombreRest());
+                    nombRestNodo.appendChild(nodoValorNomR);
+                    
+                    Element ubicRestauraNodo=document.createElement("Ubicacion Restaurante");
+                    Text    nodoValorUbic=document.createTextNode(pac.getRestaurant().getUbicacion());
+                    ubicRestauraNodo.appendChild(nodoValorUbic);
+                    //se pone los nodos en restaurant
+                    restauranNodo.appendChild(nombRestNodo);
+                    restauranNodo.appendChild(ubicRestauraNodo);
+                    //se obitiene su lista de comidas
+                    List<Comida> comidas=pac.getRestaurant().getMenu();
+                    
+                    for(Comida comid:comidas){
+                        Comida com=comid;
+                        //lista de comidas para cada restaurante
+                        Element comidaNodo=document.createElement("comida");
+                        
+                        Element nombComidaNodo=document.createElement("nombre comida");
+                        Text    nodoValorComida=document.createTextNode(com.getPlato());
+                        nombComidaNodo.appendChild(nodoValorComida);
+                        
+                        Element precioPlatNodo=document.createElement("precio plato");
+                        Text    nodoValorPrecComid=document.createTextNode(com.getPrecio()+"");
+                        precioPlatNodo.appendChild(nodoValorPrecComid);
+                        //se aniade el plato de comida
+                        comidaNodo.appendChild(nombComidaNodo);
+                        comidaNodo.appendChild(precioPlatNodo);
+                        //se aniade la comida en el restaurante
+                        restauranNodo.appendChild(comidaNodo);
+                    }
                     //Hotel
                     Element hotelNodo=document.createElement("Hotel");
+                    Element nomHotelNodo=document.createElement("Nombre Hotel");
+                    Text    nodoValorNHot=document.createTextNode(pac.getHotel().getNombre());
+                    nomHotelNodo.appendChild(nodoValorNHot);
+                    
+                    Element ubicHoNodo=document.createElement("ubicacion hotel");
+                    Text    nodoValorUbicH=document.createTextNode(pac.getHotel().getUbicacion());
+                    ubicHoNodo.appendChild(nodoValorUbicH);
+                    
+                    Element preciUnHNodo=document.createElement("Precio Unitario Hotel");
+                    Text    nodoValorPrUnHot=document.createTextNode(pac.getHotel().getPrecioUnitario()+"");
+                    preciUnHNodo.appendChild(nodoValorPrUnHot);
+                    
+                    Element cantHDNodo=document.createElement("cantidad Habitaciones");
+                    Text    nodoValorCantHD=document.createTextNode(pac.getHotel().getCantHabitacionesHabilitadas()+"");
+                    cantHDNodo.appendChild(nodoValorCantHD);
+                    
+                    Element cantHUNodo=document.createElement("cantidad H Usadas");
+                    Text    nodoValorCantHU=document.createTextNode(pac.getHotel().getCantHabitacionesUsadas()+"");
+                    cantHUNodo.appendChild(nodoValorCantHU);
+                    //se aniaden los nodos a hotel
+                    hotelNodo.appendChild(nomHotelNodo);
+                    hotelNodo.appendChild(ubicHoNodo);
+                    hotelNodo.appendChild(preciUnHNodo);
+                    hotelNodo.appendChild(cantHDNodo);
+                    hotelNodo.appendChild(cantHUNodo);
                     //se aniaden los nodos al nodo del paquete
                     nodoPaquete.appendChild(precioNodo);
                     nodoPaquete.appendChild(cantDiasNodo);
+                    nodoPaquete.appendChild(transporteNodo);
+                    nodoPaquete.appendChild(restauranNodo);
+                    nodoPaquete.appendChild(hotelNodo);
+                    //se aniaden los Paquetes en la rais
                     raiz.appendChild(nodoPaquete);
                     
                 }

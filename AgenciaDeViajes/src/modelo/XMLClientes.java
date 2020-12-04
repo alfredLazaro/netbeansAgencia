@@ -29,8 +29,10 @@ public class XMLClientes {
     private static final File archivo=new File(pathAch+nomArchivo+".xml");
     public static void main(String[] args) {
         List<Cliente> listaClientes=new ArrayList<>();
-        Cliente cliente1=new Cliente("rebeca ",3,"verano","vacaciones",12345);
+        Cliente cliente1=new Cliente("rebeca",3,"verano","vacaciones",12345);
+        Cliente cliente2=new Cliente("Alan",5,"otoño","negocios",54231);
         listaClientes.add(cliente1);
+        listaClientes.add(cliente2);
         //PaqueteTuristico paquet1=new PaqueteTuristico(transporte, hotel, restaurant, 0);
         //Reserva reserva1=new Reserva(paquete, pasaje, cliente1, fechaReserva);
         try{
@@ -72,15 +74,42 @@ public class XMLClientes {
                     Cliente clien=client;
                     Element nodoCliente=document.createElement("Cliente");
                     //creamos elementos para los datos del cliente
+                    Element codNodo=document.createElement("codigoCliente");
+                    Text nodoValorCod=document.createTextNode(clien.getNroIdent()+"");
+                    codNodo.appendChild(nodoValorCod);
+                    
                     Element nombreNodo = document.createElement("Nombre");
                     Text nodoValorNombre=document.createTextNode(clien.getNombreCliente());
                     nombreNodo.appendChild(nodoValorNombre);
                     
-                    Element contraNodo=document.createElement("TemporadaPreferida");
-                    Text nodoValorContrasenia=document.createTextNode(clien.getTemporadaPreferencia());
-                    contraNodo.appendChild(nodoValorContrasenia);
+                    Element tempoNodo=document.createElement("TemporadaPreferida");
+                    Text nodoValorTemp=document.createTextNode(clien.getTemporadaPreferencia());
+                    tempoNodo.appendChild(nodoValorTemp);
+                    
+                    Element motivoNodo=document.createElement("MotivoViaje");
+                    Text nodoValorMotivo=document.createTextNode(clien.getTipoViaje());
+                    motivoNodo.appendChild(nodoValorMotivo);
+                    
+                    Element nroPasajrsNodo=document.createElement("nroPasajeros");
+                    Text nodoValorNroPasajers=document.createTextNode(client.getCantidadPasajeros()+"");
+                    nroPasajrsNodo.appendChild(nodoValorNroPasajers);
+                    
+                    Element frecuenciaNodo=document.createElement("frecuencia");
+                    Text nodoValorFrecuen=document.createTextNode(client.getFrecuencia()+"");
+                    nroPasajrsNodo.appendChild(nodoValorFrecuen);
+                    
+                    Element paqueteNodo=document.createElement("HayPaquete");
+                    Text nodoValorPaquet=document.createTextNode(client.getTienePaquete()+"");
+                    paqueteNodo.appendChild(nodoValorPaquet);
+                    //se pone los datos del cliente
+                    nodoCliente.appendChild(codNodo);
                     nodoCliente.appendChild(nombreNodo);
-                    //nodoUsuario.appendChild(contraNodo);
+                    nodoCliente.appendChild(tempoNodo);
+                    nodoCliente.appendChild(motivoNodo);
+                    nodoCliente.appendChild(nroPasajrsNodo);
+                    nodoCliente.appendChild(frecuenciaNodo);
+                    nodoCliente.appendChild(paqueteNodo);
+                    //se ponen los cliente en el xml
                     raiz.appendChild(nodoCliente);
                 }
                 //se genera el xml
@@ -97,8 +126,16 @@ public class XMLClientes {
     public static void eliminarClienteXML(Cliente cliente){
         
     }
+    
+    public static Cliente buscarClient(){
+        Cliente clin=null;
+        
+        return clin;
+    }
+    
     public static ArrayList<Cliente> listaClientes(){
         ArrayList<Cliente> listClientes=new ArrayList<>();
+        
         return listClientes;
     }
 }

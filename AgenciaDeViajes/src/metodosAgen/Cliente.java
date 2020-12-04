@@ -101,4 +101,9 @@ public class Cliente {
     public int getNroIdent() {
       return nroIdent;
     }
+
+    public String getTipoViaje() {
+        return tipoViaje;
+    }
+    
 }

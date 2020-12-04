@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package modelo;
 
@@ -26,7 +24,6 @@ import org.w3c.dom.Text;
 import vista.LugaresTuristicos;
 
 /**
- *
  * @author USUARIO
  */
 public class XMLDepartamentos {
@@ -92,7 +89,8 @@ public class XMLDepartamentos {
             }
     }
     
-    public static void agregarLugarTuris(){}
+    public static void agregarLugarTuris(){
+    }
     public static void eliminarLugarXML(){
         
     }

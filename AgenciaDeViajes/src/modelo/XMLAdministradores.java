@@ -29,10 +29,14 @@ public class XMLAdministradores {
     private static final File archivo=new File(pathAch+nomArchivo+".xml");
     public static void main(String[] args) {
         List<Administrador> listAdmins=new ArrayList<>();
-        Administrador admin1=new Administrador("agente45", "67534321");
-        Administrador admin2=new Administrador("alan45","12345678");
+        Administrador admin1=new Administrador("agente45", "67531896");
+        Administrador admin2=new Administrador("alan","62615493");
+        Administrador admin3=new Administrador("eduardo","67566104");
+        Administrador admin4=new Administrador("gabriel","70392999");
         listAdmins.add(admin1);
         listAdmins.add(admin2);
+        listAdmins.add(admin3);
+        listAdmins.add(admin4);
         try{
             //una ves llamamos a este metodo se crea a la vez si es que no existe
             modificarXML(listAdmins);
@@ -101,5 +105,9 @@ public class XMLAdministradores {
         Administrador admin=null;
         
         return admin;
+    }
+    
+    public static void eliminarAdmin(String nomb,String contraseña){
+        
     }
 }

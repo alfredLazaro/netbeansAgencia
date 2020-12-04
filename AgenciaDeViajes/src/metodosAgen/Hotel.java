@@ -28,6 +28,15 @@ public class Hotel {
     public String getNombre(){
         return nombre;
     }
+
+    public int getCantHabitacionesUsadas() {
+        return cantHabitacionesUsadas;
+    }
+
+    public int getCantHabitacionesHabilitadas() {
+        return cantHabitacionesHabilitadas;
+    }
+    
     
     //espacio de los seters
 
