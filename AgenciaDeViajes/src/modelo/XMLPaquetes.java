@@ -169,6 +169,9 @@ public class XMLPaquetes {
                 Logger.getLogger(XMLAdministradores.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+    }
+    
+    public static void insertHistorial(){
         
     }
 }

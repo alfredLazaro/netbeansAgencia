@@ -34,8 +34,11 @@ public class IniciadorPaquete {
     }
     
     private void iniciarR(){
+        //cochabamba
         rest1=new Restaurante("cochabamba", "la mejor comida");
+        //oruro
         rest2=new Restaurante("Oruro", "la casa del agasajo");
+        //santa cruz
         rest3=new Restaurante("Santa Cruz", "el paraizo");
         
     }
@@ -43,4 +46,6 @@ public class IniciadorPaquete {
     private void integrarCom(){
         
     }
+    
+    
 }

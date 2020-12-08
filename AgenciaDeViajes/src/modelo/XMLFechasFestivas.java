@@ -3,7 +3,9 @@
  */
 package modelo;
 
+import Prinpal.IniciadorFechasFest;
 import java.io.File;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,10 +18,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import metodosAgen.Administrador;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 /**
@@ -29,10 +32,19 @@ public class XMLFechasFestivas {
     private static final String nomArchivo="fechasFestivas";
     private static final String pathAch="."+File.separator+"src"+File.separator+"modelo"+File.separator+"xmls"+File.separator;
     private static final File archivo=new File(pathAch+nomArchivo+".xml");
-    
+    private static IniciadorFechasFest f;
     public static void main(String[] args) {
-        
+       XMLFechasFestivas f=new XMLFechasFestivas();
     }
+
+    public XMLFechasFestivas() {
+        f=new IniciadorFechasFest();
+        List<Calendar> l=f.getFechasAct();
+        try{
+            modificarXML(l);
+        }catch(Exception e){}
+    }
+    
     
     public static void crearXML() throws Throwable{
         DocumentBuilderFactory factoria=DocumentBuilderFactory.newInstance();
@@ -49,7 +61,7 @@ public class XMLFechasFestivas {
     }
     //en esta parte se añaden todos los elementos de listFechas a el xml
     
-    public static void modificarXML(List<Date> listFechas){
+    public static void modificarXML(List<Calendar> listFechas){
         
         if(!archivo.exists()){
             try{
@@ -64,8 +76,8 @@ public class XMLFechasFestivas {
                 document.getDocumentElement().normalize();
                 Element raiz=document.getDocumentElement();
                 //se recorre la lista de usuarios y se crea el xml con los elementos
-                for(Date fech:listFechas){
-                    Date fecha=fech;
+                for(Calendar fech:listFechas){
+                    Calendar fecha=fech;
                     Element nodoFecha=document.createElement("Fecha");
                     Text nodoValorFecha=document.createTextNode(fecha+"");
                     nodoFecha.appendChild(nodoValorFecha);
@@ -80,13 +92,35 @@ public class XMLFechasFestivas {
                 transformer.transform(source,result);
             } catch (Exception ex) {
                 Logger.getLogger(XMLAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        
+            }        
     }
-    public static Date buscarFechaFest(){
+    public static Date buscarFechaFest(Date f){
         Date fechaFest=null;
+        try{
+        File archivo =new File(nomArchivo+".xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = factory.newDocumentBuilder();
+            Document document = documentBuilder.parse(archivo);
+            System.out.println("Elemento raiz: " + document.getDocumentElement().getNodeName());
+            document.getDocumentElement().normalize();
         
+        NodeList listaE=document.getElementsByTagName("Fecha");
+            for(int i=0;i<listaE.getLength();i++){
+                Node nodo=listaE.item(i);
+                System.out.println("Element: "+nodo.getNodeName());
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element e=(Element) nodo;
+                    String fechAct=e.getElementsByTagName("Fecha").item(0).getTextContent();
+                    System.out.println(fechAct);
+                    System.err.println("entrada "+f);
+                    if(fechAct.equals(f)){
+                        //fechaFest=(Date)fechAct;
+                    }else{}
+                }else{}
+            }
+        }catch(Exception e){
+            
+        }
         return fechaFest;
     }
 

@@ -52,7 +52,6 @@ public class Agencia {
     
     private Cliente verificarExistencia(String nombreCliente, int nroIdent){
       Cliente res=clientes.get(nroIdent);
-        boolean estaRegistrado=false;
         if(res!=null && res.getNombreCliente().equals(nombreCliente) ){
             res=res;
         }else{}

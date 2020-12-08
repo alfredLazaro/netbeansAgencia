@@ -111,6 +111,8 @@ public class XMLClientes {
                     nodoCliente.appendChild(paqueteNodo);
                     //se ponen los cliente en el xml
                     raiz.appendChild(nodoCliente);
+                    //tengo que inicializar su historial en el xml
+                    crearHistor(clien.getNroIdent());
                 }
                 //se genera el xml
                 Source source=new DOMSource(document);
@@ -137,5 +139,9 @@ public class XMLClientes {
         ArrayList<Cliente> listClientes=new ArrayList<>();
         
         return listClientes;
+    }
+    
+    public  static void crearHistor(int codCliente){
+        XMLHistoriales.aniadirHisto(codCliente);
     }
 }
