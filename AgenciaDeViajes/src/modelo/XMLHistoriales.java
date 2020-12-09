@@ -4,6 +4,7 @@
 package modelo;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -113,7 +114,7 @@ public class XMLHistoriales {
                     Element e=(Element) nodo;
                     int codig=Integer.parseInt(e.getAttribute("nroIdent"));
                     if(codig==nroIdent){
-                        String fech=e.getElementsByTagName("Fecha Modificacion").item(0).getTextContent();
+                        String fechM=e.getElementsByTagName("Fecha Modificacion").item(0).getTextContent();
                         NodeList reservs=e.getElementsByTagName("Reserva");
                         for(int j=0;j<reservs.getLength();j++){
                             Node nod=reservs.item(j);
@@ -126,10 +127,20 @@ public class XMLHistoriales {
                                 String fechaVu=reserv.getElementsByTagName("fechaVuelta").item(0).getTextContent();
                                 String tipTrans=reserv.getElementsByTagName("tipoTransporte").item(0).getTextContent();
                                 String nombEmp=reserv.getElementsByTagName("nombreEmpresa").item(0).getTextContent();
+                                String fechRes=reserv.getElementsByTagName("fecha Reserva").item(0).getTextContent();
+                                //datos Clientes
+                                Cliente c=XMLClientes.buscarClient(nroIdent);
+                                String nombC=c.getNombreCliente();
                                 //comvertir String a date eso me falta
-                                
-                                //Pasaje pasaje=new Pasaje(origen, destino, fechaIda, fechaVu, nomArchivo, tipTrans, nombEmp, precio);
-                                //Reserva r=new Reserva(null, pasaje, null, null);
+                                SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+                                Date fechaId=null;
+                                Date fechaV=null;
+                                Date fechReserv=null;
+                                    fechaId=formatoFecha.parse(fechaIda);
+                                    fechaV=formatoFecha.parse(fechaVu);
+                                    fechReserv=formatoFecha.parse(fechRes);
+                                Pasaje pasaje=new Pasaje(origen, destino, fechaId, fechaV,nombC, tipTrans, nombEmp, precio);
+                                Reserva r=new Reserva(null, pasaje, c,fechReserv);
                             }else{}
                             
                         }
@@ -168,7 +179,9 @@ public class XMLHistoriales {
                 List<Reserva> reservs=h.getReservas();
                 for(Reserva r:reservs){
                 Element reservaNodo=document.createElement("Reserva");
-                
+                Element fechResNodo=document.createElement("fecha Reserva");
+                Text nodoValFechR=document.createTextNode(r.getFechaReserva()+"");
+                fechResNodo.appendChild(nodoValFechR);
                 Element pasajeNodo=document.createElement("Pasaje");
                 
                 Element origenPasajeNodo=document.createElement("origen");
@@ -211,6 +224,7 @@ public class XMLHistoriales {
                 Text    nodoValorNI=document.createTextNode(r.getPaquete().getNroIde()+"");
                 codigPaquetNodo.appendChild(nodoValorNI);
                 
+                reservaNodo.appendChild(fechResNodo);
                 reservaNodo.appendChild(pasajeNodo);
                 reservaNodo.appendChild(codigPaquetNodo);
                 

@@ -19,6 +19,8 @@ import metodosAgen.*;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 public class XMLPaquetes {
     private static final String nomArchivo="paquetes";
@@ -171,7 +173,46 @@ public class XMLPaquetes {
             
     }
     
-    public static void insertHistorial(){
+    public static void insertPaquet(){
         
+    }
+    
+    public static PaqueteTuristico buscarPaquet(int nroPaq){
+        PaqueteTuristico p=null;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   paquetes=document.getElementsByTagName("");
+            for(int i=0;i<paquetes.getLength();i++){
+                Node nodo=paquetes.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element paquete=(Element) nodo;
+                    int nroId=Integer.parseInt(paquete.getAttribute("nroIde"));
+                    if(nroPaq==nroId){
+                        String precioPaq=paquete.getElementsByTagName("precio").item(0).getTextContent();
+                        int    cantDias=Integer.parseInt(paquete.getElementsByTagName("cantDias").item(0).getTextContent());
+                        //transporte
+                        Node transp=paquete.getElementsByTagName("Transporte").item(0);
+                        //Restaurante
+                        Node restau=paquete.getElementsByTagName("Restaurante").item(0);
+                        //lista de comidas menu
+                        
+                        //Hotel
+                        Node hot=paquete.getElementsByTagName("Hotel").item(0);
+                    }
+                }
+            }
+        }catch(Throwable e){
+        
+        }
+        return p;
     }
 }

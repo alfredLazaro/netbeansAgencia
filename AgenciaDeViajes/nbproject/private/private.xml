@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/metodosAgen/Historial.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/metodosAgen/Agencia.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLHistoriales.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/vista/LugaresTiVistaDepart.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/metodosAgen/Cliente.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/metodosAgen/Reserva.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLClientes.java</file>
-            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLPaquetes.java</file>
         </group>
     </open-files>
 </project-private>

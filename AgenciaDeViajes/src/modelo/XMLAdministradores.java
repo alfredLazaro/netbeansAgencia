@@ -101,7 +101,7 @@ public class XMLAdministradores {
             
         
     }
-    public static Administrador buscarAdmin(){
+    public static Administrador buscarAdmin(String nombClav,int contra){
         Administrador admin=null;
         
         return admin;

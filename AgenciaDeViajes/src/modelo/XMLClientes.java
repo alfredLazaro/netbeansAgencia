@@ -9,19 +9,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import metodosAgen.*;
-import static modelo.XMLAdministradores.crearXML;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 public class XMLClientes {
     private static final String nomArchivo="clientes";
@@ -129,9 +128,40 @@ public class XMLClientes {
         
     }
     
-    public static Cliente buscarClient(){
+    public static Cliente buscarClient(int nroIdent){
         Cliente clin=null;
-        
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   clientes=document.getElementsByTagName("Cliente");
+            for(int i=0;i<clientes.getLength();i++){
+                Node nodo=clientes.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element client=(Element) nodo;
+                    int codIdCl=Integer.parseInt(client.getElementsByTagName("codigoCliente").item(0).getTextContent());
+                    if(codIdCl==nroIdent){
+                        String nomClient=client.getElementsByTagName("Nombre").item(0).getTextContent();
+                        String temporada=client.getElementsByTagName("TemporadaPreferida").item(0).getTextContent();
+                        String motivo=client.getElementsByTagName("MotivoViaje").item(0).getTextContent();
+                        int nroPasaj=Integer.parseInt(client.getElementsByTagName("nroPasajeros").item(0).getTextContent());
+                        boolean frec=Boolean.getBoolean(client.getElementsByTagName("frecuencia").item(0).getTextContent());
+                        boolean hayPac=Boolean.getBoolean(client.getElementsByTagName("HayPaquete").item(0).getTextContent());
+                        clin=new Cliente(nomClient, nroPasaj, temporada, motivo, nroIdent);
+                        clin.setFrecuencia(frec);
+                        clin.setTienePaquete(hayPac);
+                    }else{}
+                }
+            }
+        }catch(Throwable e){
+        }
         return clin;
     }
     
