@@ -18,4 +18,8 @@ public class Administrador{
   public void setContrasenia(String contrasenia) {
     this.contrasenia = contrasenia;
   }
+  public boolean esAdmin(String nomCuenta, String cotras){
+      boolean res=false;
+      return res;
+  }
 }

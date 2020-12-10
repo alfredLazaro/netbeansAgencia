@@ -66,5 +66,14 @@ public class Hotel {
       }
       return respuesta;
     }
+
+    public void setCantHabitacionesHabilitadas(int cantHabitacionesHabilitadas) {
+        this.cantHabitacionesHabilitadas = cantHabitacionesHabilitadas;
+    }
+
+    public void setCantHabitacionesUsadas(int cantHabitacionesUsadas) {
+        this.cantHabitacionesUsadas = cantHabitacionesUsadas;
+    }
+    
     
 }

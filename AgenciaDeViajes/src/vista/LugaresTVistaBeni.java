@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package vista;
 
@@ -24,10 +22,10 @@ import javax.swing.SwingConstants;
  *
  * @author fred
  */
-public class LugaresTiVistaDepart extends JFrame{
+public class LugaresTVistaBeni extends JFrame{
     private JPanel panel = new JPanel();
 
-    public LugaresTiVistaDepart() {
+    public LugaresTVistaBeni() {
         setTitle("Lugares Turisticos");
         setBounds(500, 200, 1080, 800);
         setLocationRelativeTo(null);
@@ -159,7 +157,7 @@ public class LugaresTiVistaDepart extends JFrame{
     }
     
     public static void main(String[] args) {
-        LugaresTiVistaDepart pRiber=new LugaresTiVistaDepart();
+        LugaresTVistaBeni pRiber=new LugaresTVistaBeni();
         pRiber.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pRiber.setVisible(true);
     }

@@ -49,7 +49,9 @@ public class XMLDepartamentos {
         transforme.transform(source, result);
     }
     //los lugares turisticos se llenaran por departamento
-    public static void modificarXML(List<Cliente> listaClientes,String departamento){
+    public static void modificarXML(List<String> listaLugares,String departamento,ArrayList<Integer> codigos){
+        int j,k;
+        j=0;
         if(!archivo.exists()){
             try{
                 crearXML();
@@ -62,21 +64,36 @@ public class XMLDepartamentos {
                 Document               document=documentoBulider.parse(archivo);
                 document.getDocumentElement().normalize();
                 Element raiz=document.getDocumentElement();
-                //se recorre la lista de clientes y se crea el xml con los elementos
-                for(Cliente client:listaClientes){
-                    Cliente clien=client;
-                    Element nodoCliente=document.createElement("Cliente");
+                //se recorre la lista de lugares
+                for(String lugar:listaLugares){
+                    
+                    Element nodoDepart=document.createElement("Departament");
+                    Element nomDepaNodo=document.createElement("NombreDepartamento");
+                    Text    nodoValorND=document.createTextNode(departamento);
+                    nomDepaNodo.appendChild(nodoValorND);
+                    Element nodoLugar=document.createElement("LugarTuristico");
                     //creamos elementos para los datos del cliente
-                    Element nombreNodo = document.createElement("Nombre");
-                    Text nodoValorNombre=document.createTextNode(clien.getNombreCliente());
+                    Element nombreNodo = document.createElement("NombreLugar");
+                    Text nodoValorNombre=document.createTextNode(lugar);
                     nombreNodo.appendChild(nodoValorNombre);
                     
-                    Element contraNodo=document.createElement("TemporadaPreferida");
-                    Text nodoValorContrasenia=document.createTextNode(clien.getTemporadaPreferencia());
-                    contraNodo.appendChild(nodoValorContrasenia);
-                    nodoCliente.appendChild(nombreNodo);
-                    //nodoUsuario.appendChild(contraNodo);
-                    raiz.appendChild(nodoCliente);
+                    nodoLugar.appendChild(nombreNodo);
+                    //se recorre la lista de codigos 
+                    
+                    k=0;
+                    while(k<3 &&j<codigos.size()){
+                    int codPaq=codigos.get(j);
+                    Element codPaqNodo=document.createElement("codigPaq");
+                    Text nodoValorCodig=document.createTextNode(codPaq+"");
+                    codPaqNodo.appendChild(nodoValorCodig);
+                    nodoLugar.appendChild(codPaqNodo);
+                    k=k+1;
+                    j=j+1;
+                    }
+                    nodoDepart.appendChild(nomDepaNodo);
+                    nodoDepart.appendChild(nodoLugar);
+                    
+                    raiz.appendChild(nodoDepart);
                 }
                 //se genera el xml
                 Source source=new DOMSource(document);
@@ -89,13 +106,65 @@ public class XMLDepartamentos {
             }
     }
     
-    public static void agregarLugarTuris(){
+    public static void agregarLugarTuris(String lugarT,String depart,ArrayList<Integer> codigos){
+        int j,k;
+        j=0;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+            try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                Element raiz=document.getDocumentElement();
+                Element nodoDepart=document.createElement("Departament");
+                    Element nomDepaNodo=document.createElement("NombreDepartamento");
+                    Text    nodoValorND=document.createTextNode(depart);
+                    nomDepaNodo.appendChild(nodoValorND);
+                    Element nodoLugar=document.createElement("LugarTuristico");
+                    //creamos elementos para los datos del cliente
+                    Element nombreNodo = document.createElement("NombreLugar");
+                    Text nodoValorNombre=document.createTextNode(lugarT);
+                    nombreNodo.appendChild(nodoValorNombre);
+                    
+                    nodoLugar.appendChild(nombreNodo);
+                    //se recorre la lista de codigos 
+                    
+                    k=0;
+                    while(k<3 &&j<codigos.size()){
+                    int codPaq=codigos.get(j);
+                    Element codPaqNodo=document.createElement("codigPaq");
+                    Text nodoValorCodig=document.createTextNode(codPaq+"");
+                    codPaqNodo.appendChild(nodoValorCodig);
+                    nodoLugar.appendChild(codPaqNodo);
+                    k=k+1;
+                    j=j+1;
+                    }
+                    nodoDepart.appendChild(nomDepaNodo);
+                    nodoDepart.appendChild(nodoLugar);
+                    
+                    raiz.appendChild(nodoDepart);
+                
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+            }catch(Throwable e){}
     }
     public static void eliminarLugarXML(){
         
     }
+    
     public static ArrayList<LugaresTuristicos> listaLugares(){
         ArrayList<LugaresTuristicos> listLugars=new ArrayList<>();
+        
         return listLugars;
     }
+    
 }

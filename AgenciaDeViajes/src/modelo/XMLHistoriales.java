@@ -70,11 +70,12 @@ public class XMLHistoriales {
                     Element nodoHistorial=document.createElement("Historial");
                     nodoHistorial.setAttribute("nroIdent", histo.getNroIdent()+"");
                     //creamos elementos para los datos del Historial
-                    Element ultModNodo = document.createElement("Fecha Modificacion");
+                    Element ultModNodo = document.createElement("FechaModificacion");
                     Text nodoValFecha=document.createTextNode(histo.getFechaModificacion()+"");
                     ultModNodo.appendChild(nodoValFecha);
                     
                     Element reservaNodo=document.createElement("Reserva");
+                    
                     Text nodoValReserva=document.createTextNode("");
                     reservaNodo.appendChild(nodoValReserva);
                     //aniado todo al histoial (paqueteCod,Reserva)
@@ -114,7 +115,7 @@ public class XMLHistoriales {
                     Element e=(Element) nodo;
                     int codig=Integer.parseInt(e.getAttribute("nroIdent"));
                     if(codig==nroIdent){
-                        String fechM=e.getElementsByTagName("Fecha Modificacion").item(0).getTextContent();
+                        String fechM=e.getElementsByTagName("FechaModificacion").item(0).getTextContent();
                         NodeList reservs=e.getElementsByTagName("Reserva");
                         for(int j=0;j<reservs.getLength();j++){
                             Node nod=reservs.item(j);
@@ -127,7 +128,7 @@ public class XMLHistoriales {
                                 String fechaVu=reserv.getElementsByTagName("fechaVuelta").item(0).getTextContent();
                                 String tipTrans=reserv.getElementsByTagName("tipoTransporte").item(0).getTextContent();
                                 String nombEmp=reserv.getElementsByTagName("nombreEmpresa").item(0).getTextContent();
-                                String fechRes=reserv.getElementsByTagName("fecha Reserva").item(0).getTextContent();
+                                String fechRes=reserv.getElementsByTagName("fechaReserva").item(0).getTextContent();
                                 //datos Clientes
                                 Cliente c=XMLClientes.buscarClient(nroIdent);
                                 String nombC=c.getNombreCliente();
@@ -170,16 +171,17 @@ public class XMLHistoriales {
                 Element raiz=document.getDocumentElement();
                 
                 Element nodoHistorial=document.createElement("Historial");
-                nodoHistorial.setAttribute("nroIdent", codigClient+"");
+                nodoHistorial.setAttribute("nroIdentida", h.getNroIdent()+"");
                 
-                Element ultModNodo = document.createElement("Fecha Modificacion");
+                Element ultModNodo = document.createElement("FechaModificacion");
                 Text nodoValFecha=document.createTextNode(h.getFechaModificacion()+"");
                 ultModNodo.appendChild(nodoValFecha);
                 
                 List<Reserva> reservs=h.getReservas();
+                //ya que no hay nada en reserva 
                 for(Reserva r:reservs){
                 Element reservaNodo=document.createElement("Reserva");
-                Element fechResNodo=document.createElement("fecha Reserva");
+                Element fechResNodo=document.createElement("fechaReserva");
                 Text nodoValFechR=document.createTextNode(r.getFechaReserva()+"");
                 fechResNodo.appendChild(nodoValFechR);
                 Element pasajeNodo=document.createElement("Pasaje");
@@ -236,11 +238,108 @@ public class XMLHistoriales {
                 
                 //aniado todo a la rais
                 raiz.appendChild(nodoHistorial);
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
         }catch(Exception e){}
     }
     
-    //para aniadir Reserva se hace desde Agencia
+    //para aniadir Reserva 
     public static void aniadirReserv(Reserva r,int codClient){
-        
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                Element raiz=document.getDocumentElement();
+                
+                NodeList historiales=document.getElementsByTagName("Historial");
+                for(int i=0;i<historiales.getLength();i++){
+                    Node nodo=historiales.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element historialNodo=(Element) nodo;
+                        int codHisto=Integer.parseInt(historialNodo.getElementsByTagName("Reserva").item(0).getTextContent());
+                        if(codHisto==codClient){
+                            
+                            Element reservaNodo=document.createElement("Reserva");
+                            
+                            Element fechResNodo=document.createElement("fechaReserva");
+                            Text nodoValFechR=document.createTextNode(r.getFechaReserva()+"");
+                            fechResNodo.appendChild(nodoValFechR);
+                            //se llena el pasaje
+                            Element pasajeNodo=document.createElement("Pasaje");
+                
+                            Element origenPasajeNodo=document.createElement("origen");
+                            Text nodoValOrigen=document.createTextNode(r.getPasaje().getOrigen());
+                            origenPasajeNodo.appendChild(nodoValOrigen);
+                
+                            Element destiPaNodo=document.createElement("destino");
+                            Text nodoValDest=document.createTextNode(r.getPasaje().getDestino());
+                            destiPaNodo.appendChild(nodoValDest);
+                
+                            Element precioTotNodo=document.createElement("precio");
+                            Text    nodoValPrecio=document.createTextNode(r.getPasaje().getPrecioTotal()+"");
+                            precioTotNodo.appendChild(nodoValPrecio);
+                
+                            Element fechaIdNodo=document.createElement("fechaIda");
+                            Text    nodoValorFeI=document.createTextNode(r.getPasaje().getFechaIda()+"");
+                            fechaIdNodo.appendChild(nodoValorFeI);
+                
+                            Element fechaVueltNodo=document.createElement("fechaVuelta");
+                            Text    nodoValorFeV=document.createTextNode(r.getPasaje().getFechaVuelta()+"");
+                            fechaVueltNodo.appendChild(nodoValorFeV);
+                
+                            Element tipTNodo=document.createElement("tipoTransporte");
+                            Text    nodoValorTT=document.createTextNode(r.getPasaje().getTipoTransporte());
+                            tipTNodo.appendChild(nodoValorTT);
+                
+                            Element nomEmpNodo=document.createElement("nombreEmpresa");
+                            Text    nodoValorNE=document.createTextNode(r.getPasaje().getEmpresa());
+                            nomEmpNodo.appendChild(nodoValorNE);
+                
+                            pasajeNodo.appendChild(origenPasajeNodo);
+                            pasajeNodo.appendChild(destiPaNodo);
+                            pasajeNodo.appendChild(precioTotNodo);
+                            pasajeNodo.appendChild(fechaIdNodo);
+                            pasajeNodo.appendChild(fechaVueltNodo);
+                            pasajeNodo.appendChild(tipTNodo);
+                            pasajeNodo.appendChild(nomEmpNodo);
+                            
+                            reservaNodo.appendChild(fechResNodo);
+                            reservaNodo.appendChild(pasajeNodo);
+                            
+                            Element codigPaquetNodo=document.createElement("nroIde");
+                            Text    nodoValorNI=document.createTextNode(r.getPaquete().getNroIde()+"");
+                            codigPaquetNodo.appendChild(nodoValorNI);
+                            reservaNodo.appendChild(codigPaquetNodo);
+                            
+                            //se aniade la reserva al Historial determinado
+                            historialNodo.appendChild(reservaNodo);
+                            
+                        }
+                        //aniado todo a la rais
+                       //raiz.appendChild(historialNodo); 
+                    }
+                }
+                //aniado todo al histoial (paqueteCod,Reserva)
+                //nodoHistorial.appendChild(ultModNodo);
+                
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+        }catch(Throwable e){
+        }
     }
+    
+    
 }

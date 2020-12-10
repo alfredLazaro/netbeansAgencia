@@ -32,8 +32,7 @@ public class XMLClientes {
         Cliente cliente2=new Cliente("Alan",5,"otoño","negocios",54231);
         listaClientes.add(cliente1);
         listaClientes.add(cliente2);
-        //PaqueteTuristico paquet1=new PaqueteTuristico(transporte, hotel, restaurant, 0);
-        //Reserva reserva1=new Reserva(paquete, pasaje, cliente1, fechaReserva);
+        
         try{
             modificarXML(listaClientes);
         }catch(Exception e){
@@ -72,10 +71,8 @@ public class XMLClientes {
                 for(Cliente client:listaClientes){
                     Cliente clien=client;
                     Element nodoCliente=document.createElement("Cliente");
+                    nodoCliente.setAttribute("nroIdent", clien.getNroIdent()+"");
                     //creamos elementos para los datos del cliente
-                    Element codNodo=document.createElement("codigoCliente");
-                    Text nodoValorCod=document.createTextNode(clien.getNroIdent()+"");
-                    codNodo.appendChild(nodoValorCod);
                     
                     Element nombreNodo = document.createElement("Nombre");
                     Text nodoValorNombre=document.createTextNode(clien.getNombreCliente());
@@ -95,19 +92,20 @@ public class XMLClientes {
                     
                     Element frecuenciaNodo=document.createElement("frecuencia");
                     Text nodoValorFrecuen=document.createTextNode(client.getFrecuencia()+"");
-                    nroPasajrsNodo.appendChild(nodoValorFrecuen);
+                    frecuenciaNodo.appendChild(nodoValorFrecuen);
                     
                     Element paqueteNodo=document.createElement("HayPaquete");
                     Text nodoValorPaquet=document.createTextNode(client.getTienePaquete()+"");
                     paqueteNodo.appendChild(nodoValorPaquet);
                     //se pone los datos del cliente
-                    nodoCliente.appendChild(codNodo);
+                    
                     nodoCliente.appendChild(nombreNodo);
                     nodoCliente.appendChild(tempoNodo);
                     nodoCliente.appendChild(motivoNodo);
                     nodoCliente.appendChild(nroPasajrsNodo);
                     nodoCliente.appendChild(frecuenciaNodo);
                     nodoCliente.appendChild(paqueteNodo);
+                    
                     //se ponen los cliente en el xml
                     raiz.appendChild(nodoCliente);
                     //tengo que inicializar su historial en el xml
@@ -154,6 +152,7 @@ public class XMLClientes {
                         int nroPasaj=Integer.parseInt(client.getElementsByTagName("nroPasajeros").item(0).getTextContent());
                         boolean frec=Boolean.getBoolean(client.getElementsByTagName("frecuencia").item(0).getTextContent());
                         boolean hayPac=Boolean.getBoolean(client.getElementsByTagName("HayPaquete").item(0).getTextContent());
+                        //se instancia cliente
                         clin=new Cliente(nomClient, nroPasaj, temporada, motivo, nroIdent);
                         clin.setFrecuencia(frec);
                         clin.setTienePaquete(hayPac);
@@ -173,5 +172,70 @@ public class XMLClientes {
     
     public  static void crearHistor(int codCliente){
         XMLHistoriales.aniadirHisto(codCliente);
+    }
+    
+    public void insertCliente(Cliente clien){
+         if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+            try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                Element raiz=document.getDocumentElement();
+                
+                Element nodoCliente=document.createElement("Cliente");
+                    nodoCliente.setAttribute("nroIdent", clien.getNroIdent()+"");
+                    //creamos elementos para los datos del cliente
+                    
+                    Element nombreNodo = document.createElement("Nombre");
+                    Text nodoValorNombre=document.createTextNode(clien.getNombreCliente());
+                    nombreNodo.appendChild(nodoValorNombre);
+                    
+                    Element tempoNodo=document.createElement("TemporadaPreferida");
+                    Text nodoValorTemp=document.createTextNode(clien.getTemporadaPreferencia());
+                    tempoNodo.appendChild(nodoValorTemp);
+                    
+                    Element motivoNodo=document.createElement("MotivoViaje");
+                    Text nodoValorMotivo=document.createTextNode(clien.getTipoViaje());
+                    motivoNodo.appendChild(nodoValorMotivo);
+                    
+                    Element nroPasajrsNodo=document.createElement("nroPasajeros");
+                    Text nodoValorNroPasajers=document.createTextNode(clien.getCantidadPasajeros()+"");
+                    nroPasajrsNodo.appendChild(nodoValorNroPasajers);
+                    
+                    Element frecuenciaNodo=document.createElement("frecuencia");
+                    Text nodoValorFrecuen=document.createTextNode(clien.getFrecuencia()+"");
+                    frecuenciaNodo.appendChild(nodoValorFrecuen);
+                    
+                    Element paqueteNodo=document.createElement("HayPaquete");
+                    Text nodoValorPaquet=document.createTextNode(clien.getTienePaquete()+"");
+                    paqueteNodo.appendChild(nodoValorPaquet);
+                    //se pone los datos del cliente
+                    
+                    nodoCliente.appendChild(nombreNodo);
+                    nodoCliente.appendChild(tempoNodo);
+                    nodoCliente.appendChild(motivoNodo);
+                    nodoCliente.appendChild(nroPasajrsNodo);
+                    nodoCliente.appendChild(frecuenciaNodo);
+                    nodoCliente.appendChild(paqueteNodo);
+                    
+                    //se ponen los cliente en el xml
+                    raiz.appendChild(nodoCliente);
+                    //tengo que inicializar su historial en el xml
+                    crearHistor(clien.getNroIdent());
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+            }catch(Throwable e){
+                
+            }
     }
 }

@@ -5,10 +5,9 @@
         <group>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/metodosAgen/Agencia.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLHistoriales.java</file>
-            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/vista/LugaresTiVistaDepart.java</file>
-            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/metodosAgen/Cliente.java</file>
-            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/metodosAgen/Reserva.java</file>
             <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLClientes.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLDepartamentos.java</file>
+            <file>file:/D:/programasDeNetBe/proyectoAgenciaViajes/AgenciaDeViajes/src/modelo/XMLAdministradores.java</file>
         </group>
     </open-files>
 </project-private>

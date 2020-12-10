@@ -3,15 +3,12 @@ package modelo;
 
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -22,6 +19,8 @@ import metodosAgen.*;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 public class XMLAdministradores {
     private static final String nomArchivo="cuentaAdministradores";
@@ -85,6 +84,7 @@ public class XMLAdministradores {
                     Element contraNodo=document.createElement("Contraseña");
                     Text nodoValorContrasenia=document.createTextNode(admi.getContrasenia());
                     contraNodo.appendChild(nodoValorContrasenia);
+                   
                     nodoUsuario.appendChild(nombreNodo);
                     nodoUsuario.appendChild(contraNodo);
                     raiz.appendChild(nodoUsuario);
@@ -101,13 +101,75 @@ public class XMLAdministradores {
             
         
     }
-    public static Administrador buscarAdmin(String nombClav,int contra){
+    public static Administrador buscarAdmin(String nombClav,String contra){
         Administrador admin=null;
-        
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+            try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                NodeList usuarios=document.getElementsByTagName("Usuario");
+                for(int i=0;i<usuarios.getLength();i++){
+                    Node nodo=usuarios.item(0);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element usuario=(Element) nodo;
+                        String nomC=usuario.getElementsByTagName("Nombre").item(0).getTextContent();
+                        String contrasen=usuario.getElementsByTagName("Contraseña").item(0).getTextContent();
+                        if(nomC.equals(nombClav) && contra.equals(contrasen)){
+                            //si no existiera se devolveria un null
+                            admin=new Administrador(nombClav, contrasen);
+                        }
+                    }
+                }
+            }catch(Throwable e){
+            }
         return admin;
     }
     
-    public static void eliminarAdmin(String nomb,String contraseña){
+    public static void eliminarAdmin(String nomb,String contrase){
         
+    }
+    
+    public static void insertarAdmin(String nom,String contra){
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+            try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                Element raiz=document.getDocumentElement();
+                Element nodoUsuario=document.createElement("Usuario");
+                    //creamos elementos para los datos del administrador
+                    Element nombreNodo = document.createElement("Nombre");
+                    Text nodoValorNombre=document.createTextNode(nom);
+                    nombreNodo.appendChild(nodoValorNombre);
+                    
+                    Element contraNodo=document.createElement("Contraseña");
+                    Text nodoValorContrasenia=document.createTextNode(contra);
+                    contraNodo.appendChild(nodoValorContrasenia);
+                   
+                    nodoUsuario.appendChild(nombreNodo);
+                    nodoUsuario.appendChild(contraNodo);
+                    raiz.appendChild(nodoUsuario);
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+                
+            }catch(Throwable e){
+            }
     }
 }
