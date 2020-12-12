@@ -5,6 +5,7 @@ package modelo;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +17,12 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import metodosAgen.*;
+import metodosAgen.PaqueteTuristico;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import vista.LugaresTuristicos;
 
@@ -67,7 +70,7 @@ public class XMLDepartamentos {
                 //se recorre la lista de lugares
                 for(String lugar:listaLugares){
                     
-                    Element nodoDepart=document.createElement("Departament");
+                    Element nodoDepart=document.createElement("Departamento");
                     Element nomDepaNodo=document.createElement("NombreDepartamento");
                     Text    nodoValorND=document.createTextNode(departamento);
                     nomDepaNodo.appendChild(nodoValorND);
@@ -121,7 +124,7 @@ public class XMLDepartamentos {
                 Document               document=documentoBulider.parse(archivo);
                 document.getDocumentElement().normalize();
                 Element raiz=document.getDocumentElement();
-                Element nodoDepart=document.createElement("Departament");
+                Element nodoDepart=document.createElement("Departamento");
                     Element nomDepaNodo=document.createElement("NombreDepartamento");
                     Text    nodoValorND=document.createTextNode(depart);
                     nomDepaNodo.appendChild(nodoValorND);
@@ -157,14 +160,67 @@ public class XMLDepartamentos {
                 transformer.transform(source,result);
             }catch(Throwable e){}
     }
-    public static void eliminarLugarXML(){
+    
+    public static void eliminarLugarXML(String lugarT,String nombDepart){
         
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+            try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                
+                NodeList departamentos=document.getElementsByTagName("Departamento");
+                for(int i=0;i<departamentos.getLength();i++){
+                    Node nodo=departamentos.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element departamento=(Element) nodo;
+                        String nombreDepart=departamento.getElementsByTagName("NombreDepartamento").item(0).getTextContent();
+                        if(nombreDepart.equals(nombDepart)){
+                            NodeList lugaresT=departamento.getElementsByTagName("LugarTuristico");
+                            for(int j=0;j<lugaresT.getLength();j++){
+                                Node nodoL=lugaresT.item(j);
+                                if(nodoL.getNodeType()==Node.ELEMENT_NODE){
+                                    Element lugar=(Element) nodoL;
+                                    String nombLug=lugar.getElementsByTagName("NombreLugar").item(0).getTextContent();
+                                    if(nombLug.equals(lugarT)){
+                                        lugar.getParentNode().removeChild(lugar);
+                                    }else{}
+                                }
+                            }
+                        }else{}
+                    }
+                }
+                
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+            }catch(Throwable e){}
     }
     
-    public static ArrayList<LugaresTuristicos> listaLugares(){
+    public static ArrayList<LugaresTuristicos> listaLugares(String depart){
         ArrayList<LugaresTuristicos> listLugars=new ArrayList<>();
         
         return listLugars;
     }
     
+    public static HashMap<Integer,ArrayList<LugaresTuristicos>> lugaresDepart(){
+        HashMap<Integer,ArrayList<LugaresTuristicos>> lugrs=new HashMap<>();
+        
+        return lugrs;
+    }
+    
+    public static HashMap<String,ArrayList<PaqueteTuristico>> listPaquetes(){
+        HashMap<String,ArrayList<PaqueteTuristico>> list=new HashMap<>();
+        
+        return list;
+    }
 }

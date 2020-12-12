@@ -127,13 +127,50 @@ public class XMLAdministradores {
                         }
                     }
                 }
+               //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result); 
             }catch(Throwable e){
             }
         return admin;
     }
     
     public static void eliminarAdmin(String nomb,String contrase){
-        
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+            try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                NodeList usuarios=document.getElementsByTagName("Usuario");
+                for(int i=0;i<usuarios.getLength();i++){
+                    Node nodo=usuarios.item(0);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element usuario=(Element) nodo;
+                        String nomC=usuario.getElementsByTagName("Nombre").item(0).getTextContent();
+                        String contrasen=usuario.getElementsByTagName("Contraseña").item(0).getTextContent();
+                        if(nomC.equals(nomb) && contrase.equals(contrasen)){
+                            //si no existiera se devolveria un null
+                            usuario.getParentNode().removeChild(usuario);
+                        }
+                    }
+                }
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+            }catch(Throwable e){
+            }
     }
     
     public static void insertarAdmin(String nom,String contra){
@@ -172,4 +209,41 @@ public class XMLAdministradores {
             }catch(Throwable e){
             }
     }
+     public static ArrayList<Administrador> listaAdmins(){
+         ArrayList<Administrador> listAd=new ArrayList<>();
+         Administrador admin=null;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+            try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                NodeList usuarios=document.getElementsByTagName("Usuario");
+                for(int i=0;i<usuarios.getLength();i++){
+                    Node nodo=usuarios.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element usuario=(Element) nodo;
+                        String nombC=usuario.getElementsByTagName("Nombre").item(0).getTextContent();
+                        String contrasen=usuario.getElementsByTagName("Contraseña").item(0).getTextContent();
+                        //si no existiera se devolveria un null
+                        admin=new Administrador(nombC, contrasen);
+                        listAd.add(admin);
+                    }
+                }
+               //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result); 
+            }catch(Throwable e){
+            }
+         return listAd;
+     }
+     
 }

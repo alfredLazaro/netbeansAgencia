@@ -113,7 +113,7 @@ public class XMLHistoriales {
                 Node nodo=historiales.item(i);
                 if(nodo.getNodeType()==Node.ELEMENT_NODE){
                     Element e=(Element) nodo;
-                    int codig=Integer.parseInt(e.getAttribute("nroIdent"));
+                    int codig=Integer.parseInt(e.getAttribute("nroIdentida"));
                     if(codig==nroIdent){
                         String fechM=e.getElementsByTagName("FechaModificacion").item(0).getTextContent();
                         NodeList reservs=e.getElementsByTagName("Reserva");
@@ -341,5 +341,36 @@ public class XMLHistoriales {
         }
     }
     
-    
+    public static void eliminarHistorial(int nroId){
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   historiales=document.getElementsByTagName("Historial");
+            for(int i=0;i<historiales.getLength();i++){
+                Node nodo=historiales.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element e=(Element) nodo;
+                    int codig=Integer.parseInt(e.getAttribute("nroIdentida"));
+                    if(codig==nroId){
+                        e.getParentNode().removeChild(e);
+                    }
+                }
+            }
+            
+            Source source=new DOMSource(document);
+            //donde se guardara
+            Result result=new StreamResult(archivo);
+            Transformer transformer=TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source,result);
+        }catch(Throwable e){
+        }
+    }
 }

@@ -122,8 +122,39 @@ public class XMLClientes {
             }
     }
     
-    public static void eliminarClienteXML(Cliente cliente){
-        
+    public static void eliminarClienteXML(String nomb,int codClient){
+        boolean bb=false;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   clientes=document.getElementsByTagName("Cliente");
+            for(int i=0;i<clientes.getLength()&&!bb;i++){
+                Node nodo=clientes.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element client=(Element) nodo;
+                    int codIdCl=Integer.parseInt(client.getAttribute("nroIdent"));
+                    String nombClient=client.getElementsByTagName("Nombre").item(0).getTextContent();
+                    if(codIdCl==codClient && nomb.equals(nombClient)){
+                        client.getParentNode().removeChild(client);
+                    }
+                }
+            }
+            //se genera como codigo para eliminar
+            Source source=new DOMSource(document);
+            //donde se buscara
+            Result result=new StreamResult(archivo);
+            Transformer transformer=TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source,result);
+        }catch(Throwable e){
+        }
     }
     
     public static Cliente buscarClient(int nroIdent){
@@ -144,7 +175,7 @@ public class XMLClientes {
                 Node nodo=clientes.item(i);
                 if(nodo.getNodeType()==Node.ELEMENT_NODE){
                     Element client=(Element) nodo;
-                    int codIdCl=Integer.parseInt(client.getElementsByTagName("codigoCliente").item(0).getTextContent());
+                    int codIdCl=Integer.parseInt(client.getAttribute("nroIdent"));
                     if(codIdCl==nroIdent){
                         String nomClient=client.getElementsByTagName("Nombre").item(0).getTextContent();
                         String temporada=client.getElementsByTagName("TemporadaPreferida").item(0).getTextContent();
@@ -159,6 +190,12 @@ public class XMLClientes {
                     }else{}
                 }
             }
+            //se genera el xml
+            Source source=new DOMSource(document);
+            //donde se guardara
+            Result result=new StreamResult(archivo);
+            Transformer transformer=TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source,result);
         }catch(Throwable e){
         }
         return clin;
@@ -166,7 +203,46 @@ public class XMLClientes {
     
     public static ArrayList<Cliente> listaClientes(){
         ArrayList<Cliente> listClientes=new ArrayList<>();
-        
+        Cliente clin=null;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   clientes=document.getElementsByTagName("Cliente");
+            for(int i=0;i<clientes.getLength();i++){
+                Node nodo=clientes.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element client=(Element) nodo;
+                    int codIdCl=Integer.parseInt(client.getAttribute("nroIdent"));
+                    
+                        String nomClient=client.getElementsByTagName("Nombre").item(0).getTextContent();
+                        String temporada=client.getElementsByTagName("TemporadaPreferida").item(0).getTextContent();
+                        String motivo=client.getElementsByTagName("MotivoViaje").item(0).getTextContent();
+                        int nroPasaj=Integer.parseInt(client.getElementsByTagName("nroPasajeros").item(0).getTextContent());
+                        boolean frec=Boolean.getBoolean(client.getElementsByTagName("frecuencia").item(0).getTextContent());
+                        boolean hayPac=Boolean.getBoolean(client.getElementsByTagName("HayPaquete").item(0).getTextContent());
+                        //se instancia cliente
+                        clin=new Cliente(nomClient, nroPasaj, temporada, motivo, codIdCl);
+                        clin.setFrecuencia(frec);
+                        clin.setTienePaquete(hayPac);
+                        listClientes.add(clin);
+                }
+            }
+            //se genera el xml
+            Source source=new DOMSource(document);
+            //donde se guardara
+            Result result=new StreamResult(archivo);
+            Transformer transformer=TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source,result);
+        }catch(Throwable e){
+        }
         return listClientes;
     }
     
@@ -174,7 +250,7 @@ public class XMLClientes {
         XMLHistoriales.aniadirHisto(codCliente);
     }
     
-    public void insertCliente(Cliente clien){
+    public static void insertCliente(Cliente clien){
          if(!archivo.exists()){
             try{
                 crearXML();

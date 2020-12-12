@@ -398,4 +398,100 @@ public class XMLPaquetes {
                 System.out.println("algo paso");
             }
     }
+    
+    public static ArrayList<PaqueteTuristico> paquetes(){
+        ArrayList<PaqueteTuristico> listPa=new ArrayList<>();
+        PaqueteTuristico p=null;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   paquetes=document.getElementsByTagName("Paquete");
+            //atributos del paquete
+            int     precioPaq;
+            int    cantDiasPaq;
+            for(int i=0;i<paquetes.getLength();i++){
+                Node nodo=paquetes.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element paquete=(Element) nodo;
+                    int nroId=Integer.parseInt(paquete.getAttribute("nroIde"));
+                    
+                        precioPaq=Integer.parseInt(paquete.getElementsByTagName("precio").item(0).getTextContent());
+                        cantDiasPaq=Integer.parseInt(paquete.getElementsByTagName("CantDias").item(0).getTextContent());
+                        //transporte 
+                        Node transp=paquete.getElementsByTagName("Transporte").item(0);
+                        Transporte tra=null;
+                        if(transp.getNodeType()==Node.ELEMENT_NODE){
+                            Element trans=(Element) transp;
+                            String tipoVehic=trans.getElementsByTagName("TipoVehiculo").item(0).getTextContent();
+                            String orig=trans.getElementsByTagName("origen").item(0).getTextContent();
+                            int preciT=Integer.parseInt(trans.getElementsByTagName("precioTranspor").item(0).getTextContent());
+                            tra=new Transporte(preciT, orig, tipoVehic);
+                        }
+                        //Restaurante
+                        Node restau=paquete.getElementsByTagName("Restaurante").item(0);
+                        Restaurante rest=null;
+                        String nombrR=null;
+                        String ubicR=null;
+                        Comida c=null;
+                        if(restau.getNodeType()==Node.ELEMENT_NODE){
+                            Element re=(Element) restau;
+                            nombrR=re.getElementsByTagName("NombreRestaurante").item(0).getTextContent();
+                            ubicR=re.getElementsByTagName("UbicacionRestaurante").item(0).getTextContent();
+                            rest=new Restaurante(ubicR,nombrR);
+                            NodeList menu=re.getElementsByTagName("comida");
+                            //se lista el menu
+                            
+                            for(int j=0;j<menu.getLength();j++){
+                                Node nodo1=menu.item(j);
+                                
+                                if(nodo1.getNodeType()==Node.ELEMENT_NODE){
+                                    Element comida=(Element) nodo1;
+                                    
+                                    String nbCom=comida.getElementsByTagName("nombreComida").item(0).getTextContent();
+                                    int preCo=Integer.parseInt(comida.getElementsByTagName("precioPlato").item(0).getTextContent());
+                                    c=new Comida(nbCom, preCo);
+                                    rest.agregarPlato(c);
+                                }
+                            }
+                        }
+
+                        //Hotel
+                        Node hot=paquete.getElementsByTagName("Hotel").item(0);
+                        Hotel h=null;
+                        String nombrHotel=null;
+                        String ubHote=null;
+                        int preciH=0;
+                        int cantHabit=0;
+                        int cantHabUsa=0;
+                        if(hot.getNodeType()==Node.ELEMENT_NODE){
+                            Element hote=(Element) hot;
+                            nombrHotel=hote.getElementsByTagName("NombreHotel").item(0).getTextContent();
+                            ubHote=hote.getElementsByTagName("ubicacionHotel").item(0).getTextContent();
+                            preciH=Integer.parseInt(hote.getElementsByTagName("PrecioUnitarioHotel").item(0).getTextContent());
+                            cantHabit=Integer.parseInt(hote.getElementsByTagName("cantidadHabitaciones").item(0).getTextContent());
+                            cantHabUsa=Integer.parseInt(hote.getElementsByTagName("cantidadHUsadas").item(0).getTextContent());
+                            
+                            h=new Hotel(preciH, ubHote, nombrHotel);
+                            h.setCantHabitacionesHabilitadas(cantHabit);
+                            h.setCantHabitacionesUsadas(cantHabUsa);
+                        }
+                        //se aniade todo al paquete
+                        p=new PaqueteTuristico(tra, h, rest, cantDiasPaq);
+                        listPa.add(p);
+                    
+                }
+            }
+        }catch(Throwable e){
+        
+        }
+        return listPa;
+    }
 }
