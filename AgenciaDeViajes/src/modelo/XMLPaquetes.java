@@ -77,6 +77,10 @@ public class XMLPaquetes {
                     Element cantDiasNodo=document.createElement("CantDias");
                     Text nodoValorCantDias=document.createTextNode(pac.getCantDias()+"");
                     cantDiasNodo.appendChild(nodoValorCantDias);
+                    
+                    Element dispoNodo=document.createElement("disponible");
+                    Text nodoValorDispon=document.createTextNode(pac.getDisponible()+"");
+                    dispoNodo.appendChild(nodoValorDispon);
                     //en aqui create los elementos de paquete Transporte,Hotel,Restaurante
                     //transporte
                     Element transporteNodo=document.createElement("Transporte");
@@ -160,6 +164,7 @@ public class XMLPaquetes {
                     //se aniaden los nodos al nodo del paquete
                     nodoPaquete.appendChild(precioNodo);
                     nodoPaquete.appendChild(cantDiasNodo);
+                    nodoPaquete.appendChild(dispoNodo);
                     nodoPaquete.appendChild(transporteNodo);
                     nodoPaquete.appendChild(restauranNodo);
                     nodoPaquete.appendChild(hotelNodo);
@@ -195,8 +200,9 @@ public class XMLPaquetes {
             document.getDocumentElement().normalize();
             NodeList   paquetes=document.getElementsByTagName("Paquete");
             //atributos del paquete
-            String precioPaq;
+            int precioPaq;
             int    cantDiasPaq;
+            boolean disponibl=false;
             for(int i=0;i<paquetes.getLength() && !bb;i++){
                 Node nodo=paquetes.item(i);
                 if(nodo.getNodeType()==Node.ELEMENT_NODE){
@@ -204,8 +210,9 @@ public class XMLPaquetes {
                     int nroId=Integer.parseInt(paquete.getAttribute("nroIde"));
                     if(nroPaq==nroId){
                         bb=true; //se cambio el estado a encontrado
-                        precioPaq=paquete.getElementsByTagName("precio").item(0).getTextContent();
+                        precioPaq=Integer.parseInt(paquete.getElementsByTagName("precio").item(0).getTextContent());
                         cantDiasPaq=Integer.parseInt(paquete.getElementsByTagName("CantDias").item(0).getTextContent());
+                        disponibl=Boolean.valueOf(paquete.getElementsByTagName("diponible").item(0).getTextContent());
                         //transporte 
                         Node transp=paquete.getElementsByTagName("Transporte").item(0);
                         Transporte tra=null;
@@ -300,6 +307,10 @@ public class XMLPaquetes {
                     Element cantDiasNodo=document.createElement("CantDias");
                     Text nodoValorCantDias=document.createTextNode(pac.getCantDias()+"");
                     cantDiasNodo.appendChild(nodoValorCantDias);
+                    
+                    Element dispoNodo=document.createElement("disponible");
+                    Text nodoValorDispon=document.createTextNode(pac.getDisponible()+"");
+                    dispoNodo.appendChild(nodoValorDispon);
                     //en aqui create los elementos de paquete Transporte,Hotel,Restaurante
                     //transporte
                     Element transporteNodo=document.createElement("Transporte");

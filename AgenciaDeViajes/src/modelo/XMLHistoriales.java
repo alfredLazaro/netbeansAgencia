@@ -4,7 +4,9 @@
 package modelo;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -97,6 +99,7 @@ public class XMLHistoriales {
     
     public static Historial buscarHistorial(int nroIdent){
         Historial hist=null;
+        ArrayList<Reserva> reservas=new ArrayList<>();
         if(!archivo.exists()){
             try{
                 crearXML();
@@ -117,6 +120,7 @@ public class XMLHistoriales {
                     if(codig==nroIdent){
                         String fechM=e.getElementsByTagName("FechaModificacion").item(0).getTextContent();
                         NodeList reservs=e.getElementsByTagName("Reserva");
+                        Date fechaModificacion=null;
                         for(int j=0;j<reservs.getLength();j++){
                             Node nod=reservs.item(j);
                             if(nod.getNodeType()==Node.ELEMENT_NODE){
@@ -140,15 +144,28 @@ public class XMLHistoriales {
                                     fechaId=formatoFecha.parse(fechaIda);
                                     fechaV=formatoFecha.parse(fechaVu);
                                     fechReserv=formatoFecha.parse(fechRes);
+                                    
                                 Pasaje pasaje=new Pasaje(origen, destino, fechaId, fechaV,nombC, tipTrans, nombEmp, precio);
                                 Reserva r=new Reserva(null, pasaje, c,fechReserv);
+                                reservas.add(r);
                             }else{}
                             
                         }
+                        SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+                        
+                        fechaModificacion=formatoFecha.parse(fechM);//el formato
+                        hist=new Historial(nroIdent, fechaModificacion);
+                        hist.setReservas(reservas);
                     }else{}
                     
                 }else{}
             }
+            //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
         }catch(Throwable e){
         }
         
@@ -174,7 +191,7 @@ public class XMLHistoriales {
                 nodoHistorial.setAttribute("nroIdentida", h.getNroIdent()+"");
                 
                 Element ultModNodo = document.createElement("FechaModificacion");
-                Text nodoValFecha=document.createTextNode(h.getFechaModificacion()+"");
+                Text nodoValFecha=document.createTextNode(h.getFechaModificacion().getDate()+"/"+h.getFechaModificacion().getMonth()+"/"+(h.getFechaModificacion().getYear()+1900)+"");
                 ultModNodo.appendChild(nodoValFecha);
                 
                 List<Reserva> reservs=h.getReservas();
@@ -272,7 +289,7 @@ public class XMLHistoriales {
                             Element reservaNodo=document.createElement("Reserva");
                             
                             Element fechResNodo=document.createElement("fechaReserva");
-                            Text nodoValFechR=document.createTextNode(r.getFechaReserva()+"");
+                            Text nodoValFechR=document.createTextNode(r.getFechaReserva().getDate()+"/"+r.getFechaReserva().getMonth()+"/"+(r.getFechaReserva().getYear()+1900)+"");
                             fechResNodo.appendChild(nodoValFechR);
                             //se llena el pasaje
                             Element pasajeNodo=document.createElement("Pasaje");
@@ -290,11 +307,11 @@ public class XMLHistoriales {
                             precioTotNodo.appendChild(nodoValPrecio);
                 
                             Element fechaIdNodo=document.createElement("fechaIda");
-                            Text    nodoValorFeI=document.createTextNode(r.getPasaje().getFechaIda()+"");
+                            Text    nodoValorFeI=document.createTextNode(r.getPasaje().getFechaIda().getDate()+"/"+r.getPasaje().getFechaIda().getMonth()+"/"+(r.getPasaje().getFechaIda().getYear()+1900)+"");
                             fechaIdNodo.appendChild(nodoValorFeI);
                 
                             Element fechaVueltNodo=document.createElement("fechaVuelta");
-                            Text    nodoValorFeV=document.createTextNode(r.getPasaje().getFechaVuelta()+"");
+                            Text    nodoValorFeV=document.createTextNode(r.getPasaje().getFechaVuelta().getDate()+"/"+r.getPasaje().getFechaVuelta().getMonth()+"/"+(r.getPasaje().getFechaVuelta().getYear()+1900)+"");
                             fechaVueltNodo.appendChild(nodoValorFeV);
                 
                             Element tipTNodo=document.createElement("tipoTransporte");

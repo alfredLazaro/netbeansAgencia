@@ -144,6 +144,7 @@ public class XMLClientes {
                     String nombClient=client.getElementsByTagName("Nombre").item(0).getTextContent();
                     if(codIdCl==codClient && nomb.equals(nombClient)){
                         client.getParentNode().removeChild(client);
+                        XMLHistoriales.eliminarHistorial(codClient);
                     }
                 }
             }
@@ -314,4 +315,19 @@ public class XMLClientes {
                 
             }
     }
+    
+    public static void insertReserva(Reserva r,int codClient){
+        XMLHistoriales.aniadirReserv(r, 0);
+    }
+    
+    public static void eliminarReserv(){
+        
+    }
+    
+    //estado de cliente como freduente
+    public static void cambiarEstado(int nroIdent,String nodo,String estadoCambio){
+        
+    }
+    
+    
 }

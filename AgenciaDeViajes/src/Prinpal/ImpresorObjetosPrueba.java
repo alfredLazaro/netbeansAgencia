@@ -3,6 +3,7 @@
  */
 package Prinpal;
 import java.util.ArrayList;
+import java.util.Date;
 import modelo.*;
 import metodosAgen.*;
 /**
@@ -65,8 +66,13 @@ public class ImpresorObjetosPrueba {
             System.out.println("transporte "+nomb);
         }
         */
+        /*
+        Historial hist=buscarHistorial(12345);
+        Date fec=hist.getFechaModificacion();
+        System.out.println("fecha "+ fec);
+        */
         
-        
+        eliminarClient("rebeca", 12345);
     }
     public void impresor(){
         
@@ -132,7 +138,16 @@ public class ImpresorObjetosPrueba {
         XMLHistoriales.eliminarHistorial(cod);
     }
     
-    
+    public Historial buscarHistorial(int nroId){
+        Historial h=null;
+        h=XMLHistoriales.buscarHistorial(nroId);
+        if(h!=null){
+            System.out.println("estamos super");
+        }else{
+            System.out.println("algo anda mal");
+        }
+        return h;
+    }
     /////////////////////////
     //zona Cliente
     public void insertClient(Cliente c){

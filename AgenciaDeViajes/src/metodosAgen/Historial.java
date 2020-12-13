@@ -39,5 +39,10 @@ public class Historial {
     private void setFechaModificacion(Date fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
+
+    public void setReservas(ArrayList<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+    
     
 }

@@ -249,7 +249,7 @@ public class Agencia {
             if(reserva.getCliente().exiteOfertaPasajeros()){
             oferta.generarOfertaCantPasajeros(reserva);
             }
-            oferta.generarOfertaFechasFestivas(reserva);
+            
         }else{}
     }
    //se añiaden metodos necesarios

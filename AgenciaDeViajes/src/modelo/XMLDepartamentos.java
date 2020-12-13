@@ -24,7 +24,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import vista.LugaresTuristicos;
 
 /**
  * @author USUARIO
@@ -206,21 +205,228 @@ public class XMLDepartamentos {
             }catch(Throwable e){}
     }
     
-    public static ArrayList<LugaresTuristicos> listaLugares(String depart){
-        ArrayList<LugaresTuristicos> listLugars=new ArrayList<>();
-        
+    public static ArrayList<String> listaLugares(String nombDepart){
+        ArrayList<String> listLugars=new ArrayList<>();
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+                
+            NodeList departamentos=document.getElementsByTagName("Departamento");
+            for(int i=0;i<departamentos.getLength();i++){
+                Node nodo=departamentos.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element departamento=(Element) nodo;
+                        String nombreDepart=departamento.getElementsByTagName("NombreDepartamento").item(0).getTextContent();
+                        if(nombreDepart.equals(nombDepart)){
+                            NodeList lugaresT=departamento.getElementsByTagName("LugarTuristico");
+                            for(int j=0;j<lugaresT.getLength();j++){
+                                Node nodoL=lugaresT.item(j);
+                                if(nodoL.getNodeType()==Node.ELEMENT_NODE){
+                                    Element lugar=(Element) nodoL;
+                                    String nombLug=lugar.getElementsByTagName("NombreLugar").item(0).getTextContent();
+                                    listLugars.add(nombLug);
+                                }
+                            }
+                        }else{}
+                    }
+                }
+                
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+        }catch(Throwable e){}
         return listLugars;
     }
     
-    public static HashMap<Integer,ArrayList<LugaresTuristicos>> lugaresDepart(){
-        HashMap<Integer,ArrayList<LugaresTuristicos>> lugrs=new HashMap<>();
+    public static HashMap<String,HashMap<String,ArrayList<PaqueteTuristico>>> lugaresDepart(){
+        HashMap<String,HashMap<String,ArrayList<PaqueteTuristico>>> lugrs=new HashMap<>();
+        HashMap<String,ArrayList<PaqueteTuristico>> list=new HashMap<>();
+        ArrayList<PaqueteTuristico> listPa=new ArrayList<>();
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+                
+            NodeList departamentos=document.getElementsByTagName("Departamento");
+            for(int i=0;i<departamentos.getLength();i++){
+                Node nodo=departamentos.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element departamento=(Element) nodo;
+                        String nombreDepart=departamento.getElementsByTagName("NombreDepartamento").item(0).getTextContent();
+                        
+                            NodeList lugaresT=departamento.getElementsByTagName("LugarTuristico");
+                            for(int j=0;j<lugaresT.getLength();j++){
+                                Node nodoL=lugaresT.item(j);
+                                if(nodoL.getNodeType()==Node.ELEMENT_NODE){
+                                    Element lugar=(Element) nodoL;
+                                    String nombLug=lugar.getElementsByTagName("NombreLugar").item(0).getTextContent();
+                                    
+                                        NodeList codPaq=lugar.getElementsByTagName("codigPac");
+                                        for(int k=0;k<codPaq.getLength();k++){
+                                            Node codigPaquet=codPaq.item(k);
+                                            if(codigPaquet.getNodeType()==Node.ELEMENT_NODE){
+                                                Element codig=(Element) codigPaquet;
+                                                int codPaque=Integer.parseInt(codig.getElementsByTagName("codigPac").item(0).getTextContent());
+                                                PaqueteTuristico p=XMLPaquetes.buscarPaquet(codPaque);
+                                                listPa.add(p);
+                                            }
+                                        }
+                                        list.put(nombLug, listPa);
+                                    
+                                }
+                            }
+                        lugrs.put(nombreDepart, list);
+                    }
+                }
+                
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+        }catch(Throwable e){}
+        listPa=XMLPaquetes.paquetes();
         
         return lugrs;
     }
     
-    public static HashMap<String,ArrayList<PaqueteTuristico>> listPaquetes(){
+    public static HashMap<String,ArrayList<PaqueteTuristico>> HashPaquetes1Lug(String lugarT){
         HashMap<String,ArrayList<PaqueteTuristico>> list=new HashMap<>();
+        ArrayList<PaqueteTuristico> listPa=new ArrayList<>();
+        boolean encontrado=false;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+                
+            NodeList departamentos=document.getElementsByTagName("Departamento");
+            for(int i=0;i<departamentos.getLength()&& !encontrado;i++){
+                Node nodo=departamentos.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element departamento=(Element) nodo;
+                        String nombreDepart=departamento.getElementsByTagName("NombreDepartamento").item(0).getTextContent();
+                        
+                            NodeList lugaresT=departamento.getElementsByTagName("LugarTuristico");
+                            for(int j=0;j<lugaresT.getLength()&& !encontrado;j++){
+                                Node nodoL=lugaresT.item(j);
+                                if(nodoL.getNodeType()==Node.ELEMENT_NODE){
+                                    Element lugar=(Element) nodoL;
+                                    String nombLug=lugar.getElementsByTagName("NombreLugar").item(0).getTextContent();
+                                    if(nombLug.equals(lugarT)){
+                                        encontrado=true;
+                                        NodeList codPaq=lugar.getElementsByTagName("codigPac");
+                                        for(int k=0;k<codPaq.getLength();k++){
+                                            Node codigPaquet=codPaq.item(k);
+                                            if(codigPaquet.getNodeType()==Node.ELEMENT_NODE){
+                                                Element codig=(Element) codigPaquet;
+                                                int codPaque=Integer.parseInt(codig.getElementsByTagName("codigPac").item(0).getTextContent());
+                                                PaqueteTuristico p=XMLPaquetes.buscarPaquet(codPaque);
+                                                listPa.add(p);
+                                            }
+                                        }
+                                        list.put(nombLug, listPa);
+                                    }else{}
+                                }
+                            }
+                        
+                    }
+                }
+                
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+        }catch(Throwable e){}
+        listPa=XMLPaquetes.paquetes();
         
         return list;
     }
+    
+    public static HashMap<String,ArrayList<PaqueteTuristico>> HashPaquetesLugrs(){
+        HashMap<String,ArrayList<PaqueteTuristico>> list=new HashMap<>();
+        ArrayList<PaqueteTuristico> listPa=new ArrayList<>();
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+                
+            NodeList departamentos=document.getElementsByTagName("Departamento");
+            for(int i=0;i<departamentos.getLength();i++){
+                Node nodo=departamentos.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element departamento=(Element) nodo;
+                        String nombreDepart=departamento.getElementsByTagName("NombreDepartamento").item(0).getTextContent();
+                        
+                            NodeList lugaresT=departamento.getElementsByTagName("LugarTuristico");
+                            for(int j=0;j<lugaresT.getLength();j++){
+                                Node nodoL=lugaresT.item(j);
+                                if(nodoL.getNodeType()==Node.ELEMENT_NODE){
+                                    Element lugar=(Element) nodoL;
+                                    String nombLug=lugar.getElementsByTagName("NombreLugar").item(0).getTextContent();
+                                    
+                                        NodeList codPaq=lugar.getElementsByTagName("codigPac");
+                                        for(int k=0;k<codPaq.getLength();k++){
+                                            Node codigPaquet=codPaq.item(k);
+                                            if(codigPaquet.getNodeType()==Node.ELEMENT_NODE){
+                                                Element codig=(Element) codigPaquet;
+                                                int codPaque=Integer.parseInt(codig.getElementsByTagName("codigPac").item(0).getTextContent());
+                                                PaqueteTuristico p=XMLPaquetes.buscarPaquet(codPaque);
+                                                listPa.add(p);
+                                            }
+                                        }
+                                        list.put(nombLug, listPa);
+                                    
+                                }
+                            }
+                        
+                    }
+                }
+                
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+        }catch(Throwable e){}
+        listPa=XMLPaquetes.paquetes();
+        
+        return list;
+    }
+    //public static 
 }
