@@ -7,7 +7,6 @@ import java.util.Date;
 import modelo.*;
 import metodosAgen.*;
 /**
- *
  * @author Fred
  */
 public class ImpresorObjetosPrueba {
@@ -71,12 +70,11 @@ public class ImpresorObjetosPrueba {
         Date fec=hist.getFechaModificacion();
         System.out.println("fecha "+ fec);
         */
-        
-        eliminarClient("rebeca", 12345);
+        /*
+        eliminarClient("rebeca", 12345); //ahora se elimina el historial a la vez
+        */
     }
-    public void impresor(){
-        
-    }
+    
     ///////////////////////////
     //zona paquete
     public PaqueteTuristico pac(int cod){
@@ -99,6 +97,8 @@ public class ImpresorObjetosPrueba {
         Reserva res=null;
         return res;
     }
+    
+    
     ///////////////////////////////////
     //zona Administrador
     public Administrador buscAdmin(String nomClav,String contra){

@@ -4,6 +4,7 @@
 package modelo;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -188,6 +189,9 @@ public class XMLClientes {
                         clin=new Cliente(nomClient, nroPasaj, temporada, motivo, nroIdent);
                         clin.setFrecuencia(frec);
                         clin.setTienePaquete(hayPac);
+                        //se busca el historial y se lo integra para devolver el cliente completo
+                        Historial h=XMLHistoriales.buscarHistorial(nroIdent);
+                        clin.setHistorial(h);
                     }else{}
                 }
             }
@@ -233,6 +237,8 @@ public class XMLClientes {
                         clin=new Cliente(nomClient, nroPasaj, temporada, motivo, codIdCl);
                         clin.setFrecuencia(frec);
                         clin.setTienePaquete(hayPac);
+                        Historial h=XMLHistoriales.buscarHistorial(nroPasaj);
+                        clin.setHistorial(h);
                         listClientes.add(clin);
                 }
             }
@@ -247,6 +253,52 @@ public class XMLClientes {
         return listClientes;
     }
     
+    public static HashMap<Integer,Cliente> hashClientes(){
+        HashMap<Integer,Cliente> hashClientes=new HashMap<>();
+        Cliente clin=null;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   clientes=document.getElementsByTagName("Cliente");
+            for(int i=0;i<clientes.getLength();i++){
+                Node nodo=clientes.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element client=(Element) nodo;
+                    int codIdCl=Integer.parseInt(client.getAttribute("nroIdent"));
+                    
+                        String nomClient=client.getElementsByTagName("Nombre").item(0).getTextContent();
+                        String temporada=client.getElementsByTagName("TemporadaPreferida").item(0).getTextContent();
+                        String motivo=client.getElementsByTagName("MotivoViaje").item(0).getTextContent();
+                        int nroPasaj=Integer.parseInt(client.getElementsByTagName("nroPasajeros").item(0).getTextContent());
+                        boolean frec=Boolean.getBoolean(client.getElementsByTagName("frecuencia").item(0).getTextContent());
+                        boolean hayPac=Boolean.getBoolean(client.getElementsByTagName("HayPaquete").item(0).getTextContent());
+                        //se instancia cliente
+                        clin=new Cliente(nomClient, nroPasaj, temporada, motivo, codIdCl);
+                        clin.setFrecuencia(frec);
+                        clin.setTienePaquete(hayPac);
+                        Historial h=XMLHistoriales.buscarHistorial(codIdCl);
+                        clin.setHistorial(h);
+                        hashClientes.put(codIdCl,clin);
+                }
+            }
+            //se genera el xml
+            Source source=new DOMSource(document);
+            //donde se guardara
+            Result result=new StreamResult(archivo);
+            Transformer transformer=TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source,result);
+        }catch(Throwable e){
+        }
+        return hashClientes;
+    }
     public  static void crearHistor(int codCliente){
         XMLHistoriales.aniadirHisto(codCliente);
     }
@@ -317,10 +369,10 @@ public class XMLClientes {
     }
     
     public static void insertReserva(Reserva r,int codClient){
-        XMLHistoriales.aniadirReserv(r, 0);
+        XMLHistoriales.aniadirReserv(r, codClient);
     }
-    
-    public static void eliminarReserv(){
+    //se puede eliminar Reserva?
+    public static void estadoReserv(int codClient,String estadoReserv){
         
     }
     

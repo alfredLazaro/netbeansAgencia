@@ -105,5 +105,18 @@ public class Cliente {
     public String getTipoViaje() {
         return tipoViaje;
     }
+
+    public void setCantidadPasajeros(int cantidadPasajeros) {
+        this.cantidadPasajeros = cantidadPasajeros;
+    }
+
+    public void setHistorial(Historial historial) {
+        this.historial = historial;
+    }
+
+    public void setTipoViaje(String tipoViaje) {
+        this.tipoViaje = tipoViaje;
+    }
+    
     
 }

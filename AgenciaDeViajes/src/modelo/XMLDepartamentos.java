@@ -70,6 +70,7 @@ public class XMLDepartamentos {
                 for(String lugar:listaLugares){
                     
                     Element nodoDepart=document.createElement("Departamento");
+                    
                     Element nomDepaNodo=document.createElement("NombreDepartamento");
                     Text    nodoValorND=document.createTextNode(departamento);
                     nomDepaNodo.appendChild(nodoValorND);
@@ -83,13 +84,13 @@ public class XMLDepartamentos {
                     //se recorre la lista de codigos 
                     
                     k=0;
-                    while(k<3 &&j<codigos.size()){
+                    while(j<codigos.size()){
                     int codPaq=codigos.get(j);
                     Element codPaqNodo=document.createElement("codigPaq");
                     Text nodoValorCodig=document.createTextNode(codPaq+"");
                     codPaqNodo.appendChild(nodoValorCodig);
                     nodoLugar.appendChild(codPaqNodo);
-                    k=k+1;
+                    
                     j=j+1;
                     }
                     nodoDepart.appendChild(nomDepaNodo);
@@ -136,14 +137,13 @@ public class XMLDepartamentos {
                     nodoLugar.appendChild(nombreNodo);
                     //se recorre la lista de codigos 
                     
-                    k=0;
-                    while(k<3 &&j<codigos.size()){
+                    
+                    while(j<codigos.size()){
                     int codPaq=codigos.get(j);
                     Element codPaqNodo=document.createElement("codigPaq");
                     Text nodoValorCodig=document.createTextNode(codPaq+"");
                     codPaqNodo.appendChild(nodoValorCodig);
                     nodoLugar.appendChild(codPaqNodo);
-                    k=k+1;
                     j=j+1;
                     }
                     nodoDepart.appendChild(nomDepaNodo);

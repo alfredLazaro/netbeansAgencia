@@ -86,4 +86,14 @@ public class PaqueteTuristico{
  public void setPrecio(int nuevoPrecio){
    this.precio = nuevoPrecio;
  }
+
+ public void setDisponible(boolean disponible) {
+      this.disponible = disponible;
+ }
+
+    public void setNroIde(int nroIde) {
+        this.nroIde = nroIde;
+    }
+ 
+ 
 }

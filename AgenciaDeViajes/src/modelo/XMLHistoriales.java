@@ -119,6 +119,7 @@ public class XMLHistoriales {
                     int codig=Integer.parseInt(e.getAttribute("nroIdentida"));
                     if(codig==nroIdent){
                         String fechM=e.getElementsByTagName("FechaModificacion").item(0).getTextContent();
+                        String estadoR=e.getElementsByTagName("estado").item(0).getTextContent();
                         NodeList reservs=e.getElementsByTagName("Reserva");
                         Date fechaModificacion=null;
                         for(int j=0;j<reservs.getLength();j++){
@@ -147,6 +148,7 @@ public class XMLHistoriales {
                                     
                                 Pasaje pasaje=new Pasaje(origen, destino, fechaId, fechaV,nombC, tipTrans, nombEmp, precio);
                                 Reserva r=new Reserva(null, pasaje, c,fechReserv);
+                                r.setEstadoReserva(estadoR);
                                 reservas.add(r);
                             }else{}
                             
@@ -201,6 +203,11 @@ public class XMLHistoriales {
                 Element fechResNodo=document.createElement("fechaReserva");
                 Text nodoValFechR=document.createTextNode(r.getFechaReserva()+"");
                 fechResNodo.appendChild(nodoValFechR);
+                
+                Element estadRNodo=document.createElement("estado");
+                Text nodoValEstd=document.createTextNode(r.getFechaReserva().getDate()+"/"+r.getFechaReserva().getMonth()+"/"+(r.getFechaReserva().getYear()+1900)+"");
+                estadRNodo.appendChild(nodoValEstd);
+                
                 Element pasajeNodo=document.createElement("Pasaje");
                 
                 Element origenPasajeNodo=document.createElement("origen");
@@ -243,6 +250,7 @@ public class XMLHistoriales {
                 Text    nodoValorNI=document.createTextNode(r.getPaquete().getNroIde()+"");
                 codigPaquetNodo.appendChild(nodoValorNI);
                 
+                reservaNodo.appendChild(reservaNodo);
                 reservaNodo.appendChild(fechResNodo);
                 reservaNodo.appendChild(pasajeNodo);
                 reservaNodo.appendChild(codigPaquetNodo);
@@ -291,6 +299,10 @@ public class XMLHistoriales {
                             Element fechResNodo=document.createElement("fechaReserva");
                             Text nodoValFechR=document.createTextNode(r.getFechaReserva().getDate()+"/"+r.getFechaReserva().getMonth()+"/"+(r.getFechaReserva().getYear()+1900)+"");
                             fechResNodo.appendChild(nodoValFechR);
+                            
+                            Element estadRNodo=document.createElement("estado");
+                            Text nodoValEstd=document.createTextNode(r.getFechaReserva().getDate()+"/"+r.getFechaReserva().getMonth()+"/"+(r.getFechaReserva().getYear()+1900)+"");
+                            estadRNodo.appendChild(nodoValEstd);
                             //se llena el pasaje
                             Element pasajeNodo=document.createElement("Pasaje");
                 
@@ -330,6 +342,7 @@ public class XMLHistoriales {
                             pasajeNodo.appendChild(tipTNodo);
                             pasajeNodo.appendChild(nomEmpNodo);
                             
+                            reservaNodo.appendChild(estadRNodo);
                             reservaNodo.appendChild(fechResNodo);
                             reservaNodo.appendChild(pasajeNodo);
                             
@@ -389,5 +402,54 @@ public class XMLHistoriales {
             transformer.transform(source,result);
         }catch(Throwable e){
         }
+    }
+    
+    public static void cambioEstadReserva(int cod,String estado){
+        int ultElem;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   historiales=document.getElementsByTagName("Historial");
+            for(int i=0;i<historiales.getLength();i++){
+                Node nodo=historiales.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element e=(Element) nodo;
+                    int codig=Integer.parseInt(e.getAttribute("nroIdentida"));
+                    if(codig==cod){
+                        String fechM=e.getElementsByTagName("FechaModificacion").item(0).getTextContent();
+                        NodeList reservs=e.getElementsByTagName("Reserva");
+                        //se tomara el ultimo elemento
+                        ultElem=reservs.getLength()-1;
+                        Node reserv=e.getElementsByTagName("Reserva").item(ultElem);
+                        if(reserv.getNodeType()==Node.ELEMENT_NODE){
+                            Element reser=(Element)reserv;
+                            //tomamo su nodo estado directamente
+                            reser.getElementsByTagName("estado").item(0).setTextContent(estado);
+                        }
+                        
+                    }else{}
+                    
+                }else{}
+            }
+            //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+        }catch(Throwable e){
+        }
+    }
+    
+    public static void insertPasaje(Pasaje p){
+        
     }
 }

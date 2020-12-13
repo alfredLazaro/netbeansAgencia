@@ -428,11 +428,12 @@ public class XMLPaquetes {
             //atributos del paquete
             int     precioPaq;
             int    cantDiasPaq;
+            int nroIdPaq;
             for(int i=0;i<paquetes.getLength();i++){
                 Node nodo=paquetes.item(i);
                 if(nodo.getNodeType()==Node.ELEMENT_NODE){
                     Element paquete=(Element) nodo;
-                    int nroId=Integer.parseInt(paquete.getAttribute("nroIde"));
+                    nroIdPaq=Integer.parseInt(paquete.getAttribute("nroIde"));
                     
                         precioPaq=Integer.parseInt(paquete.getElementsByTagName("precio").item(0).getTextContent());
                         cantDiasPaq=Integer.parseInt(paquete.getElementsByTagName("CantDias").item(0).getTextContent());
@@ -496,6 +497,8 @@ public class XMLPaquetes {
                         }
                         //se aniade todo al paquete
                         p=new PaqueteTuristico(tra, h, rest, cantDiasPaq);
+                        //el identificador se setea para que devuelva normal
+                        p.setNroIde(nroIdPaq);
                         listPa.add(p);
                     
                 }

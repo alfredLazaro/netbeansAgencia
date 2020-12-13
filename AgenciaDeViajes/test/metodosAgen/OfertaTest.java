@@ -48,7 +48,7 @@ public class OfertaTest {
         pq = new PaqueteTuristico(t,h,r,5);
         pj = new Pasaje("Cochabamba", "Oruro", new Date(),new Date(),"Sara","moto acuatica","la empresa maravilla",50);    
         rv = new Reserva(pq,pj,cliente,new Date());
-        of = new Oferta(new ArrayList<Date>());
+        //of = new Oferta(new ArrayList<Date>());
     }
 
     /**
