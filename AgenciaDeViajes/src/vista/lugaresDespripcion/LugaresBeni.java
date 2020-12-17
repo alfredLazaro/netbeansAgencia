@@ -1,31 +1,35 @@
 /*
- * 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package vista;
-
+package vista.lugaresDespripcion;
+import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import metodosAgen.PaqueteTuristico;
-import modelo.*;
 
 /**
  *
- * @author fred
+ * @author Alan
  */
-public class LugaresTVistaBeni extends JFrame{
+public class LugaresBeni extends JFrame implements ActionListener{
     private JPanel panel = new JPanel();
-
-    public LugaresTVistaBeni() {
+    private JButton foto1,foto2,foto3,foto4;
+    private JComboBox lista;
+    public LugaresBeni() {
         setTitle("Lugares Turisticos");
         setBounds(500, 200, 1080, 800);
         setLocationRelativeTo(null);
@@ -73,37 +77,40 @@ public class LugaresTVistaBeni extends JFrame{
         
         //imagen1
         ImageIcon imagen1 = new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/laguna Suares/laguna-suarez.jpg"));
-        JLabel foto1 = new JLabel();
+        foto1 = new JButton();
         foto1.setBounds(50,180,250,150);
         foto1.setIcon(new ImageIcon(imagen1.getImage().getScaledInstance(300,200,4)));
+        foto1.addActionListener(this);
         panel.add(foto1);
         //imagen2
         ImageIcon imagen2 = new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/En los alrededores loma suares/20988956_340391276420779_537883119035747641_o.jpg"));
-        JLabel foto2 = new JLabel();
+        foto2 = new JButton();
         foto2.setBounds(550,180,250,150);
         foto2.setIcon(new ImageIcon(imagen2.getImage().getScaledInstance(300,200,4)));
+        foto2.addActionListener(this);
         panel.add(foto2);
        
         //imagen3
         ImageIcon imagen3 = new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Riberalta/36641482_10156001175918705_7239783761049550848_n.jpg"));
-        JLabel foto3 = new JLabel();
+        foto3 = new JButton();
         foto3.setBounds(50,380,250,150);
         foto3.setIcon(new ImageIcon(imagen3.getImage().getScaledInstance(300,200,4)));
+        foto3.addActionListener(this);
         panel.add(foto3);
         
         //imagen4
         ImageIcon imagen4 = new ImageIcon(getClass().getResource("/vista/LugaresTuristicos/Beni/Rurrenabaque/rurrenabaque-01.jpg"));
-        JLabel foto4 = new JLabel();
+        foto4 = new JButton();
         foto4.setBounds(550,380,250,150);
         foto4.setIcon(new ImageIcon(imagen4.getImage().getScaledInstance(300,200,4)));
+        foto4.addActionListener(this);
         panel.add(foto4);
     }
     private void colocarListaDesplegable(){
         String[] opciones = {"La Paz","Cochabamba","Santa Cruz","Oruro","Potosí","Chuquisaca","Tarija","Beni","Pando"};
-        JComboBox lista = new JComboBox(opciones);
+        lista = new JComboBox(opciones);
         lista.setBounds(430,100,200,30);
-        lista.setSelectedItem("Cochabamba");
-        lista.addItem("vuelos");
+        lista.addActionListener(this);
         panel.add(lista);
        
     }
@@ -156,13 +163,50 @@ public class LugaresTVistaBeni extends JFrame{
         panel.add(descripcion4);
     }
     
-    public static void main(String[] args) {
-        LugaresTVistaBeni pRiber=new LugaresTVistaBeni();
-        pRiber.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pRiber.setVisible(true);
-    }
-    HashMap<String,ArrayList<PaqueteTuristico>> hasPa=XMLDepartamentos.HashPaquetes1Lug("Ribelrata");
-    public void IniciarPaqutes(HashMap<String,ArrayList<PaqueteTuristico>> hasPac){
-        
-    }
+    public void actionPerformed (ActionEvent e){
+            String elemento = (String)lista.getSelectedItem();
+            if (elemento.equals("Oruro") == true){
+                LugaresOruro ventana = new LugaresOruro();
+                this.setVisible(false);
+                ventana.setVisible(true);
+            }
+            if (elemento.equals("Potosí") == true){
+                LugaresPotosi ventana = new LugaresPotosi();
+                this.setVisible(false);
+                ventana.setVisible(true);
+            }
+            if (elemento.equals("Chuquisaca") == true){
+                LugaresChuquisaca ventana = new LugaresChuquisaca();
+                this.setVisible(false);
+                ventana.setVisible(true);
+            }
+            if (elemento.equals("Tarija") == true){
+                LugaresTarija ventana = new LugaresTarija();
+                this.setVisible(false);
+                ventana.setVisible(true);
+            }
+            if (elemento.equals("Beni") == true){
+                LugaresBeni ventana = new LugaresBeni();
+                this.setVisible(false);
+                ventana.setVisible(true);
+            }
+            
+            if (e.getSource()== foto1 ){
+                BeniLagunaSuares nuevo = new BeniLagunaSuares();
+                nuevo.setVisible(true);
+            }
+            if (e.getSource()== foto2 ){
+                BeniRiberalta nuevo = new BeniRiberalta();
+                nuevo.setVisible(true);
+            }
+            if (e.getSource()== foto3 ){
+                BeniLomaSuares nuevo = new BeniLomaSuares();
+                nuevo.setVisible(true);
+            }
+            if (e.getSource()== foto4 ){
+                BeniRurrenabaque nuevo = new BeniRurrenabaque();
+                nuevo.setVisible(true);
+            }
+       }
+    
 }

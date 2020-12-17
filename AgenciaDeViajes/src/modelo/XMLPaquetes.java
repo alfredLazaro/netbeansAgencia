@@ -30,7 +30,13 @@ public class XMLPaquetes {
     private static final File archivo=new File(pathAch+nomArchivo+".xml");
     public static void main(String[] args) {
         IniciadorPaquete paq=new IniciadorPaquete();
+        
         ArrayList<PaqueteTuristico> pa=paq.getP();
+        if(pa!=null){
+            System.out.println("se encontro el paquete");
+        }else{
+            System.out.println("algo anda mal");
+        }
         try{
             modificarXML(pa);
         }catch(Throwable e){}
@@ -84,7 +90,7 @@ public class XMLPaquetes {
                     //en aqui create los elementos de paquete Transporte,Hotel,Restaurante
                     //transporte
                     Element transporteNodo=document.createElement("Transporte");
-                    
+                    if(pac.getTransporte()!=null){
                     Element tipoVehicNodo=document.createElement("TipoVehiculo");
                     Text    nodoValorTipo=document.createTextNode(pac.getTransporte().getTipoTransporte());
                     tipoVehicNodo.appendChild(nodoValorTipo);
@@ -101,7 +107,9 @@ public class XMLPaquetes {
                     transporteNodo.appendChild(tipoVehicNodo);
                     transporteNodo.appendChild(origenNodo);
                     transporteNodo.appendChild(preciNodo);
+                    }
                     //restaurante en su nodo tendra nombre
+                    
                     Element restauranNodo=document.createElement("Restaurante");
                     Element nombRestNodo=document.createElement("NombreRestaurante");
                     Text    nodoValorNomR=document.createTextNode(pac.getRestaurant().getNombreRest());
@@ -212,7 +220,7 @@ public class XMLPaquetes {
                         bb=true; //se cambio el estado a encontrado
                         precioPaq=Integer.parseInt(paquete.getElementsByTagName("precio").item(0).getTextContent());
                         cantDiasPaq=Integer.parseInt(paquete.getElementsByTagName("CantDias").item(0).getTextContent());
-                        disponibl=Boolean.valueOf(paquete.getElementsByTagName("diponible").item(0).getTextContent());
+                        disponibl=Boolean.valueOf(paquete.getElementsByTagName("disponible").item(0).getTextContent());
                         //transporte 
                         Node transp=paquete.getElementsByTagName("Transporte").item(0);
                         Transporte tra=null;
@@ -274,6 +282,7 @@ public class XMLPaquetes {
                         }
                         //se aniade todo al paquete
                         p=new PaqueteTuristico(tra, h, rest, cantDiasPaq);
+                        p.setNroIde(nroId);
                     }
                 }
             }
@@ -314,7 +323,7 @@ public class XMLPaquetes {
                     //en aqui create los elementos de paquete Transporte,Hotel,Restaurante
                     //transporte
                     Element transporteNodo=document.createElement("Transporte");
-                    
+                    if(pac.getTransporte()!=null){
                     Element tipoVehicNodo=document.createElement("TipoVehiculo");
                     Text    nodoValorTipo=document.createTextNode(pac.getTransporte().getTipoTransporte());
                     tipoVehicNodo.appendChild(nodoValorTipo);
@@ -331,8 +340,11 @@ public class XMLPaquetes {
                     transporteNodo.appendChild(tipoVehicNodo);
                     transporteNodo.appendChild(origenNodo);
                     transporteNodo.appendChild(preciNodo);
+                    }
+                    
                     //restaurante en su nodo tendra nombre
                     Element restauranNodo=document.createElement("Restaurante");
+                    if(pac.getRestaurant()!=null){
                     Element nombRestNodo=document.createElement("NombreRestaurante");
                     Text    nodoValorNomR=document.createTextNode(pac.getRestaurant().getNombreRest());
                     nombRestNodo.appendChild(nodoValorNomR);
@@ -364,8 +376,10 @@ public class XMLPaquetes {
                         //se aniade la comida en el restaurante
                         restauranNodo.appendChild(comidaNodo);
                     }
+                    }
                     //Hotel
                     Element hotelNodo=document.createElement("Hotel");
+                    if(pac.getHotel()!=null){
                     Element nomHotelNodo=document.createElement("NombreHotel");
                     Text    nodoValorNHot=document.createTextNode(pac.getHotel().getNombre());
                     nomHotelNodo.appendChild(nodoValorNHot);
@@ -391,6 +405,7 @@ public class XMLPaquetes {
                     hotelNodo.appendChild(preciUnHNodo);
                     hotelNodo.appendChild(cantHDNodo);
                     hotelNodo.appendChild(cantHUNodo);
+                    }
                     //se aniaden los nodos al nodo del paquete
                     nodoPaquete.appendChild(precioNodo);
                     nodoPaquete.appendChild(cantDiasNodo);

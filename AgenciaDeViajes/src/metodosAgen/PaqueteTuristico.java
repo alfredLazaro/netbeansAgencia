@@ -30,7 +30,23 @@ public class PaqueteTuristico{
     }
     
   protected int calcularPrecio(){
-      int precio = transporte.getPrecio() + hotel.getPrecioUnitario() + restaurant.calcularPrecioMenu();
+      int precio;
+      if(transporte==null){
+          precio =hotel.getPrecioUnitario() + restaurant.calcularPrecioMenu();
+      }else{
+          if(hotel==null){
+              precio = transporte.getPrecio() + restaurant.calcularPrecioMenu();
+          }else{
+              if(restaurant==null){
+                  precio = transporte.getPrecio() + hotel.getPrecioUnitario();
+              }else{
+                  //if(transporte!=null && hotel!=null && restaurant!=null){
+                      precio = transporte.getPrecio() + hotel.getPrecioUnitario() + restaurant.calcularPrecioMenu();
+                  //}
+              }
+          }
+      }
+      
       int descuentoCompleto = (precio*5)/100;
       int nuevo = precio - descuentoCompleto;
       return nuevo;    

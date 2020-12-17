@@ -109,9 +109,46 @@ public class XMLDepartamentos {
             }
     }
     
+    public static void iniciarDepartXML(ArrayList<String> listaDepart){
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                Element raiz=document.getDocumentElement();
+                //se recorre la lista de lugares
+                for(String departamento:listaDepart){
+                    
+                    Element nodoDepart=document.createElement("Departamento");
+                    
+                    Element nomDepaNodo=document.createElement("NombreDepartamento");
+                    Text    nodoValorND=document.createTextNode(departamento);
+                    nomDepaNodo.appendChild(nodoValorND);
+                    
+                    nodoDepart.appendChild(nomDepaNodo);
+                    raiz.appendChild(nodoDepart);
+                }
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+            } catch (Exception ex) {
+                Logger.getLogger(XMLAdministradores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+    }
     public static void agregarLugarTuris(String lugarT,String depart,ArrayList<Integer> codigos){
         int j,k;
         j=0;
+        boolean colocado=false;
         if(!archivo.exists()){
             try{
                 crearXML();
@@ -124,32 +161,40 @@ public class XMLDepartamentos {
                 Document               document=documentoBulider.parse(archivo);
                 document.getDocumentElement().normalize();
                 Element raiz=document.getDocumentElement();
-                Element nodoDepart=document.createElement("Departamento");
-                    Element nomDepaNodo=document.createElement("NombreDepartamento");
-                    Text    nodoValorND=document.createTextNode(depart);
-                    nomDepaNodo.appendChild(nodoValorND);
-                    Element nodoLugar=document.createElement("LugarTuristico");
-                    //creamos elementos para los datos del cliente
-                    Element nombreNodo = document.createElement("NombreLugar");
-                    Text nodoValorNombre=document.createTextNode(lugarT);
-                    nombreNodo.appendChild(nodoValorNombre);
+                NodeList departamentos=document.getElementsByTagName("Departamento");
+                for(int i=0;i<departamentos.getLength()&& !colocado;i++){
+                    Node nodo=departamentos.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element departamentoNodo=(Element) nodo;
+                        String nombreDepartamento=departamentoNodo.getElementsByTagName("NombreDepartamento").item(0).getTextContent();
+                        if(nombreDepartamento.equals(depart)){
+                            Element nodoLugar=document.createElement("LugarTuristico");
+                            //creamos elementos para los datos del cliente
+                            Element nombreNodo = document.createElement("NombreLugar");
+                            Text nodoValorNombre=document.createTextNode(lugarT);
+                            nombreNodo.appendChild(nodoValorNombre);
                     
-                    nodoLugar.appendChild(nombreNodo);
-                    //se recorre la lista de codigos 
+                            nodoLugar.appendChild(nombreNodo);
+                            //se recorre la lista de codigos 
                     
                     
-                    while(j<codigos.size()){
-                    int codPaq=codigos.get(j);
-                    Element codPaqNodo=document.createElement("codigPaq");
-                    Text nodoValorCodig=document.createTextNode(codPaq+"");
-                    codPaqNodo.appendChild(nodoValorCodig);
-                    nodoLugar.appendChild(codPaqNodo);
-                    j=j+1;
+                            while(j<codigos.size()){
+                                int codPaq=codigos.get(j);
+                                Element codPaqNodo=document.createElement("codigPaq");
+                                Text nodoValorCodig=document.createTextNode(codPaq+"");
+                                codPaqNodo.appendChild(nodoValorCodig);
+                                nodoLugar.appendChild(codPaqNodo);
+                                j=j+1;
+                            }
+                            departamentoNodo.appendChild(nodoLugar);
+                            //la proxima vez no deberia crear departamentos repetidos
+                            colocado=true;
+                        }
                     }
-                    nodoDepart.appendChild(nomDepaNodo);
-                    nodoDepart.appendChild(nodoLugar);
+                }
                     
-                    raiz.appendChild(nodoDepart);
+                    
+                    //raiz.appendChild(nodoDepart);
                 
                 //se genera el xml
                 Source source=new DOMSource(document);
@@ -428,5 +473,60 @@ public class XMLDepartamentos {
         
         return list;
     }
-    //public static 
+    
+    public static void insertPaqLugar(String lugarT,PaqueteTuristico pac){
+        boolean colocado=false;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+            try {
+                DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                
+                Element raiz=document.getDocumentElement();
+                NodeList departamentos=document.getElementsByTagName("Departamento");
+                for(int i=0;i<departamentos.getLength()&& !colocado;i++){
+                    Node nodo=departamentos.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element departamentoNodo=(Element) nodo;
+                        NodeList lugares=departamentoNodo.getElementsByTagName("LugarTuristico");
+                        for(int j=0;j<lugares.getLength() && !colocado;j++){
+                            Node nodo1=lugares.item(j);
+                            if(nodo1.getNodeType()==Node.ELEMENT_NODE){
+                                Element lugarNodo=(Element) nodo1;
+                                String nombreLugar=lugarNodo.getElementsByTagName("NombreLugar").item(0).getTextContent();
+                                if(nombreLugar.equals(lugarT)){
+                                    int codPaq= pac.getNroIde();
+                                    Element codPaqNodo=document.createElement("codigPaq");
+                                    Text nodoValorCodig=document.createTextNode(codPaq+"");
+                                    codPaqNodo.appendChild(nodoValorCodig);
+                                    lugarNodo.appendChild(codPaqNodo);
+                                    XMLPaquetes.insertPaquet(pac);
+                            //departamentoNodo.appendChild(nodoLugar);
+                            //la proxima vez no deberia crear departamentos repetidos
+                            colocado=true;
+                                }
+                            }
+                        }
+                        
+                        
+                    }
+                }
+                    
+                    
+                    //raiz.appendChild(nodoDepart);
+                
+                //se genera el xml
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+            }catch(Throwable e){}
+    }
 }

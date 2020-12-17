@@ -44,14 +44,17 @@ public class IniciadorPaquete {
                 comid13,comid14,comid15,comid16,comid17,comid18,
                 comid19,comid20,comid21,comid22,comid23,comid24,comid25,comid26;
                 
-    Transporte  transpTierraCbba,transpTierraChu,transpTierraTa,transpTierraSC,transpTierraBeni,
-                transpTierraPan,transpTierraLP,transpTierraOr,transpTierraPot,
-                transpAireCbba,transpAireChu,transpAireTa,transpAireSC,transpAireBeni,
-                transpAirePan,transpAireLP,transpAireOr,transpAirePot;
+    Transporte  transpTierraCbba1,transpTierraChu1,transpTierraTa1,transpTierraSC1,transpTierraBeni1,
+                transpTierraPan1,transpTierraLP1,transpTierraOr1,transpTierraPot1,
+                transpTierraCbba2,transpTierraChu2,transpTierraTa2,transpTierraSC2,transpTierraBeni2,
+                transpTierraPan2,transpTierraLP2,transpTierraOr2,transpTierraPot2,
+                transpTierraCbba3,transpTierraChu3,transpTierraTa3,transpTierraSC3,transpTierraBeni3,
+                transpTierraPan3,transpTierraLP3,transpTierraOr3,transpTierraPot3,
+                transpAguaBeni1,transpAguaBeni2;
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         
-    }
+    }*/
     
     public IniciadorPaquete(){
         p=new ArrayList<>();
@@ -59,104 +62,104 @@ public class IniciadorPaquete {
         iniciarH();
         iniciarR();
         //Cochabamba
-        paquete1 = new PaqueteTuristico(transpTierraCbba,hotCbba1,restCbba1,4);
-        paquete2 = new PaqueteTuristico(transpTierraCbba,hotCbba2,restCbba2,2);
-        paquete3 = new PaqueteTuristico(transpTierraCbba,hotCbba1,restCbba4,5);
-        paquete4 = new PaqueteTuristico(transpTierraCbba,hotCbba4,restCbba4,4);
-        paquete5 = new PaqueteTuristico(transpTierraCbba,hotCbba5,restCbba5,3);
-        paquete6 = new PaqueteTuristico(transpAireCbba,hotCbba1,restCbba3,4);
-        paquete7 = new PaqueteTuristico(transpAireCbba,hotCbba2,restCbba5,5);
-        paquete8 = new PaqueteTuristico(transpAireCbba,hotCbba3,restCbba3,3);
-        paquete9 = new PaqueteTuristico(transpAireCbba,hotCbba2,restCbba1,4);
-        paquete10 = new PaqueteTuristico(transpAireCbba,hotCbba1,restCbba5,3);
+        paquete1 = new PaqueteTuristico(transpTierraCbba1,hotCbba1,restCbba1,4);
+        paquete2 = new PaqueteTuristico(transpTierraCbba3,hotCbba2,restCbba2,2);
+        paquete3 = new PaqueteTuristico(transpTierraCbba2,hotCbba1,restCbba4,5);
+        paquete4 = new PaqueteTuristico(transpTierraCbba1,hotCbba4,restCbba4,4);
+        paquete5 = new PaqueteTuristico(transpTierraCbba3,hotCbba5,restCbba5,3);
+        paquete6 = new PaqueteTuristico(transpTierraCbba2,hotCbba1,restCbba3,4);
+        paquete7 = new PaqueteTuristico(transpTierraCbba1,hotCbba2,restCbba5,5);
+        paquete8 = new PaqueteTuristico(transpTierraCbba2,hotCbba3,restCbba3,3);
+        paquete9 = new PaqueteTuristico(transpTierraCbba3,hotCbba2,restCbba1,4);
+        paquete10 = new PaqueteTuristico(transpTierraCbba1,hotCbba1,restCbba5,3);
         //Chuquisaca
-        paquete11 = new PaqueteTuristico(transpTierraChu,hotChuq1,resChuq1,3);
-        paquete12 = new PaqueteTuristico(transpTierraChu,hotChuq2,resChuq2,1);
-        paquete13 = new PaqueteTuristico(transpTierraChu,hotChuq3,resChuq2,5);
-        paquete14 = new PaqueteTuristico(transpTierraChu,hotChuq4,resChuq4,4);
-        paquete15 = new PaqueteTuristico(transpTierraChu,hotChuq5,resChuq5,3);
-        paquete16 = new PaqueteTuristico(transpAireChu,hotChuq1,resChuq1,2);
-        paquete17 = new PaqueteTuristico(transpAireChu,hotChuq3,resChuq3,2);
-        paquete18 = new PaqueteTuristico(transpAireChu,hotChuq1,resChuq4,5);
-        paquete19 = new PaqueteTuristico(transpAireChu,hotChuq4,resChuq1,4);
-        paquete20 = new PaqueteTuristico(transpAireChu,hotChuq2,resChuq5,1);
+        paquete11 = new PaqueteTuristico(transpTierraChu1,hotChuq1,resChuq1,3);
+        paquete12 = new PaqueteTuristico(transpTierraChu2,hotChuq2,resChuq2,1);
+        paquete13 = new PaqueteTuristico(transpTierraChu1,hotChuq3,resChuq2,5);
+        paquete14 = new PaqueteTuristico(transpTierraChu2,hotChuq4,resChuq4,4);
+        paquete15 = new PaqueteTuristico(transpTierraChu2,hotChuq5,resChuq5,3);
+        paquete16 = new PaqueteTuristico(transpTierraChu1,hotChuq1,resChuq1,2);
+        paquete17 = new PaqueteTuristico(transpTierraChu3,hotChuq3,resChuq3,2);
+        paquete18 = new PaqueteTuristico(transpTierraChu2,hotChuq1,resChuq4,5);
+        paquete19 = new PaqueteTuristico(transpTierraChu3,hotChuq4,resChuq1,4);
+        paquete20 = new PaqueteTuristico(transpTierraChu1,hotChuq2,resChuq5,1);
         //Tarija
-        paquete21 = new PaqueteTuristico(transpTierraTa,hotTar1,resTar1,3);
-        paquete22 = new PaqueteTuristico(transpTierraTa,hotTar1,resTar2,2);
-        paquete23 = new PaqueteTuristico(transpTierraTa,hotTar3,resTar3,4);
-        paquete24 = new PaqueteTuristico(transpTierraTa,hotTar3,resTar2,5);
-        paquete25 = new PaqueteTuristico(transpTierraTa,hotTar5,resTar5,4);
-        paquete26 = new PaqueteTuristico(transpAireTa,hotTar5,resTar4,2);
-        paquete27 = new PaqueteTuristico(transpAireTa,hotTar2,resTar2,3);
-        paquete28 = new PaqueteTuristico(transpAireTa,hotTar3,resTar1,3);
-        paquete29 = new PaqueteTuristico(transpAireTa,hotTar4,resTar4,3);
-        paquete30 = new PaqueteTuristico(transpAireTa,hotTar1,resTar2,2);
+        paquete21 = new PaqueteTuristico(transpTierraTa1,hotTar1,resTar1,3);
+        paquete22 = new PaqueteTuristico(transpTierraTa2,hotTar1,resTar2,2);
+        paquete23 = new PaqueteTuristico(transpTierraTa2,hotTar3,resTar3,4);
+        paquete24 = new PaqueteTuristico(transpTierraTa1,hotTar3,resTar2,5);
+        paquete25 = new PaqueteTuristico(transpTierraTa1,hotTar5,resTar5,4);
+        paquete26 = new PaqueteTuristico(transpTierraTa2,hotTar5,resTar4,2);
+        paquete27 = new PaqueteTuristico(transpTierraTa3,hotTar2,resTar2,3);
+        paquete28 = new PaqueteTuristico(transpTierraTa3,hotTar3,resTar1,3);
+        paquete29 = new PaqueteTuristico(transpTierraTa1,hotTar4,resTar4,3);
+        paquete30 = new PaqueteTuristico(transpTierraTa3,hotTar1,resTar2,2);
         //La Paz
-        paquete31 = new PaqueteTuristico(transpTierraLP,hotLP1,restLP1,4);
-        paquete32 = new PaqueteTuristico(transpTierraLP,hotLP1,restLP1,4);
-        paquete33 = new PaqueteTuristico(transpTierraLP,hotLP1,restLP1,4);
-        paquete34 = new PaqueteTuristico(transpTierraLP,hotLP1,restLP1,4);
-        paquete35 = new PaqueteTuristico(transpTierraLP,hotLP1,restLP1,4);
-        paquete36 = new PaqueteTuristico(transpAireLP,hotLP1,restLP1,3);
-        paquete37 = new PaqueteTuristico(transpAireLP,hotLP1,restLP1,3);
-        paquete38 = new PaqueteTuristico(transpAireLP,hotLP1,restLP1,3);
-        paquete39 = new PaqueteTuristico(transpAireLP,hotLP1,restLP1,3);
-        paquete40 = new PaqueteTuristico(transpAireLP,hotLP1,restLP1,3);
+        paquete31 = new PaqueteTuristico(transpTierraLP3,hotLP1,restLP1,4);
+        paquete32 = new PaqueteTuristico(transpTierraLP1,hotLP1,restLP1,4);
+        paquete33 = new PaqueteTuristico(transpTierraLP3,hotLP1,restLP1,4);
+        paquete34 = new PaqueteTuristico(transpTierraLP2,hotLP1,restLP1,4);
+        paquete35 = new PaqueteTuristico(transpTierraLP1,hotLP1,restLP1,4);
+        paquete36 = new PaqueteTuristico(transpTierraLP2,hotLP1,restLP1,3);
+        paquete37 = new PaqueteTuristico(transpTierraLP1,hotLP1,restLP1,3);
+        paquete38 = new PaqueteTuristico(transpTierraLP2,hotLP1,restLP1,3);
+        paquete39 = new PaqueteTuristico(transpTierraLP3,hotLP1,restLP1,3);
+        paquete40 = new PaqueteTuristico(transpTierraLP3,hotLP1,restLP1,3);
         //Oruro
-        paquete41 = new PaqueteTuristico(transpTierraOr,hotOr3,restOr1,2);
-        paquete42 = new PaqueteTuristico(transpTierraOr,hotOr2,restOr2,3);
-        paquete43 = new PaqueteTuristico(transpTierraOr,hotOr4,restOr2,3);
-        paquete44 = new PaqueteTuristico(transpTierraOr,hotOr4,restOr4,2);
-        paquete45 = new PaqueteTuristico(transpTierraOr,hotOr5,restOr1,2);
-        paquete46 = new PaqueteTuristico(transpAireOr,hotOr1,restOr2,4);
-        paquete47 = new PaqueteTuristico(transpAireOr,hotOr1,restOr5,5);
-        paquete48 = new PaqueteTuristico(transpAireOr,hotOr3,restOr3,3);
-        paquete49 = new PaqueteTuristico(transpAireOr,hotOr3,restOr2,3);
-        paquete50 = new PaqueteTuristico(transpAireOr,hotOr5,restOr5,2);
+        paquete41 = new PaqueteTuristico(transpTierraOr1,hotOr3,restOr1,2);
+        paquete42 = new PaqueteTuristico(transpTierraOr2,hotOr2,restOr2,3);
+        paquete43 = new PaqueteTuristico(transpTierraOr3,hotOr4,restOr2,3);
+        paquete44 = new PaqueteTuristico(transpTierraOr3,hotOr4,restOr4,2);
+        paquete45 = new PaqueteTuristico(transpTierraOr2,hotOr5,restOr1,2);
+        paquete46 = new PaqueteTuristico(transpTierraOr1,hotOr1,restOr2,4);
+        paquete47 = new PaqueteTuristico(transpTierraOr2,hotOr1,restOr5,5);
+        paquete48 = new PaqueteTuristico(transpTierraOr1,hotOr3,restOr3,3);
+        paquete49 = new PaqueteTuristico(transpTierraOr3,hotOr3,restOr2,3);
+        paquete50 = new PaqueteTuristico(transpTierraOr3,hotOr5,restOr5,2);
         //Potosi
-        paquete51 = new PaqueteTuristico(transpTierraPot,hotPot1,restPot1,4);
-        paquete52 = new PaqueteTuristico(transpTierraPot,hotPot2,restPot3,2);
-        paquete53 = new PaqueteTuristico(transpTierraPot,hotPot3,restPot2,3);
-        paquete54 = new PaqueteTuristico(transpTierraPot,hotPot3,restPot4,2);
-        paquete55 = new PaqueteTuristico(transpTierraPot,hotPot5,restPot5,4);
-        paquete56 = new PaqueteTuristico(transpAireOr,hotPot1,restPot4,5);
-        paquete57 = new PaqueteTuristico(transpAireOr,hotPot2,restPot2,4);
-        paquete58 = new PaqueteTuristico(transpAireOr,hotPot3,restPot3,2);
-        paquete59 = new PaqueteTuristico(transpAireOr,hotPot4,restPot4,3);
-        paquete60 = new PaqueteTuristico(transpAireOr,hotPot5,restPot2,4);
+        paquete51 = new PaqueteTuristico(transpTierraPot3,hotPot1,restPot1,4);
+        paquete52 = new PaqueteTuristico(transpTierraPot2,hotPot2,restPot3,2);
+        paquete53 = new PaqueteTuristico(transpTierraPot1,hotPot3,restPot2,3);
+        paquete54 = new PaqueteTuristico(transpTierraPot1,hotPot3,restPot4,2);
+        paquete55 = new PaqueteTuristico(transpTierraPot2,hotPot5,restPot5,4);
+        paquete56 = new PaqueteTuristico(transpTierraPot3,hotPot1,restPot4,5);
+        paquete57 = new PaqueteTuristico(transpTierraPot2,hotPot2,restPot2,4);
+        paquete58 = new PaqueteTuristico(transpTierraPot3,hotPot3,restPot3,2);
+        paquete59 = new PaqueteTuristico(transpTierraPot1,hotPot4,restPot4,3);
+        paquete60 = new PaqueteTuristico(transpTierraPot2,hotPot5,restPot2,4);
         //Santa Cruz
-        paquete61 = new PaqueteTuristico(transpTierraSC,hotSC1,restSC1,5);
-        paquete62 = new PaqueteTuristico(transpTierraSC,hotSC2,restSC3,3);
-        paquete63 = new PaqueteTuristico(transpTierraSC,hotSC2,restSC4,5);
-        paquete64 = new PaqueteTuristico(transpTierraSC,hotSC4,restSC4,3);
-        paquete65 = new PaqueteTuristico(transpTierraSC,hotSC5,restSC5,5);
-        paquete66 = new PaqueteTuristico(transpAireSC,hotSC5,restSC1,2);
-        paquete67 = new PaqueteTuristico(transpAireSC,hotSC2,restSC2,4);
-        paquete68 = new PaqueteTuristico(transpAireSC,hotSC3,restSC3,2);
-        paquete69 = new PaqueteTuristico(transpAireSC,hotSC4,restSC2,4);
-        paquete70 = new PaqueteTuristico(transpAireSC,hotSC3,restSC2,2);
+        paquete61 = new PaqueteTuristico(transpTierraSC2,hotSC1,restSC1,5);
+        paquete62 = new PaqueteTuristico(transpTierraSC3,hotSC2,restSC3,3);
+        paquete63 = new PaqueteTuristico(transpTierraSC1,hotSC2,restSC4,5);
+        paquete64 = new PaqueteTuristico(transpTierraSC2,hotSC4,restSC4,3);
+        paquete65 = new PaqueteTuristico(transpTierraSC3,hotSC5,restSC5,5);
+        paquete66 = new PaqueteTuristico(transpTierraSC1,hotSC5,restSC1,2);
+        paquete67 = new PaqueteTuristico(transpTierraSC3,hotSC2,restSC2,4);
+        paquete68 = new PaqueteTuristico(transpTierraSC2,hotSC3,restSC3,2);
+        paquete69 = new PaqueteTuristico(transpTierraSC3,hotSC4,restSC2,4);
+        paquete70 = new PaqueteTuristico(transpTierraSC2,hotSC3,restSC2,2);
         //Beni
-        paquete71 = new PaqueteTuristico(transpTierraBeni,hotBeni1,restBeni4,4);
-        paquete72 = new PaqueteTuristico(transpTierraBeni,hotBeni5,restBeni2,3);
-        paquete73 = new PaqueteTuristico(transpTierraBeni,hotBeni3,restBeni4,2);
-        paquete74 = new PaqueteTuristico(transpTierraBeni,hotBeni4,restBeni5,2);
-        paquete75 = new PaqueteTuristico(transpTierraBeni,hotBeni2,restBeni1,4);
-        paquete76 = new PaqueteTuristico(transpAireBeni,hotBeni1,restBeni1,2);
-        paquete77 = new PaqueteTuristico(transpAireBeni,hotBeni2,restBeni2,3);
-        paquete78 = new PaqueteTuristico(transpAireBeni,hotBeni3,restBeni3,3);
-        paquete79 = new PaqueteTuristico(transpAireBeni,hotBeni4,restBeni4,4);
-        paquete80 = new PaqueteTuristico(transpAireBeni,hotBeni5,restBeni5,2);
+        paquete71 = new PaqueteTuristico(transpTierraBeni1,hotBeni1,restBeni4,4);
+        paquete72 = new PaqueteTuristico(transpTierraBeni2,hotBeni5,restBeni2,3);
+        paquete73 = new PaqueteTuristico(transpTierraBeni2,hotBeni3,restBeni4,2);
+        paquete74 = new PaqueteTuristico(transpTierraBeni3,hotBeni4,restBeni5,2);
+        paquete75 = new PaqueteTuristico(transpTierraBeni3,hotBeni2,restBeni1,4);
+        paquete76 = new PaqueteTuristico(transpTierraBeni1,hotBeni1,restBeni1,2);
+        paquete77 = new PaqueteTuristico(transpAguaBeni1,hotBeni2,restBeni2,3);
+        paquete78 = new PaqueteTuristico(transpAguaBeni2,hotBeni3,restBeni3,3);
+        paquete79 = new PaqueteTuristico(transpAguaBeni1,hotBeni4,restBeni4,4);
+        paquete80 = new PaqueteTuristico(transpAguaBeni2,hotBeni5,restBeni5,2);
         //Pando
-        paquete81 = new PaqueteTuristico(transpTierraPan,hotPan1,restPan1,4);
-        paquete82 = new PaqueteTuristico(transpTierraPan,hotPan3,restPan2,4);
-        paquete83 = new PaqueteTuristico(transpTierraPan,hotPan1,restPan3,4);
-        paquete84 = new PaqueteTuristico(transpTierraPan,hotPan2,restPan4,4);
-        paquete85 = new PaqueteTuristico(transpTierraPan,hotPan1,restPan5,4);
-        paquete86 = new PaqueteTuristico(transpAirePan,hotPan2,restPan5,3);
-        paquete87 = new PaqueteTuristico(transpAirePan,hotPan3,restPan4,3);
-        paquete88 = new PaqueteTuristico(transpAirePan,hotPan4,restPan2,3);
-        paquete89 = new PaqueteTuristico(transpAirePan,hotPan5,restPan3,3);
-        paquete90 = new PaqueteTuristico(transpAirePan,hotPan5,restPan1,3);
+        paquete81 = new PaqueteTuristico(transpTierraPan3,hotPan1,restPan1,4);
+        paquete82 = new PaqueteTuristico(transpTierraPan3,hotPan3,restPan2,4);
+        paquete83 = new PaqueteTuristico(transpTierraPan2,hotPan1,restPan3,5);
+        paquete84 = new PaqueteTuristico(transpTierraPan2,hotPan2,restPan4,4);
+        paquete85 = new PaqueteTuristico(transpTierraPan1,hotPan1,restPan5,2);
+        paquete86 = new PaqueteTuristico(transpTierraPan1,hotPan2,restPan5,2);
+        paquete87 = new PaqueteTuristico(transpTierraPan3,hotPan3,restPan4,2);
+        paquete88 = new PaqueteTuristico(transpTierraPan2,hotPan4,restPan2,4);
+        paquete89 = new PaqueteTuristico(transpTierraPan1,hotPan5,restPan3,3);
+        paquete90 = new PaqueteTuristico(transpTierraPan2,hotPan5,restPan1,3);
         aniadirListaPaquetes();
     }
     
@@ -227,25 +230,46 @@ public class IniciadorPaquete {
     
     private void iniciarT(){
         //Tierra
-        transpTierraCbba = new Transporte(80,"Cochabamba","Bus Cama");
-        transpTierraChu = new Transporte(80,"Chuquisaca","Bus Cama");
-        transpTierraTa = new Transporte(80,"Tarija","Bus Cama");
-        transpTierraSC = new Transporte(80,"Santa Cruz","Bus Cama");
-        transpTierraBeni = new Transporte(80,"Beni","Bus Cama");
-        transpTierraPan = new Transporte(80,"Pando","Bus Cama");
-        transpTierraLP = new Transporte(80,"La Paz","Bus Cama");
-        transpTierraOr = new Transporte(80,"Oruro","Bus Cama");
-        transpTierraPot = new Transporte(80,"Potosi","Bus Cama");
-        //Aire
-        transpAireCbba = new Transporte(180,"Cochabamba","Avión");
-        transpAireChu = new Transporte(180,"Chuquisaca","Avión");
-        transpAireTa = new Transporte(180,"Tarija","Avión");
-        transpAireSC = new Transporte(180,"Santa Cruz","Avión");
-        transpAireBeni = new Transporte(180,"Beni","Avión");
-        transpAirePan = new Transporte(180,"Pando","Avión");
-        transpAireLP = new Transporte(180,"La Paz","Avión");
-        transpAireOr = new Transporte(180,"Oruro","Avión");
-        transpAirePot = new Transporte(180,"Potosi","Avión");
+        transpTierraCbba1 = new Transporte(50,"Cochabamba","Bus Turistico");
+        transpTierraCbba2 = new Transporte(40,"Cochabamba","Jeep");
+        transpTierraCbba3 = new Transporte(20,"Cochabamba","Bicicleta");
+        
+        transpTierraChu1 = new Transporte(50,"Chuquisaca","Bus Turistico");
+        transpTierraChu2 = new Transporte(80,"Chuquisaca","Jeep");
+        transpTierraChu3 = new Transporte(20,"Chuquisaca","Bicicleta");
+        
+        transpTierraTa1 = new Transporte(50,"Tarija","Bus Turistico");
+        transpTierraTa2 = new Transporte(40,"Tarija","Jeep");
+        transpTierraTa3 = new Transporte(20,"Tarija","Bicicleta");
+        
+        transpTierraSC1 = new Transporte(50,"Santa Cruz","Bus Turistico");
+        transpTierraSC2 = new Transporte(40,"Santa Cruz","Jeep");
+        transpTierraSC3 = new Transporte(30,"Santa Cruz","Moto Taxi");
+        
+        transpTierraBeni1 = new Transporte(50,"Beni","Bus Turistico");
+        transpTierraBeni2 = new Transporte(40,"Beni","Jeep");
+        transpTierraBeni3 = new Transporte(25,"Beni","Caballo");
+        
+        transpTierraPan1 = new Transporte(50,"Pando","Bus Turistico");
+        transpTierraPan2 = new Transporte(40,"Pando","Jeep");
+        transpTierraPan3 = new Transporte(20,"Pando","Caballo");
+        
+        transpTierraLP1 = new Transporte(50,"La Paz","Bus Turistico");
+        transpTierraLP2  = new Transporte(40,"La Paz","Jeep");
+        transpTierraLP3 = new Transporte(30, "La Paz","PumaKatari");
+        
+        transpTierraOr1 = new Transporte(50,"Oruro","Bus Turistico");
+        transpTierraOr2 = new Transporte(40,"Oruro","Jeep");
+        transpTierraOr3 = new Transporte(35,"Oruro","Minivan");
+        
+        transpTierraPot1 = new Transporte(50,"Potosi","Bus Turistico");
+        transpTierraPot2= new Transporte(40,"Potosi","Jeep");
+        transpTierraPot3 = new Transporte(35,"Oruro","Minivan");
+        
+        //Agua
+        transpAguaBeni1 = new Transporte(40,"Beni","Moto Acuatica");
+        transpAguaBeni2 = new Transporte(40,"Beni","Bote");
+        
     }
     
     private void iniciarR(){

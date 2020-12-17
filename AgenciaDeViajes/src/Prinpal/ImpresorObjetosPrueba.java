@@ -10,19 +10,25 @@ import metodosAgen.*;
  * @author Fred
  */
 public class ImpresorObjetosPrueba {
-    private XMLPaquetes paq;
-    private XMLAdministradores adminis;
+    
     private ArrayList<Cliente> listClientes;
     private ArrayList<Administrador> listAd;
     private ArrayList<PaqueteTuristico> lisPaquetes;
+    private Comida      comid2,comid1;
+    private PaqueteTuristico paquete2;
+    private Hotel hotCbba2;
+    private Restaurante restCbba2;
+    
     public static void main(String[] args) {
         ImpresorObjetosPrueba imp=new ImpresorObjetosPrueba();
     }
     
     public ImpresorObjetosPrueba(){
-        /*
-        PaqueteTuristico pa=pac(627);
+        
+        PaqueteTuristico pa=buscarPac(391); // error en qui nose por que
         System.out.println("cant dias "+pa.getCantDias());
+        
+        /*
         Administrador admin=admin("agente45","67531896");
         System.out.println("contraseña " +admin.getContrasenia());
         aniaHistorial(123456);
@@ -46,9 +52,10 @@ public class ImpresorObjetosPrueba {
         System.out.println("nombre "+n);
             System.out.println("nroPasajeros"+ nroP);
         }
+        
         */
         /*
-        insertAd("Agente67", "67531896");
+        insertAd("Agente69", "67531896");
         
         listAd=listAd();
         for(Administrador a:listAd){
@@ -70,14 +77,26 @@ public class ImpresorObjetosPrueba {
         Date fec=hist.getFechaModificacion();
         System.out.println("fecha "+ fec);
         */
+        
+        //eliminarClient("Alan", 54231); //ahora se elimina el historial a la vez
+        
         /*
-        eliminarClient("rebeca", 12345); //ahora se elimina el historial a la vez
+        hotCbba2 = new Hotel(450,"Cochabamba","Huper Hotel Boutique");
+        restCbba2 = new Restaurante("Cochabamba","Jacaranda");
+        comid1 = new Comida("Pique Macho",100);
+        comid2 = new Comida("Charque",80);
+        restCbba2.agregarPlato(comid1);
+        restCbba2.agregarPlato(comid2);
+        paquete2 = new PaqueteTuristico(null,hotCbba2,restCbba2,2);
+        insertPacLugar("Villa Tunari", paquete2);
         */
+        
+        
     }
     
     ///////////////////////////
     //zona paquete
-    public PaqueteTuristico pac(int cod){
+    public PaqueteTuristico buscarPac(int cod){
         PaqueteTuristico res=null;
         res=XMLPaquetes.buscarPaquet(cod);
         if(res==null){
@@ -91,13 +110,16 @@ public class ImpresorObjetosPrueba {
         paqs=XMLPaquetes.paquetes();
         return paqs;
     }
+    
+    public void insertPacLugar(String lug,PaqueteTuristico pac){
+        XMLDepartamentos.insertPaqLugar(lug, pac);
+    }
     ////////////////////////////////
     //zona reserva
     public Reserva reserv(){
         Reserva res=null;
         return res;
     }
-    
     
     ///////////////////////////////////
     //zona Administrador
@@ -152,7 +174,11 @@ public class ImpresorObjetosPrueba {
     //zona Cliente
     public void insertClient(Cliente c){
         XMLClientes.insertCliente(c);
+        XMLClientes.buscarClient(123423);
     }
+    
+    
+    
     //elim Cliente
     public void eliminarClient(String nom, int codig){
         XMLClientes.eliminarClienteXML(nom, codig);

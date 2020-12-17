@@ -377,7 +377,43 @@ public class XMLClientes {
     }
     
     //estado de cliente como freduente
-    public static void cambiarEstado(int nroIdent,String nodo,String estadoCambio){
+    public static void cambiarEstadoClient(int nroIdent,String nodoC,String estadoCambio){
+        //3 posibles estados a cambiar dentro de cliente
+        //TemporadaPreferida,MotivoViaje,nroPasajeros,frecuencia,HayPaquete
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   clientes=document.getElementsByTagName("Cliente");
+            for(int i=0;i<clientes.getLength();i++){
+                Node nodo=clientes.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element client=(Element) nodo;
+                    int codIdCl=Integer.parseInt(client.getAttribute("nroIdent"));
+                    if(codIdCl==nroIdent){
+                        if(nodoC.equals("TemporadaPreferida")||nodo.equals("MotivoViaje")||nodo.equals("nroPasajeros")||nodo.equals("frecuencia")||nodo.equals("HayPaquete")){
+                            Element nodoModif=(Element)client.getElementsByTagName(nodoC).item(0);
+                            //se modifica el texto (estado de el nodo)
+                            nodoModif.setTextContent(estadoCambio);
+                        }
+                    }else{}
+                }
+            }
+            //se genera el xml
+            Source source=new DOMSource(document);
+            //donde se guardara
+            Result result=new StreamResult(archivo);
+            Transformer transformer=TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source,result);
+        }catch(Throwable e){
+        }
         
     }
     

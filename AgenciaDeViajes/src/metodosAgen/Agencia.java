@@ -8,7 +8,7 @@ public class Agencia {
     private Administrador usuario;
     private HashMap<String,ArrayList<PaqueteTuristico>> lugaresTuristicos;
     private HashMap<Integer,Cliente> clientes;
-    private ArrayList<Pasaje> pasajes;
+    private ArrayList<Pasaje> pasajes; //esto no ulti
     private String nombEmpresa;
   
    public Agencia(Administrador usuario, ArrayList<Pasaje> pasajes, String nomb,HashMap<String,ArrayList<PaqueteTuristico>> lugaresTuristicos, HashMap<Integer,Cliente> clientes){

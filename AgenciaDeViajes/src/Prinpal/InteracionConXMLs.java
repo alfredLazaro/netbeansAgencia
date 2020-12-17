@@ -6,24 +6,27 @@ import metodosAgen.*;
 import modelo.XMLAdministradores;
 import modelo.XMLClientes;
 import modelo.XMLDepartamentos;
+import modelo.XMLPaquetes;
 /**
  *
  * @author fred
  */
+
 public class InteracionConXMLs {
     private Agencia agen;
     private HashMap<Integer,Cliente> clientes;
     private HashMap<String,ArrayList<PaqueteTuristico>> lugares;
     private Administrador admin;
     private String nombreEmp;
-    public InteracionConXMLs(String nombreEmpresa) {
-        nombreEmp=nombreEmpresa;
+    public InteracionConXMLs() {
+        //vista=vista.setLabelTitulo;
+        nombreEmp="Travel Pandemic";
         iniciarClientes();
         iniciarLugares();
         boolean e=existAdm("agente67", "67531896");
         
         agen=new Agencia(null, null, nombreEmp, lugares, clientes);
-        
+        //vista.setPaquetes();
     }
     private void iniciarClientes(){
         clientes=XMLClientes.hashClientes();
@@ -43,6 +46,18 @@ public class InteracionConXMLs {
         return existe;
     }
     private void pruebLugrs(){
+        
+    }
+    
+    public void agregPac(String nomb){
+        
+        agen.agregarPaquete(nombreEmp, nombreEmp, nombreEmp, nombreEmp, 0);
+                //falta obtener el paquete creado
+        //XMLPaquetes.insertPaquet(pac);
+        
+    }
+    
+    public void agreg(){
         
     }
 }
