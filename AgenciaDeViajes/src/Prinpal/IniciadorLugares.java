@@ -99,9 +99,9 @@ public class IniciadorLugares {
          XMLDepartamentos.agregarLugarTuris("Loma Suares", "Beni",obtenerCodLug(79));
          //Pando
          /*
-         XMLDepartamentos.agregarLugarTuris("", "Pando",obtenerCodLug(80));
-         XMLDepartamentos.agregarLugarTuris("", "Pando",obtenerCodLug(83));
-         XMLDepartamentos.agregarLugarTuris("", "Pando",obtenerCodLug(86));
+         XMLDepartamentos.agregarLugarTuris("Las Piedras", "Pando",obtenerCodLug(80));
+         XMLDepartamentos.agregarLugarTuris("Puerto Rico", "Pando",obtenerCodLug(83));
+         XMLDepartamentos.agregarLugarTuris("Parque Piñata", "Pando",obtenerCodLug(86));
          XMLDepartamentos.agregarLugarTuris("", "Pando",obtenerCodLug(89));
          */
      }

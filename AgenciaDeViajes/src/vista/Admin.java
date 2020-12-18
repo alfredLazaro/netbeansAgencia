@@ -10,8 +10,8 @@ public class Admin extends JFrame implements ActionListener {
     JPanel panel = new JPanel();
     public static String user = "";
     String pass = "";
-    JTextField cajaTexto;
-    JTextField cajaTexto2;
+    JTextField cajaTxtUsuar;
+    JTextField cajaTxtContra;
 
     public Admin() {
         setTitle("Ingreso de Administrador");
@@ -45,15 +45,15 @@ public class Admin extends JFrame implements ActionListener {
 
     private void colocarCajasDeTexto() {
         //usuario
-        cajaTexto = new JTextField();
-        cajaTexto.setBounds(450, 240, 200, 50);
-        cajaTexto.setText("Usuario");
-        panel.add(cajaTexto);
+        cajaTxtUsuar = new JTextField();
+        cajaTxtUsuar.setBounds(450, 240, 200, 50);
+        cajaTxtUsuar.setText("Usuario");
+        panel.add(cajaTxtUsuar);
         //contrasenia
-        cajaTexto2 = new JTextField();
-        cajaTexto2.setBounds(450, 290, 200, 50);
-        cajaTexto2.setText("Contrasenia");
-        panel.add(cajaTexto2);
+        cajaTxtContra = new JTextField();
+        cajaTxtContra.setBounds(450, 290, 200, 50);
+        cajaTxtContra.setText("Contrasenia");
+        panel.add(cajaTxtContra);
     }
 
     private void colocarBotones() {
@@ -77,8 +77,8 @@ public class Admin extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        user = cajaTexto.getText().trim();
-        pass = cajaTexto2.getText().trim();
+        user = cajaTxtUsuar.getText().trim();
+        pass = cajaTxtContra.getText().trim();
 
         if (!user.equals("") || !pass.equals("")) {
             try {
@@ -107,5 +107,15 @@ public class Admin extends JFrame implements ActionListener {
         } else {
             JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
         }
+    }
+    public String getUsuario(){
+        String usu="";
+        usu=cajaTxtUsuar.getText();
+        return usu;
+    }
+    public String getContrasena(){
+        String contra="";
+        contra=cajaTxtContra.getText();
+        return contra;
     }
 }
