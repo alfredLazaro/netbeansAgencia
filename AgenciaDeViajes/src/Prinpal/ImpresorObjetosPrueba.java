@@ -2,15 +2,18 @@
  *
  */
 package Prinpal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import modelo.*;
 import metodosAgen.*;
 /**
  * @author Fred
  */
 public class ImpresorObjetosPrueba {
-    
+    /*
     private ArrayList<Cliente> listClientes;
     private ArrayList<Administrador> listAd;
     private ArrayList<PaqueteTuristico> lisPaquetes;
@@ -18,31 +21,52 @@ public class ImpresorObjetosPrueba {
     private PaqueteTuristico paquete2;
     private Hotel hotCbba2;
     private Restaurante restCbba2;
-    
+    */
+    private Agencia agen;
+    private HashMap<Integer,Cliente> clientes;
+    private HashMap<String,ArrayList<PaqueteTuristico>> lugaresPaquet;
+    private Administrador admin;
+    private String nombreEmp;
     public static void main(String[] args) {
         ImpresorObjetosPrueba imp=new ImpresorObjetosPrueba();
     }
     
     public ImpresorObjetosPrueba(){
         
-        PaqueteTuristico pa=buscarPac(391); // error en qui nose por que
-        System.out.println("cant dias "+pa.getCantDias());
-        
+        ///////////////////////////////////////////////////////
+        //Administrador
         /*
         Administrador admin=admin("agente45","67531896");
         System.out.println("contraseña " +admin.getContrasenia());
-        aniaHistorial(123456);
         */
+        
+        
+        //insertAd("alan", "62615493");
+        
         /*
-        elimAdministr("agente45", "67531896");
-        Cliente c1=new Cliente("maclovin", 3,"verano", "aventura", 12341);
-        insertClient(c1);
+        listAd=listAd();
+        for(Administrador a:listAd){
+            String nomC=a.getNombreCuenta();
+            String cont=a.getContrasenia();
+            System.out.println("nombre "+ nomC);
+            System.out.println("contra "+ cont);
+        }
         */
-        //eliminarClient("maclovin",12341);
+        
+        
+        //elimAdministr("Agente69", "67531896");
+        
+        ////////////////////////////////////////////////////////////////////
+        //cliente
         /*
         Cliente cl=buscarC(12345);
         System.out.println("nombre "+ cl.getNombreCliente());
         elimHist(12341);
+        */
+        /*
+        //no se crearan clientes repetidos
+        Cliente c1=new Cliente("maclovin", 3,"verano", "aventura", 12341);
+        insertClient(c1);
         */
         /*
         listClientes=obtenerClientes();
@@ -52,19 +76,12 @@ public class ImpresorObjetosPrueba {
         System.out.println("nombre "+n);
             System.out.println("nroPasajeros"+ nroP);
         }
-        
         */
-        /*
-        insertAd("Agente69", "67531896");
+        //eliminarClient("maclovin",12341);
+        //eliminarClient("Alan", 54231); //ahora se elimina el historial a la vez
         
-        listAd=listAd();
-        for(Administrador a:listAd){
-            String nomC=a.getNombreCuenta();
-            String cont=a.getContrasenia();
-            System.out.println("nombre "+ nomC);
-            System.out.println("contra "+ cont);
-        }
-        */
+        ////////////////////////////////////////////////////////////////
+        //paquetes
         /*
         lisPaquetes=listPaq();
         for(PaqueteTuristico p:lisPaquetes){
@@ -72,13 +89,6 @@ public class ImpresorObjetosPrueba {
             System.out.println("transporte "+nomb);
         }
         */
-        /*
-        Historial hist=buscarHistorial(12345);
-        Date fec=hist.getFechaModificacion();
-        System.out.println("fecha "+ fec);
-        */
-        
-        //eliminarClient("Alan", 54231); //ahora se elimina el historial a la vez
         
         /*
         hotCbba2 = new Hotel(450,"Cochabamba","Huper Hotel Boutique");
@@ -88,10 +98,53 @@ public class ImpresorObjetosPrueba {
         restCbba2.agregarPlato(comid1);
         restCbba2.agregarPlato(comid2);
         paquete2 = new PaqueteTuristico(null,hotCbba2,restCbba2,2);
-        insertPacLugar("Villa Tunari", paquete2);
+        */
+        /////////////////////////////////////////////////////////////////////lugar(usa XMLpaquete)
+        //insertPacLugar("Villa Tunari", paquete2);
+        /*
+        PaqueteTuristico pa=buscarPac(391); // error en qui nose por que
+        System.out.println("cant dias "+pa.getCantDias());
+        */
+        //////////////////////////////////////////////////////////////////////
+        //historial
+        /*
+        Historial hist=buscarHistorial(12345);
+        Date fec=hist.getFechaModificacion();
+        System.out.println("fecha "+ fec);
+        */
+        //aniaHistorial(123456);
+        /*
+        Reserva r=new Reserva(null, null, null,new Date());
+        //insertReser(r, 12341);
+        */
+        /*
+        Pasaje pas=new Pasaje("Oruro", "Beni", new Date(), new Date(30,9,2022), "maclovin", "avion","vive libre", 20);
+        r.setPasaje(pas);
+        //insertPas(r, 12341);
+        */
+        /*
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+        r.setPaquete(paquete2);
+        insertPaqRes(r, 12341);
         */
         
+        ///////////////////////////////////////////////////////////////////////////////
         
+        
+        nombreEmp="Travel Pandemic";
+        iniciarClientes();
+        iniciarLugares();
+        System.out.println(" paquetes "+ lugaresPaquet.get("El Cristo"));
+        /*
+        boolean e=existAdm("agente45", "67531896");
+        
+        agen=new Agencia(null, null, nombreEmp, lugaresPaquet, clientes);
+        
+        /////////////////
+        
+        crearNuevReserv(12341);
+        registrarPaquet(12341, "maclovin", 2,324 ,"El Cristo");
+        */
     }
     
     ///////////////////////////
@@ -110,7 +163,8 @@ public class ImpresorObjetosPrueba {
         paqs=XMLPaquetes.paquetes();
         return paqs;
     }
-    
+    ///////////////////////////////////////////
+    //lugares
     public void insertPacLugar(String lug,PaqueteTuristico pac){
         XMLDepartamentos.insertPaqLugar(lug, pac);
     }
@@ -149,11 +203,12 @@ public class ImpresorObjetosPrueba {
     }
     
     public void insertAd(String nomb,String contra){
+        
         XMLAdministradores.insertarAdmin(nomb, contra);
     }
     ////////////////////////////////////////
     //zona historial
-    public void aniaHistorial(int cod){
+    public void insertHistorial(int cod){
         XMLHistoriales.aniadirHisto(cod);
     }
     public void elimHist(int cod){
@@ -169,6 +224,17 @@ public class ImpresorObjetosPrueba {
             System.out.println("algo anda mal");
         }
         return h;
+    }
+    public void insertReser(Reserva r,int codClient){
+        XMLHistoriales.aniadirReserv(r, codClient);
+    }
+    
+    public void insertPas(Reserva r,int codC){
+        XMLHistoriales.insertPasaje(r, codC);
+    }
+    
+    public void insertPaqRes(Reserva r,int codClient){
+        XMLHistoriales.insertPaquet(r, codClient);
     }
     /////////////////////////
     //zona Cliente
@@ -195,7 +261,7 @@ public class ImpresorObjetosPrueba {
         return c;
     }
     
-    public ArrayList<Cliente> obtenerClientes(){
+    public ArrayList<Cliente> listaClientes(){
         ArrayList<Cliente> listClientes=new ArrayList<>();
         listClientes=XMLClientes.listaClientes();
         if(!listClientes.isEmpty()){
@@ -205,6 +271,104 @@ public class ImpresorObjetosPrueba {
         }
         return listClientes;
     }
+    ////////////////////////////
     
+        private void iniciarClientes(){
+        clientes=XMLClientes.hashClientes();
+    }
+    public void registrarClient(String nombrClien,int cantPasaj,String tempPrefer,String tipoViaj){
+        Cliente cient=new Cliente(nombrClien, cantPasaj, tempPrefer, tipoViaj, cantPasaj);
+        agen.registrarCliente(nombrClien,cantPasaj, tempPrefer,tipoViaj);
+        XMLClientes.insertCliente(cient);
+    }
+    private void iniciarLugares(){
+        lugaresPaquet=XMLDepartamentos.HashPaquetesLugrs();
+    }
+    //se busca el administrador en la base
+    private boolean existAdm(String nombre,String contra){
+        boolean existe=false;
+        Administrador adm=XMLAdministradores.buscarAdmin(nombre, contra);
+        if(adm!=null){
+            System.out.println("se encontro el admin");
+            existe=true;
+        }else{
+            System.out.println("metio mal algo no existe el admin");
+        }
+        return existe;
+    }
     
+    //el estado puede ser activo, cancelado, usado(se cambia cuando se agrega nueva reserva)
+    public void anularReserva(int nroId,String estadoNuevo){
+        Cliente cliente=agen.getClientes().get(nroId);
+        Cliente clinXML=XMLClientes.buscarClient(nroId);
+        if(cliente!=null && clinXML!=null){
+            agen.anularReserva(cliente);
+            XMLClientes.cambiEstadoReserv(nroId, estadoNuevo);
+        }else{}
+    }
+    
+    //se agrega el paquete a modelo y a agencia
+    public void agregPac(String lugarDest,String nombTransport,String nombRest,String nombHotel,int cantDias){
+        Hotel hot=agen.escogerHotel(nombHotel, lugaresPaquet.get(lugarDest));
+        Transporte t=agen.escogerTransporte(nombTransport,lugaresPaquet.get(lugarDest));
+        Restaurante restau=agen.escogeRestaurant(nombRest, lugaresPaquet.get(nombRest));
+        PaqueteTuristico paq=new PaqueteTuristico(t, hot, restau, cantDias);
+        int nroIde=paq.getNroIde();
+        //se agraga a agencia
+        agen.agregarPaquete(lugarDest, nombTransport, nombRest, nombHotel,cantDias);
+        //se agrega a XML paquete
+        XMLDepartamentos.insertPaqLugar(lugarDest, paq);
+        //aqui faltaria agragarlo a VISTA
+    }
+    //antes de reservar Pasaje o Paquete
+    public void crearNuevReserv(int nroIdClient){
+        Reserva reserv=new Reserva(null, null, agen.getClientes().get(nroIdClient), new Date());
+        
+        Cliente cl=agen.getClientes().get(nroIdClient);
+        System.out.println("cliente "+cl);
+        
+        XMLHistoriales.aniadirReserv(reserv, nroIdClient);
+        cl.getHistorial().actualizarHistorial(reserv);
+    }
+    
+    public void registrarPaquet(int nroIdClient,String nombCl,int catPasaj,int nroPaquete,String lugarT){
+        //en aqui se añadira el paquete
+        
+        Cliente c1=agen.verificarExistencia(nombCl, nroIdClient);
+        
+        if(c1!=null){
+            Reserva reserv=c1.getHistorial().getUltReserv();//new Reserva(null, null, agen.getClientes().get(nroIdClient), new Date());
+            agen.reservarPaquetes(nombCl, nroIdClient, catPasaj, nroPaquete, lugarT);
+            PaqueteTuristico paquete=agen.getLugaresTuristicos().get(lugarT).get(nroPaquete);
+            //se extrae el paquete (suponemos que existe)
+            if(paquete!=null){
+                //si la ultima reserva tiene estado!= "activo" se crea reserva nueva(deberia)
+                reserv.setPaquete(paquete);
+                XMLClientes.insertPaquete(reserv, nroIdClient);
+            }else{
+                System.out.println("el paquete no existe");
+            }
+        }else{
+            System.out.println("algo no se ingreso de la manera correcta RPaquet");
+        }
+        
+    }
+    // en lo de tipo transporte nose como lo pensamos 
+    public void registrarPasaje(int nroIdClient,String nombCl,String origen,String destino,String fechaIda,String fechaVuelta,String tipoTransporte,String nombrEmpresa, int precio) throws ParseException{
+        //en aqui se añadira el pasaje
+        Date fechaId,fechaVuelt;
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+        fechaId=formatoFecha.parse(fechaIda);
+        fechaVuelt=formatoFecha.parse(fechaVuelta);
+        Pasaje p;
+        Cliente c1=agen.verificarExistencia(nombCl, nroIdClient);
+        if(c1!=null){
+            Reserva reserv=c1.getHistorial().getUltReserv();
+            p=new Pasaje(origen, destino, fechaId, fechaVuelt, nombrEmpresa, tipoTransporte, nombrEmpresa, precio);
+            agen.reservaPasaje(origen, destino, nroIdClient, nombCl, fechaId, fechaVuelt, tipoTransporte, nombrEmpresa, precio);
+            //si la ultima reserva tiene estado!= "activo" se crea reserva nueva(deberia)
+            reserv.setPasaje(p);
+            XMLClientes.insertPasaje(reserv, nroIdClient);
+        }else{}
+    }
 }

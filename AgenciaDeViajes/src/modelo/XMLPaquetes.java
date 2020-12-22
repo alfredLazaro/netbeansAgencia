@@ -455,6 +455,7 @@ public class XMLPaquetes {
                         //transporte 
                         Node transp=paquete.getElementsByTagName("Transporte").item(0);
                         Transporte tra=null;
+                        if(transp!=null){
                         if(transp.getNodeType()==Node.ELEMENT_NODE){
                             Element trans=(Element) transp;
                             String tipoVehic=trans.getElementsByTagName("TipoVehiculo").item(0).getTextContent();
@@ -462,12 +463,14 @@ public class XMLPaquetes {
                             int preciT=Integer.parseInt(trans.getElementsByTagName("precioTranspor").item(0).getTextContent());
                             tra=new Transporte(preciT, orig, tipoVehic);
                         }
+                        }
                         //Restaurante
                         Node restau=paquete.getElementsByTagName("Restaurante").item(0);
                         Restaurante rest=null;
                         String nombrR=null;
                         String ubicR=null;
                         Comida c=null;
+                        if(restau!=null){
                         if(restau.getNodeType()==Node.ELEMENT_NODE){
                             Element re=(Element) restau;
                             nombrR=re.getElementsByTagName("NombreRestaurante").item(0).getTextContent();
@@ -489,6 +492,7 @@ public class XMLPaquetes {
                                 }
                             }
                         }
+                        }
 
                         //Hotel
                         Node hot=paquete.getElementsByTagName("Hotel").item(0);
@@ -498,6 +502,7 @@ public class XMLPaquetes {
                         int preciH=0;
                         int cantHabit=0;
                         int cantHabUsa=0;
+                        if(hot!=null){
                         if(hot.getNodeType()==Node.ELEMENT_NODE){
                             Element hote=(Element) hot;
                             nombrHotel=hote.getElementsByTagName("NombreHotel").item(0).getTextContent();
@@ -509,6 +514,7 @@ public class XMLPaquetes {
                             h=new Hotel(preciH, ubHote, nombrHotel);
                             h.setCantHabitacionesHabilitadas(cantHabit);
                             h.setCantHabitacionesUsadas(cantHabUsa);
+                        }
                         }
                         //se aniade todo al paquete
                         p=new PaqueteTuristico(tra, h, rest, cantDiasPaq);

@@ -50,7 +50,7 @@ public class Agencia {
       return res;
     }
     
-    private Cliente verificarExistencia(String nombreCliente, int nroIdent){
+    public Cliente verificarExistencia(String nombreCliente, int nroIdent){
       Cliente res=clientes.get(nroIdent);
         if(res!=null && res.getNombreCliente().equals(nombreCliente) ){
             res=res;
@@ -58,7 +58,7 @@ public class Agencia {
         return res;
     }
     //en aqui se procede a escoger y crear paquete personalizados
-    private Restaurante escogeRestaurant(String restaurant,ArrayList<PaqueteTuristico> paquets){
+    public Restaurante escogeRestaurant(String restaurant,ArrayList<PaqueteTuristico> paquets){
       Restaurante res=null;
       for(PaqueteTuristico paq:paquets){
         Restaurante rest=paq.getRestaurant();
@@ -68,7 +68,7 @@ public class Agencia {
       }
       return res;
     }
-    private Transporte escogerTransporte(String nombTrans,ArrayList<PaqueteTuristico> paquets){
+    public Transporte escogerTransporte(String nombTrans,ArrayList<PaqueteTuristico> paquets){
       Transporte res=null;
       for(PaqueteTuristico paq:paquets){
         Transporte transp=paq.getTransporte();
@@ -78,7 +78,7 @@ public class Agencia {
       }
       return res;
     }
-    private Hotel escogerHotel(String nombHotel,ArrayList<PaqueteTuristico> paquets){
+    public Hotel escogerHotel(String nombHotel,ArrayList<PaqueteTuristico> paquets){
       Hotel res=null;
       for(PaqueteTuristico paq:paquets){
         Hotel hotel=paq.getHotel();
@@ -146,7 +146,6 @@ public class Agencia {
             Reserva reserva=new Reserva(paq,null, client,new Date());
             System.out.println("el client: "+client);
             Historial h=client.getHistorial();
-            System.out.println("el historial: "+h);
             client.getHistorial().actualizarHistorial(reserva);
             //por ahora la reserva de pasaje esta pendiente
           }else{
@@ -181,6 +180,7 @@ public class Agencia {
            ArrayList<Reserva> reserva = historialCliente.getReservas();
             if(reserva != null){
               if(reserva.get(0).getEstado().equals("activo")){
+                //se remueve la reserva del historial
                 reserva.remove(0);
               }else{
                 System.out.println("La reserva ya fue cancelada");
@@ -216,14 +216,13 @@ public class Agencia {
         }
     }
     
-    private void reservaPasaje(String origen,String destino,int codClient,String nomClient,Date fechaIda,Date fechaVuelta,String tipoTransporte,String nombrEmpresa, int precio)
+    public void reservaPasaje(String origen,String destino,int codClient,String nomClient,Date fechaIda,Date fechaVuelta,String tipoTransporte,String nombrEmpresa, int precio)
     {
       //este metodo debe llamarse obligatiriamente aunque con datos null (ecepto en cliente)
         Cliente client=verificarExistencia(nomClient, codClient);
         if(client!= null){
             Pasaje pasaje= new Pasaje(origen, destino, fechaIda, fechaVuelta, nomClient,tipoTransporte, nombrEmpresa,precio);
-            ArrayList<Reserva> reservsCliente=client.getHistorial().getReservas();
-            Reserva ultReserv=reservsCliente.get(0);
+            Reserva ultReserv=client.getHistorial().getUltReserv();
             ultReserv.setPasaje(pasaje);
             System.out.println("se aniadio el pasaje");
             //se crea la oferta
@@ -260,4 +259,14 @@ public class Agencia {
     public HashMap<String,ArrayList<PaqueteTuristico>> getLugaresTuristicos(){
         return lugaresTuristicos;
     }
+
+    public ArrayList<Pasaje> getPasajes() {
+        return pasajes;
+    }
+
+    public Administrador getUsuario() {
+        return usuario;
+    }
+    
+    
 }

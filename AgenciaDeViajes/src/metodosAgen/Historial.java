@@ -35,6 +35,11 @@ public class Historial {
         return reservas;
     }
     
+    public Reserva getUltReserv(){
+        Reserva reser=null;
+        reser=reservas.get(0);
+        return reser;
+    }
     //zona de seters
     private void setFechaModificacion(Date fechaModificacion) {
         this.fechaModificacion = fechaModificacion;

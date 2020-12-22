@@ -444,12 +444,13 @@ public class XMLDepartamentos {
                                     Element lugar=(Element) nodoL;
                                     String nombLug=lugar.getElementsByTagName("NombreLugar").item(0).getTextContent();
                                     
-                                        NodeList codPaq=lugar.getElementsByTagName("codigPac");
+                                        NodeList codPaq=lugar.getElementsByTagName("codigPaq");
+                                        int codPaque;
                                         for(int k=0;k<codPaq.getLength();k++){
                                             Node codigPaquet=codPaq.item(k);
                                             if(codigPaquet.getNodeType()==Node.ELEMENT_NODE){
                                                 Element codig=(Element) codigPaquet;
-                                                int codPaque=Integer.parseInt(codig.getElementsByTagName("codigPac").item(0).getTextContent());
+                                                codPaque=Integer.parseInt(codig.getElementsByTagName("codigPaq").item(0).getTextContent());
                                                 PaqueteTuristico p=XMLPaquetes.buscarPaquet(codPaque);
                                                 listPa.add(p);
                                             }
@@ -468,8 +469,10 @@ public class XMLDepartamentos {
                 Result result=new StreamResult(archivo);
                 Transformer transformer=TransformerFactory.newInstance().newTransformer();
                 transformer.transform(source,result);
-        }catch(Throwable e){}
-        listPa=XMLPaquetes.paquetes();
+        }catch(Throwable e){
+            System.out.println("algo no se obtuvo bien en XMLDepartamentos Hashpaquetes lugares");
+        }
+        //listPa=XMLPaquetes.paquetes();
         
         return list;
     }

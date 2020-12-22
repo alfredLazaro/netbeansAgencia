@@ -316,7 +316,8 @@ public class XMLClientes {
                 Document               document=documentoBulider.parse(archivo);
                 document.getDocumentElement().normalize();
                 Element raiz=document.getDocumentElement();
-                
+                Cliente client=buscarClient(clien.getNroIdent());
+                if(client==null){
                 Element nodoCliente=document.createElement("Cliente");
                     nodoCliente.setAttribute("nroIdent", clien.getNroIdent()+"");
                     //creamos elementos para los datos del cliente
@@ -357,6 +358,7 @@ public class XMLClientes {
                     raiz.appendChild(nodoCliente);
                     //tengo que inicializar su historial en el xml
                     crearHistor(clien.getNroIdent());
+                }
                 //se genera el xml
                 Source source=new DOMSource(document);
                 //donde se guardara
@@ -368,12 +370,20 @@ public class XMLClientes {
             }
     }
     
+    public static void insertPasaje(Reserva r,int codClient){
+        XMLHistoriales.insertPasaje(r, codClient);
+    }
+    public static void insertPaquete(Reserva r,int codClient){
+        XMLHistoriales.insertPaquet(r, codClient);
+    }
     public static void insertReserva(Reserva r,int codClient){
         XMLHistoriales.aniadirReserv(r, codClient);
     }
+    
     //se puede eliminar Reserva?
-    public static void estadoReserv(int codClient,String estadoReserv){
-        
+    public static void cambiEstadoReserv(int codClient,String estadoReserv){
+        //los estados pueden ser activo,cancelado,usada
+        XMLHistoriales.cambioEstadReserva(codClient, estadoReserv);
     }
     
     //estado de cliente como freduente
@@ -416,6 +426,5 @@ public class XMLClientes {
         }
         
     }
-    
     
 }

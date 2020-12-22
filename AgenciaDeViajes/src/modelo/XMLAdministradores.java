@@ -116,7 +116,7 @@ public class XMLAdministradores {
                 document.getDocumentElement().normalize();
                 NodeList usuarios=document.getElementsByTagName("Usuario");
                 for(int i=0;i<usuarios.getLength();i++){
-                    Node nodo=usuarios.item(0);
+                    Node nodo=usuarios.item(i);
                     if(nodo.getNodeType()==Node.ELEMENT_NODE){
                         Element usuario=(Element) nodo;
                         String nomC=usuario.getElementsByTagName("Nombre").item(0).getTextContent();
@@ -152,15 +152,17 @@ public class XMLAdministradores {
                 document.getDocumentElement().normalize();
                 NodeList usuarios=document.getElementsByTagName("Usuario");
                 for(int i=0;i<usuarios.getLength();i++){
-                    Node nodo=usuarios.item(0);
+                    Node nodo=usuarios.item(i);
                     if(nodo.getNodeType()==Node.ELEMENT_NODE){
                         Element usuario=(Element) nodo;
+                        
                         String nomC=usuario.getElementsByTagName("Nombre").item(0).getTextContent();
                         String contrasen=usuario.getElementsByTagName("Contraseña").item(0).getTextContent();
                         if(nomC.equals(nomb) && contrase.equals(contrasen)){
                             //si no existiera se devolveria un null
                             usuario.getParentNode().removeChild(usuario);
                         }
+                        
                     }
                 }
                 //se genera el xml
@@ -186,6 +188,8 @@ public class XMLAdministradores {
                 Document               document=documentoBulider.parse(archivo);
                 document.getDocumentElement().normalize();
                 Element raiz=document.getDocumentElement();
+                Administrador adm=buscarAdmin(nom, contra);
+                if(adm==null){
                 Element nodoUsuario=document.createElement("Usuario");
                     //creamos elementos para los datos del administrador
                     Element nombreNodo = document.createElement("Nombre");
@@ -199,6 +203,8 @@ public class XMLAdministradores {
                     nodoUsuario.appendChild(nombreNodo);
                     nodoUsuario.appendChild(contraNodo);
                     raiz.appendChild(nodoUsuario);
+                }
+                    
                 //se genera el xml
                 Source source=new DOMSource(document);
                 //donde se guardara

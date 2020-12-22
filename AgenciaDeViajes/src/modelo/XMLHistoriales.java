@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import metodosAgen.*;
+import org.jcp.xml.dsig.internal.dom.DOMUtils;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -100,6 +101,7 @@ public class XMLHistoriales {
     public static Historial buscarHistorial(int nroIdent){
         Historial hist=null;
         ArrayList<Reserva> reservas=new ArrayList<>();
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
         if(!archivo.exists()){
             try{
                 crearXML();
@@ -119,41 +121,64 @@ public class XMLHistoriales {
                     int codig=Integer.parseInt(e.getAttribute("nroIdentida"));
                     if(codig==nroIdent){
                         String fechM=e.getElementsByTagName("FechaModificacion").item(0).getTextContent();
-                        String estadoR=e.getElementsByTagName("estado").item(0).getTextContent();
-                        NodeList reservs=e.getElementsByTagName("Reserva");
+                        Node     rese=e.getElementsByTagName("FechaModificacion").item(0).getNextSibling();
+                        //Date fechaReserv=e.getElementsByTagName("fechaReserva").item(0).get
+                        //cuando se crea el historial por primera vez se crea la reserva vacia(no existe)
                         Date fechaModificacion=null;
+                        Date fechReserv=null;
+                        String origen=null;
+                        String destino=null;
+                        int precio=0;
+                        String fechaIda="";
+                        String fechaVu="";
+                        String tipTrans="";
+                        String nombEmp="";
+                        Pasaje pasaje=null;
+                        if(rese!=null){
+                        NodeList reservs=e.getElementsByTagName("Reserva");
+                        String estadoR=e.getElementsByTagName("estado").item(0).getTextContent();
+                        
+                        //datos Clientes
+                        Cliente c=XMLClientes.buscarClient(nroIdent);
+                        String nombC=c.getNombreCliente();
                         for(int j=0;j<reservs.getLength();j++){
                             Node nod=reservs.item(j);
                             if(nod.getNodeType()==Node.ELEMENT_NODE){
                                 Element reserv=(Element) nod;
-                                String origen=reserv.getElementsByTagName("origen").item(0).getTextContent();
-                                String destino=reserv.getElementsByTagName("destino").item(0).getTextContent();
-                                int precio=Integer.parseInt(reserv.getElementsByTagName("precio").item(0).getTextContent());
-                                String fechaIda=reserv.getElementsByTagName("fechaIda").item(0).getTextContent();
-                                String fechaVu=reserv.getElementsByTagName("fechaVuelta").item(0).getTextContent();
-                                String tipTrans=reserv.getElementsByTagName("tipoTransporte").item(0).getTextContent();
-                                String nombEmp=reserv.getElementsByTagName("nombreEmpresa").item(0).getTextContent();
                                 String fechRes=reserv.getElementsByTagName("fechaReserva").item(0).getTextContent();
-                                //datos Clientes
-                                Cliente c=XMLClientes.buscarClient(nroIdent);
-                                String nombC=c.getNombreCliente();
+                                //se esta obteniendo el pasaje (se vuelve lento desde aqui)
+                                Element pasaj=(Element)reserv.getElementsByTagName("pasaje").item(0);
+                                
+                                if(pasaj!=null){
+                                origen=reserv.getElementsByTagName("origen").item(0).getTextContent();
+                                destino=reserv.getElementsByTagName("destino").item(0).getTextContent();
+                                precio=Integer.parseInt(reserv.getElementsByTagName("precio").item(0).getTextContent());
+                                fechaIda=reserv.getElementsByTagName("fechaIda").item(0).getTextContent();
+                                fechaVu=reserv.getElementsByTagName("fechaVuelta").item(0).getTextContent();
+                                tipTrans=reserv.getElementsByTagName("tipoTransporte").item(0).getTextContent();
+                                nombEmp=reserv.getElementsByTagName("nombreEmpresa").item(0).getTextContent();
+                                
                                 //comvertir String a date eso me falta
-                                SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+                                //SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
                                 Date fechaId=null;
                                 Date fechaV=null;
-                                Date fechReserv=null;
+                                
                                     fechaId=formatoFecha.parse(fechaIda);
                                     fechaV=formatoFecha.parse(fechaVu);
-                                    fechReserv=formatoFecha.parse(fechRes);
                                     
-                                Pasaje pasaje=new Pasaje(origen, destino, fechaId, fechaV,nombC, tipTrans, nombEmp, precio);
+                                    
+                                pasaje=new Pasaje(origen, destino, fechaId, fechaV,nombC, tipTrans, nombEmp, precio);
+                                }
+                                
+                                //por alguna razon no ejecuta esto
+                                fechReserv=formatoFecha.parse(fechRes);
                                 Reserva r=new Reserva(null, pasaje, c,fechReserv);
                                 r.setEstadoReserva(estadoR);
                                 reservas.add(r);
                             }else{}
-                            
+                        }    
                         }
-                        SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+                        //SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
                         
                         fechaModificacion=formatoFecha.parse(fechM);//el formato
                         hist=new Historial(nroIdent, fechaModificacion);
@@ -201,11 +226,11 @@ public class XMLHistoriales {
                 for(Reserva r:reservs){
                 Element reservaNodo=document.createElement("Reserva");
                 Element fechResNodo=document.createElement("fechaReserva");
-                Text nodoValFechR=document.createTextNode(r.getFechaReserva()+"");
+                Text nodoValFechR=document.createTextNode(r.getFechaReserva().getDate()+"/"+r.getFechaReserva().getMonth()+"/"+(r.getFechaReserva().getYear()+1900)+"");
                 fechResNodo.appendChild(nodoValFechR);
                 
                 Element estadRNodo=document.createElement("estado");
-                Text nodoValEstd=document.createTextNode(r.getFechaReserva().getDate()+"/"+r.getFechaReserva().getMonth()+"/"+(r.getFechaReserva().getYear()+1900)+"");
+                Text nodoValEstd=document.createTextNode(r.getEstado());
                 estadRNodo.appendChild(nodoValEstd);
                 
                 Element pasajeNodo=document.createElement("Pasaje");
@@ -291,9 +316,11 @@ public class XMLHistoriales {
                     Node nodo=historiales.item(i);
                     if(nodo.getNodeType()==Node.ELEMENT_NODE){
                         Element historialNodo=(Element) nodo;
-                        int codHisto=Integer.parseInt(historialNodo.getElementsByTagName("Reserva").item(0).getTextContent());
+                        int codHisto=Integer.parseInt(historialNodo.getAttribute("nroIdentida"));
                         if(codHisto==codClient){
-                            
+                            //seteamos el ultimo estado de reserva
+                            cambioEstadReserva(codClient, "usado");
+                            //se crea el la ultma reserva por defecto estado="activo"
                             Element reservaNodo=document.createElement("Reserva");
                             
                             Element fechResNodo=document.createElement("fechaReserva");
@@ -301,11 +328,12 @@ public class XMLHistoriales {
                             fechResNodo.appendChild(nodoValFechR);
                             
                             Element estadRNodo=document.createElement("estado");
-                            Text nodoValEstd=document.createTextNode(r.getFechaReserva().getDate()+"/"+r.getFechaReserva().getMonth()+"/"+(r.getFechaReserva().getYear()+1900)+"");
+                            Text nodoValEstd=document.createTextNode(r.getEstado());
                             estadRNodo.appendChild(nodoValEstd);
+                            
                             //se llena el pasaje
                             Element pasajeNodo=document.createElement("Pasaje");
-                
+                            if(r.getPasaje()!=null){
                             Element origenPasajeNodo=document.createElement("origen");
                             Text nodoValOrigen=document.createTextNode(r.getPasaje().getOrigen());
                             origenPasajeNodo.appendChild(nodoValOrigen);
@@ -341,18 +369,20 @@ public class XMLHistoriales {
                             pasajeNodo.appendChild(fechaVueltNodo);
                             pasajeNodo.appendChild(tipTNodo);
                             pasajeNodo.appendChild(nomEmpNodo);
-                            
+                            }
                             reservaNodo.appendChild(estadRNodo);
                             reservaNodo.appendChild(fechResNodo);
                             reservaNodo.appendChild(pasajeNodo);
                             
                             Element codigPaquetNodo=document.createElement("nroIde");
+                            if(r.getPaquete()!=null){
                             Text    nodoValorNI=document.createTextNode(r.getPaquete().getNroIde()+"");
                             codigPaquetNodo.appendChild(nodoValorNI);
+                            }
                             reservaNodo.appendChild(codigPaquetNodo);
-                            
                             //se aniade la reserva al Historial determinado
                             historialNodo.appendChild(reservaNodo);
+                            
                             
                         }
                         //aniado todo a la rais
@@ -448,8 +478,134 @@ public class XMLHistoriales {
         }catch(Throwable e){
         }
     }
+    //esto lo pensaba omitir y solo poner la reserva
+    public static void insertPasaje(Reserva r,int codClient){
+        int ultReserv;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                
+                NodeList historiales=document.getElementsByTagName("Historial");
+                for(int i=0;i<historiales.getLength();i++){
+                    Node nodo=historiales.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element historialNodo=(Element) nodo;
+                        int codHisto=Integer.parseInt(historialNodo.getAttribute("nroIdentida"));
+                        if(codHisto==codClient){
+                            ultReserv=historialNodo.getElementsByTagName("Reserva").getLength()-1;
+                            Element reservaNodo=(Element)historialNodo.getElementsByTagName("Reserva").item(ultReserv);
+                            
+                            //se llena el pasaje
+                            Element pasajeNodo=(Element)reservaNodo.getElementsByTagName("Pasaje").item(0);
+                            if(r.getPasaje()!=null){
+                            Element origenPasajeNodo=document.createElement("origen");
+                            Text nodoValOrigen=document.createTextNode(r.getPasaje().getOrigen());
+                            origenPasajeNodo.appendChild(nodoValOrigen);
+                
+                            Element destiPaNodo=document.createElement("destino");
+                            Text nodoValDest=document.createTextNode(r.getPasaje().getDestino());
+                            destiPaNodo.appendChild(nodoValDest);
+                
+                            Element precioTotNodo=document.createElement("precio");
+                            Text    nodoValPrecio=document.createTextNode(r.getPasaje().getPrecioTotal()+"");
+                            precioTotNodo.appendChild(nodoValPrecio);
+                
+                            Element fechaIdNodo=document.createElement("fechaIda");
+                            Text    nodoValorFeI=document.createTextNode(r.getPasaje().getFechaIda().getDate()+"/"+r.getPasaje().getFechaIda().getMonth()+"/"+(r.getPasaje().getFechaIda().getYear()+1900)+"");
+                            fechaIdNodo.appendChild(nodoValorFeI);
+                
+                            Element fechaVueltNodo=document.createElement("fechaVuelta");
+                            Text    nodoValorFeV=document.createTextNode(r.getPasaje().getFechaVuelta().getDate()+"/"+r.getPasaje().getFechaVuelta().getMonth()+"/"+(r.getPasaje().getFechaVuelta().getYear()+1900)+"");
+                            fechaVueltNodo.appendChild(nodoValorFeV);
+                
+                            Element tipTNodo=document.createElement("tipoTransporte");
+                            Text    nodoValorTT=document.createTextNode(r.getPasaje().getTipoTransporte());
+                            tipTNodo.appendChild(nodoValorTT);
+                
+                            Element nomEmpNodo=document.createElement("nombreEmpresa");
+                            Text    nodoValorNE=document.createTextNode(r.getPasaje().getEmpresa());
+                            nomEmpNodo.appendChild(nodoValorNE);
+                
+                            pasajeNodo.appendChild(origenPasajeNodo);
+                            pasajeNodo.appendChild(destiPaNodo);
+                            pasajeNodo.appendChild(precioTotNodo);
+                            pasajeNodo.appendChild(fechaIdNodo);
+                            pasajeNodo.appendChild(fechaVueltNodo);
+                            pasajeNodo.appendChild(tipTNodo);
+                            pasajeNodo.appendChild(nomEmpNodo);
+                            }
+                            reservaNodo.appendChild(pasajeNodo);
+                            
+                            historialNodo.appendChild(reservaNodo);
+                            
+                            
+                        } 
+                    }
+                }
+                //aniado todo al histoial (paqueteCod,Reserva)
+                //nodoHistorial.appendChild(ultModNodo);
+                
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+        }catch(Throwable e){
+        }
+    }
     
-    public static void insertPasaje(Pasaje p){
-        
+    public static void insertPaquet(Reserva r,int codClient){
+        int ultReserv;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+                DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+                Document               document=documentoBulider.parse(archivo);
+                document.getDocumentElement().normalize();
+                
+                NodeList historiales=document.getElementsByTagName("Historial");
+                for(int i=0;i<historiales.getLength();i++){
+                    Node nodo=historiales.item(i);
+                    if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                        Element historialNodo=(Element) nodo;
+                        int codHisto=Integer.parseInt(historialNodo.getAttribute("nroIdentida"));
+                        if(codHisto==codClient){
+                            ultReserv=historialNodo.getElementsByTagName("Reserva").getLength()-1;
+                            Element reservaNodo=(Element)historialNodo.getElementsByTagName("Reserva").item(ultReserv);
+                            //sera que cree un nodo vacio y bajo el cree el otro?
+                            Element codigPaquetNodo=(Element)reservaNodo.getElementsByTagName("nroIde").item(0);
+                            if(r.getPaquete()!=null){
+                            Text    nodoValorNI=document.createTextNode(r.getPaquete().getNroIde()+"");
+                            codigPaquetNodo.appendChild(nodoValorNI);
+                            }
+                            reservaNodo.appendChild(codigPaquetNodo);
+                            //se aniade la reserva al Historial determinado
+                            historialNodo.appendChild(reservaNodo);
+                            
+                        }
+                        
+                    }
+                }
+                
+                Source source=new DOMSource(document);
+                //donde se guardara
+                Result result=new StreamResult(archivo);
+                Transformer transformer=TransformerFactory.newInstance().newTransformer();
+                transformer.transform(source,result);
+        }catch(Throwable e){
+        }
     }
 }

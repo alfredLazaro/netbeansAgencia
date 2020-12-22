@@ -9,7 +9,6 @@ import metodosAgen.*;
 import modelo.XMLDepartamentos;
 import modelo.XMLPaquetes;
 /**
- *
  * @author USUARIO
  */
 public class IniciadorLugares {
