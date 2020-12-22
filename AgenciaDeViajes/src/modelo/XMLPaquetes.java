@@ -29,6 +29,7 @@ public class XMLPaquetes {
     private static final String pathAch="."+File.separator+"src"+File.separator+"modelo"+File.separator+"xmls"+File.separator;
     private static final File archivo=new File(pathAch+nomArchivo+".xml");
     public static void main(String[] args) {
+        
         IniciadorPaquete paq=new IniciadorPaquete();
         
         ArrayList<PaqueteTuristico> pa=paq.getP();
@@ -40,6 +41,7 @@ public class XMLPaquetes {
         try{
             modificarXML(pa);
         }catch(Throwable e){}
+        
     }
     
     public static void crearXML() throws Throwable{
@@ -207,6 +209,7 @@ public class XMLPaquetes {
             Document               document=documentoBulider.parse(archivo);
             document.getDocumentElement().normalize();
             NodeList   paquetes=document.getElementsByTagName("Paquete");
+            //System.out.println("el nro de paquetes es; "+ paquetes.getLength());
             //atributos del paquete
             int precioPaq;
             int    cantDiasPaq;

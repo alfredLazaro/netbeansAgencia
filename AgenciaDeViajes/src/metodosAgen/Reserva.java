@@ -56,5 +56,9 @@ public class Reserva {
     public void setPasaje(Pasaje pasaje) {
         this.pasaje = pasaje;
     }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     
 }

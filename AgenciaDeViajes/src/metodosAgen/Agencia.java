@@ -143,11 +143,13 @@ public class Agencia {
         if(client!=null){
           PaqueteTuristico paq=buscarPaquete(lugarTuristico,nroPaq);
           if(paq!=null && paq.getDisponible()==true){
-            Reserva reserva=new Reserva(paq,null, client,new Date());
+            Reserva ultReserva=client.getHistorial().getUltReserv();
+            //se crea la reserva desde afuera
             System.out.println("el client: "+client);
-            Historial h=client.getHistorial();
-            client.getHistorial().actualizarHistorial(reserva);
+            ultReserva.setPaquete(paq);
+            client.setCantidadPasajeros(cantPasajeros);
             //por ahora la reserva de pasaje esta pendiente
+            //crearOferta(ultReserva); //se deberia hacer solo una vez
           }else{
             //se debe buscar un paquete
             System.out.println("el paquete no se encuentra disponible, se debe buscar otro paquete");
@@ -158,7 +160,7 @@ public class Agencia {
         }
     }
     
-    private PaqueteTuristico buscarPaquete(String lugarTuristico ,int nroIdent){
+    public PaqueteTuristico buscarPaquete(String lugarTuristico ,int nroIdent){
         PaqueteTuristico paq=null;
         ArrayList<PaqueteTuristico> paquetes = lugaresTuristicos.get(lugarTuristico);
         int i=0;

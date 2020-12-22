@@ -134,17 +134,19 @@ public class ImpresorObjetosPrueba {
         nombreEmp="Travel Pandemic";
         iniciarClientes();
         iniciarLugares();
-        System.out.println(" paquetes "+ lugaresPaquet.get("El Cristo"));
-        /*
+        //System.out.println(" paquetes "+ lugaresPaquet.get("El Cristo")); //funciona
+        
         boolean e=existAdm("agente45", "67531896");
         
         agen=new Agencia(null, null, nombreEmp, lugaresPaquet, clientes);
-        
+        System.out.println("el tamaño de paquetes por lugar es"+ lugaresPaquet.get("Loma Suares").size());
+        //por alguna razon se lleno de 80 paquetes por lugar turistico
         /////////////////
         
-        crearNuevReserv(12341);
-        registrarPaquet(12341, "maclovin", 2,324 ,"El Cristo");
-        */
+        //crearNuevReserv(12341);
+        //registrarPaquet(12341, "maclovin", 2,391 ,"El Cristo");
+        //registrarPasaje(12341, "maclovin", "Cochabamba", "Oruro", "23/12/2030","25/11/2050", "avion", "el dorado", 123);
+        
     }
     
     ///////////////////////////
@@ -339,11 +341,12 @@ public class ImpresorObjetosPrueba {
         if(c1!=null){
             Reserva reserv=c1.getHistorial().getUltReserv();//new Reserva(null, null, agen.getClientes().get(nroIdClient), new Date());
             agen.reservarPaquetes(nombCl, nroIdClient, catPasaj, nroPaquete, lugarT);
-            PaqueteTuristico paquete=agen.getLugaresTuristicos().get(lugarT).get(nroPaquete);
+            PaqueteTuristico paquete=agen.buscarPaquete(lugarT, nroPaquete);
             //se extrae el paquete (suponemos que existe)
             if(paquete!=null){
                 //si la ultima reserva tiene estado!= "activo" se crea reserva nueva(deberia)
                 reserv.setPaquete(paquete);
+                reserv.setCliente(c1);
                 XMLClientes.insertPaquete(reserv, nroIdClient);
             }else{
                 System.out.println("el paquete no existe");
@@ -354,12 +357,18 @@ public class ImpresorObjetosPrueba {
         
     }
     // en lo de tipo transporte nose como lo pensamos 
-    public void registrarPasaje(int nroIdClient,String nombCl,String origen,String destino,String fechaIda,String fechaVuelta,String tipoTransporte,String nombrEmpresa, int precio) throws ParseException{
+    public void registrarPasaje(int nroIdClient,String nombCl,String origen,String destino,String fechaIda,String fechaVuelta,String tipoTransporte,String nombrEmpresa, int precio) {
         //en aqui se añadira el pasaje
         Date fechaId,fechaVuelt;
         SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+        fechaId=null;
+        fechaVuelt=null;
+        try{
         fechaId=formatoFecha.parse(fechaIda);
         fechaVuelt=formatoFecha.parse(fechaVuelta);
+        }catch(ParseException e){
+            System.out.println("fecha formato incorrecto registro pasaje no hecho");
+        }
         Pasaje p;
         Cliente c1=agen.verificarExistencia(nombCl, nroIdClient);
         if(c1!=null){
@@ -368,6 +377,7 @@ public class ImpresorObjetosPrueba {
             agen.reservaPasaje(origen, destino, nroIdClient, nombCl, fechaId, fechaVuelt, tipoTransporte, nombrEmpresa, precio);
             //si la ultima reserva tiene estado!= "activo" se crea reserva nueva(deberia)
             reserv.setPasaje(p);
+            reserv.setCliente(c1);
             XMLClientes.insertPasaje(reserv, nroIdClient);
         }else{}
     }

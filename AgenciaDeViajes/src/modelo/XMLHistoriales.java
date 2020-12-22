@@ -138,9 +138,8 @@ public class XMLHistoriales {
                         NodeList reservs=e.getElementsByTagName("Reserva");
                         String estadoR=e.getElementsByTagName("estado").item(0).getTextContent();
                         
-                        //datos Clientes
-                        Cliente c=XMLClientes.buscarClient(nroIdent);
-                        String nombC=c.getNombreCliente();
+                        //datos Clientes//el cliente de reserva se setea afuera
+                        String nombC=XMLClientes.getNombreCliente(nroIdent);
                         for(int j=0;j<reservs.getLength();j++){
                             Node nod=reservs.item(j);
                             if(nod.getNodeType()==Node.ELEMENT_NODE){
@@ -172,7 +171,7 @@ public class XMLHistoriales {
                                 
                                 //por alguna razon no ejecuta esto
                                 fechReserv=formatoFecha.parse(fechRes);
-                                Reserva r=new Reserva(null, pasaje, c,fechReserv);
+                                Reserva r=new Reserva(null, pasaje, null,fechReserv);
                                 r.setEstadoReserva(estadoR);
                                 reservas.add(r);
                             }else{}

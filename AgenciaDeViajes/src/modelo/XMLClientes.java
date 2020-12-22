@@ -190,7 +190,7 @@ public class XMLClientes {
                         clin.setFrecuencia(frec);
                         clin.setTienePaquete(hayPac);
                         //se busca el historial y se lo integra para devolver el cliente completo
-                        Historial h=XMLHistoriales.buscarHistorial(nroIdent);
+                        Historial h=XMLHistoriales.buscarHistorial(nroIdent); //cuando buscas el historial buscas client
                         clin.setHistorial(h);
                     }else{}
                 }
@@ -426,5 +426,40 @@ public class XMLClientes {
         }
         
     }
-    
+    public static String getNombreCliente(int nroIdent){
+        String nombreCliente="";
+        Cliente clin=null;
+        if(!archivo.exists()){
+            try{
+                crearXML();
+            }catch(Throwable e){
+            }
+        }else{}
+        try{
+            DocumentBuilderFactory facto=DocumentBuilderFactory.newInstance();
+            DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
+            Document               document=documentoBulider.parse(archivo);
+            document.getDocumentElement().normalize();
+            NodeList   clientes=document.getElementsByTagName("Cliente");
+            for(int i=0;i<clientes.getLength();i++){
+                Node nodo=clientes.item(i);
+                if(nodo.getNodeType()==Node.ELEMENT_NODE){
+                    Element client=(Element) nodo;
+                    int codIdCl=Integer.parseInt(client.getAttribute("nroIdent"));
+                    if(codIdCl==nroIdent){
+                        nombreCliente=client.getElementsByTagName("Nombre").item(0).getTextContent();
+                        
+                    }else{}
+                }
+            }
+            //se genera el xml
+            Source source=new DOMSource(document);
+            //donde se guardara
+            Result result=new StreamResult(archivo);
+            Transformer transformer=TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source,result);
+        }catch(Throwable e){
+        }
+        return nombreCliente;
+    }
 }

@@ -429,13 +429,13 @@ public class XMLDepartamentos {
             DocumentBuilder        documentoBulider=facto.newDocumentBuilder();
             Document               document=documentoBulider.parse(archivo);
             document.getDocumentElement().normalize();
-                
+            String nombreDepart="";    
             NodeList departamentos=document.getElementsByTagName("Departamento");
             for(int i=0;i<departamentos.getLength();i++){
                 Node nodo=departamentos.item(i);
                     if(nodo.getNodeType()==Node.ELEMENT_NODE){
                         Element departamento=(Element) nodo;
-                        String nombreDepart=departamento.getElementsByTagName("NombreDepartamento").item(0).getTextContent();
+                        nombreDepart=departamento.getElementsByTagName("NombreDepartamento").item(0).getTextContent();
                         
                             NodeList lugaresT=departamento.getElementsByTagName("LugarTuristico");
                             for(int j=0;j<lugaresT.getLength();j++){
@@ -450,7 +450,7 @@ public class XMLDepartamentos {
                                             Node codigPaquet=codPaq.item(k);
                                             if(codigPaquet.getNodeType()==Node.ELEMENT_NODE){
                                                 Element codig=(Element) codigPaquet;
-                                                codPaque=Integer.parseInt(codig.getElementsByTagName("codigPaq").item(0).getTextContent());
+                                                codPaque=Integer.parseInt(codig.getTextContent());
                                                 PaqueteTuristico p=XMLPaquetes.buscarPaquet(codPaque);
                                                 listPa.add(p);
                                             }

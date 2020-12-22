@@ -101,11 +101,13 @@ public class Main {
         if(c1!=null){
             Reserva reserv=c1.getHistorial().getUltReserv();//new Reserva(null, null, agen.getClientes().get(nroIdClient), new Date());
             agen.reservarPaquetes(nombCl, nroIdClient, catPasaj, nroPaquete, lugarT);
-            PaqueteTuristico paquete=agen.getLugaresTuristicos().get(lugarT).get(nroPaquete);
+            PaqueteTuristico paquete=agen.buscarPaquete(lugarT, nroPaquete);
             //se extrae el paquete (suponemos que existe)
             if(paquete!=null){
                 //si la ultima reserva tiene estado!= "activo" se crea reserva nueva(deberia)
                 reserv.setPaquete(paquete);
+                //esto es como dato de info en realidad no lo usamos
+                reserv.setCliente(c1);
                 XMLClientes.insertPaquete(reserv, nroIdClient);
             }else{
                 System.out.println("el paquete no existe");
@@ -116,12 +118,19 @@ public class Main {
         
     }
     // en lo de tipo transporte nose como lo pensamos 
-    public void registrarPasaje(int nroIdClient,String nombCl,String origen,String destino,String fechaIda,String fechaVuelta,String tipoTransporte,String nombrEmpresa, int precio) throws ParseException{
+    public void registrarPasaje(int nroIdClient,String nombCl,String origen,String destino,String fechaIda,String fechaVuelta,String tipoTransporte,String nombrEmpresa, int precio) {
         //en aqui se añadira el pasaje
         Date fechaId,fechaVuelt;
         SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+        fechaId=null;
+        fechaVuelt=null;
+        try{
+            //si la fecha no es bien introducida fallara en el xml al parecer
         fechaId=formatoFecha.parse(fechaIda);
         fechaVuelt=formatoFecha.parse(fechaVuelta);
+        }catch(ParseException ep){
+            System.out.println("fecha mal introducida o no introducida");
+        }
         Pasaje p;
         Cliente c1=agen.verificarExistencia(nombCl, nroIdClient);
         if(c1!=null){
@@ -130,6 +139,7 @@ public class Main {
             agen.reservaPasaje(origen, destino, nroIdClient, nombCl, fechaId, fechaVuelt, tipoTransporte, nombrEmpresa, precio);
             //si la ultima reserva tiene estado!= "activo" se crea reserva nueva(deberia)
             reserv.setPasaje(p);
+            reserv.setCliente(c1);
             XMLClientes.insertPasaje(reserv, nroIdClient);
         }else{}
     }
