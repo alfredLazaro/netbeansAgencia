@@ -149,7 +149,7 @@ public class Agencia {
             ultReserva.setPaquete(paq);
             client.setCantidadPasajeros(cantPasajeros);
             //por ahora la reserva de pasaje esta pendiente
-            //crearOferta(ultReserva); //se deberia hacer solo una vez
+            crearOferta(ultReserva); //se deberia hacer solo una vez
           }else{
             //se debe buscar un paquete
             System.out.println("el paquete no se encuentra disponible, se debe buscar otro paquete");

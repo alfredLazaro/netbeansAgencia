@@ -417,7 +417,7 @@ public class XMLDepartamentos {
     
     public static HashMap<String,ArrayList<PaqueteTuristico>> HashPaquetesLugrs(){
         HashMap<String,ArrayList<PaqueteTuristico>> list=new HashMap<>();
-        ArrayList<PaqueteTuristico> listPa=new ArrayList<>();
+        
         if(!archivo.exists()){
             try{
                 crearXML();
@@ -440,6 +440,7 @@ public class XMLDepartamentos {
                             NodeList lugaresT=departamento.getElementsByTagName("LugarTuristico");
                             for(int j=0;j<lugaresT.getLength();j++){
                                 Node nodoL=lugaresT.item(j);
+                                ArrayList<PaqueteTuristico> listPa=new ArrayList<>();
                                 if(nodoL.getNodeType()==Node.ELEMENT_NODE){
                                     Element lugar=(Element) nodoL;
                                     String nombLug=lugar.getElementsByTagName("NombreLugar").item(0).getTextContent();

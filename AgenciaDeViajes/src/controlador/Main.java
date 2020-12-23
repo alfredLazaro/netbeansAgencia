@@ -27,6 +27,7 @@ public class Main {
         nombreEmp="Travel Pandemic";
         iniciarClientes();
         iniciarLugares();
+        
         boolean e=existAdm("agente67", "67531896");
         
         agen=new Agencia(null, null, nombreEmp, lugaresPaquet, clientes);
@@ -125,7 +126,7 @@ public class Main {
         fechaId=null;
         fechaVuelt=null;
         try{
-            //si la fecha no es bien introducida fallara en el xml al parecer
+        //si la fecha no es bien introducida fallara en el xml al parecer
         fechaId=formatoFecha.parse(fechaIda);
         fechaVuelt=formatoFecha.parse(fechaVuelta);
         }catch(ParseException ep){

@@ -65,7 +65,7 @@ public class ImpresorObjetosPrueba {
         */
         /*
         //no se crearan clientes repetidos
-        Cliente c1=new Cliente("maclovin", 3,"verano", "aventura", 12341);
+        Cliente c1=new Cliente("Alan", 3,"primavera", "negocios", 12345);
         insertClient(c1);
         */
         /*
@@ -139,14 +139,14 @@ public class ImpresorObjetosPrueba {
         boolean e=existAdm("agente45", "67531896");
         
         agen=new Agencia(null, null, nombreEmp, lugaresPaquet, clientes);
-        System.out.println("el tamaño de paquetes por lugar es"+ lugaresPaquet.get("Loma Suares").size());
+        System.out.println("el tamaño de paquetes es de "+ lugaresPaquet.get("San Jose de Chiquitos").size());
         //por alguna razon se lleno de 80 paquetes por lugar turistico
         /////////////////
         
-        //crearNuevReserv(12341);
+        //crearNuevReserv(12345);
         //registrarPaquet(12341, "maclovin", 2,391 ,"El Cristo");
         //registrarPasaje(12341, "maclovin", "Cochabamba", "Oruro", "23/12/2030","25/11/2050", "avion", "el dorado", 123);
-        
+        //anularReserva(12341,"cancelado");
     }
     
     ///////////////////////////
@@ -283,6 +283,7 @@ public class ImpresorObjetosPrueba {
         agen.registrarCliente(nombrClien,cantPasaj, tempPrefer,tipoViaj);
         XMLClientes.insertCliente(cient);
     }
+    
     private void iniciarLugares(){
         lugaresPaquet=XMLDepartamentos.HashPaquetesLugrs();
     }

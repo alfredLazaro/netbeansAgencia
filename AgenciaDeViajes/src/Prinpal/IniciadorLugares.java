@@ -54,9 +54,9 @@ public class IniciadorLugares {
     }
      private void iniciarLugrs(){
          //cochabamba
-         XMLDepartamentos.agregarLugarTuris("El Cristo", "Cochabamba",obtenerCodLug(0));
-         XMLDepartamentos.agregarLugarTuris("El Parque", "Cochabamba",obtenerCodLug(3));
-         XMLDepartamentos.agregarLugarTuris("Catedral San Sebastian", "Cochabamba",obtenerCodLug(6));
+         XMLDepartamentos.agregarLugarTuris("Cristo de la Concordia", "Cochabamba",obtenerCodLug(0));
+         XMLDepartamentos.agregarLugarTuris("Parque de la Familia", "Cochabamba",obtenerCodLug(3));
+         XMLDepartamentos.agregarLugarTuris("Catedral de San Sebastian", "Cochabamba",obtenerCodLug(6));
          XMLDepartamentos.agregarLugarTuris("Villa Tunari", "Cochabamba",obtenerCodLug(9));
          
          //chuquisaqua
@@ -73,9 +73,9 @@ public class IniciadorLugares {
          
          //La Paz
          XMLDepartamentos.agregarLugarTuris("Valle de la Luna", "La Paz",obtenerCodLug(30));
-         XMLDepartamentos.agregarLugarTuris("El Teleferico", "La Paz",obtenerCodLug(33));
-         XMLDepartamentos.agregarLugarTuris("Las Cholets", "La Paz",obtenerCodLug(36));
-         XMLDepartamentos.agregarLugarTuris("La Tiahuanaco", "La Paz",obtenerCodLug(39));
+         XMLDepartamentos.agregarLugarTuris("Teleferico", "La Paz",obtenerCodLug(33));
+         XMLDepartamentos.agregarLugarTuris("Cholets", "La Paz",obtenerCodLug(36));
+         XMLDepartamentos.agregarLugarTuris("Tiahuanaco", "La Paz",obtenerCodLug(39));
          //oruro
          XMLDepartamentos.agregarLugarTuris("Cala Cala", "Oruro",obtenerCodLug(40));
          XMLDepartamentos.agregarLugarTuris("El Carnabal", "Oruro",obtenerCodLug(43));
@@ -87,22 +87,23 @@ public class IniciadorLugares {
          XMLDepartamentos.agregarLugarTuris("Salar Uyuni", "Potosi",obtenerCodLug(56));
          XMLDepartamentos.agregarLugarTuris("Torotoro", "Potosi",obtenerCodLug(59));
          //Santa Cruz 
-         XMLDepartamentos.agregarLugarTuris("La Pequeña Suiza", "Santa Cruz",obtenerCodLug(60));
-         XMLDepartamentos.agregarLugarTuris("Biocentro Guembe", "Santa Cruz",obtenerCodLug(63));
-         XMLDepartamentos.agregarLugarTuris("Las Misiones de Chiquitos", "Santa Cruz",obtenerCodLug(66));
-         XMLDepartamentos.agregarLugarTuris("Ciudad de Santa Cruz", "Santa Cruz",obtenerCodLug(69));
+         XMLDepartamentos.agregarLugarTuris("Samaipata", "Santa Cruz",obtenerCodLug(60));
+         XMLDepartamentos.agregarLugarTuris("Biocentro Güembe", "Santa Cruz",obtenerCodLug(63));
+         XMLDepartamentos.agregarLugarTuris("San Jose de Chiquitos", "Santa Cruz",obtenerCodLug(66));
+         XMLDepartamentos.agregarLugarTuris("Santa Cruz de la Sierra", "Santa Cruz",obtenerCodLug(69));
          //Beni
          XMLDepartamentos.agregarLugarTuris("Riberalta", "Beni",obtenerCodLug(70));
          XMLDepartamentos.agregarLugarTuris("Rurrenabaque", "Beni",obtenerCodLug(73));
          XMLDepartamentos.agregarLugarTuris("Laguna Suares", "Beni",obtenerCodLug(76));
          XMLDepartamentos.agregarLugarTuris("Loma Suares", "Beni",obtenerCodLug(79));
          //Pando
-         /*
-         XMLDepartamentos.agregarLugarTuris("Las Piedras", "Pando",obtenerCodLug(80));
+         
+         XMLDepartamentos.agregarLugarTuris("Cobija", "Pando",obtenerCodLug(80));
          XMLDepartamentos.agregarLugarTuris("Puerto Rico", "Pando",obtenerCodLug(83));
-         XMLDepartamentos.agregarLugarTuris("Parque Piñata", "Pando",obtenerCodLug(86));
-         XMLDepartamentos.agregarLugarTuris("", "Pando",obtenerCodLug(89));
-         */
+         
+         XMLDepartamentos.agregarLugarTuris("Reserva de Vida Silvestre Manuripi", "Pando",obtenerCodLug(86));
+         //XMLDepartamentos.agregarLugarTuris("Parque Piñata", "Pando",obtenerCodLug(89));
+         
      }
     private ArrayList<Integer> obtenerCodLug(int pos){
         int j,k;
