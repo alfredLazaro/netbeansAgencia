@@ -145,12 +145,5 @@ public class Main {
         }else{}
     }
     
-    /*
-    private Transporte buscarTransporte(){
-        Transporte t=null;
-        
-        return t;
-    }
-    */
     
 }
